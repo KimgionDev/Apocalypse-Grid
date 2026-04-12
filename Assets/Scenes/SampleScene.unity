@@ -294,7 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShoot
   gunData: {fileID: 11400000, guid: c8f8b26e135049f4ba1d1fd5a4f11465, type: 2}
   firePoint: {fileID: 559476459}
-  animator: {fileID: 0}
+  animator: {fileID: 45129225}
 --- !u!1 &289403748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,7 +1053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1176078571
 Transform:
   m_ObjectHideFlags: 0
@@ -1184,7 +1184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1326267466
 Transform:
   m_ObjectHideFlags: 0
@@ -1296,7 +1296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShoot
   gunData: {fileID: 11400000, guid: 7ef986ac94d032a449a391f4e4c080db, type: 2}
   firePoint: {fileID: 2005288980}
-  animator: {fileID: 0}
+  animator: {fileID: 1326267467}
 --- !u!1 &1645438361
 GameObject:
   m_ObjectHideFlags: 0

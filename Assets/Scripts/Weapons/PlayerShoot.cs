@@ -10,7 +10,7 @@ public class PlayerShoot : MonoBehaviour
     private int currentAmmo;
     private bool isReloading = false;
     private float nextFireTime = 0f;
-    
+
     void Start()
     {
         currentAmmo = gunData.magSize;
@@ -49,11 +49,32 @@ public class PlayerShoot : MonoBehaviour
     {
         isReloading = true;
 
-        if (animator != null) animator.SetTrigger("Reload");
+        float baseClipLength = 1f;  // Giả sử độ dài cơ bản của clip là 1 giây
 
-        yield return new WaitForSeconds(gunData.reloadTime);
+        float calculatedSpeed = baseClipLength / gunData.reloadTime;    // Tính toán tốc độ reload dựa trên thời gian reload của súng
 
-        currentAmmo = gunData.magSize;
+        if (animator != null)
+        {
+            animator.SetFloat("ReloadSpeed", calculatedSpeed);  // Cập nhật thông số tốc độ reload trong Animator để đồng bộ với thời gian reload của súng
+        }
+
+        if (gunData.reloadOneByOne)
+        {
+            int ammoNeeded = gunData.magSize - currentAmmo;
+            for (int i = 0; i < ammoNeeded; i++)
+            {
+                if (animator != null) animator.SetTrigger("Reload");
+                yield return new WaitForSeconds(gunData.reloadTime);
+                currentAmmo++;
+            }
+        }
+        else
+        {
+            if (animator != null) animator.SetTrigger("Reload");
+            yield return new WaitForSeconds(gunData.reloadTime);
+            currentAmmo = gunData.magSize;
+        }
+
         isReloading = false;
     }
 }

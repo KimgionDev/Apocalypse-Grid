@@ -55,7 +55,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -136,10 +136,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 5
-        height: 6
+        width: 13
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: Hands_down_idle-Sheet6_1
       rect:
         serializedVersion: 2
-        x: 8
+        x: 13
         y: 0
-        width: 10
-        height: 7
+        width: 13
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: Hands_down_idle-Sheet6_2
       rect:
         serializedVersion: 2
-        x: 21
-        y: 1
-        width: 10
-        height: 6
+        x: 26
+        y: 0
+        width: 13
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,12 +200,12 @@ TextureImporter:
       name: Hands_down_idle-Sheet6_3
       rect:
         serializedVersion: 2
-        x: 34
-        y: 1
-        width: 10
-        height: 6
+        x: 39
+        y: 0
+        width: 13
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -222,12 +222,12 @@ TextureImporter:
       name: Hands_down_idle-Sheet6_4
       rect:
         serializedVersion: 2
-        x: 47
+        x: 52
         y: 0
-        width: 10
-        height: 7
+        width: 13
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -244,12 +244,12 @@ TextureImporter:
       name: Hands_down_idle-Sheet6_5
       rect:
         serializedVersion: 2
-        x: 60
+        x: 65
         y: 0
-        width: 10
-        height: 7
+        width: 13
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -262,33 +262,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Hands_down_idle-Sheet6_6
-      rect:
-        serializedVersion: 2
-        x: 73
-        y: 0
-        width: 5
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7721757bf03029d80800000000000000
-      internalID: -8245524601726627209
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 141e61a6894b1ff479bcbc18b9fc9bbf
     internalID: 0
     vertices: []
     indices: 
@@ -296,7 +274,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":13.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Hands_down_idle-Sheet6_0: -3331023729081140327
       Hands_down_idle-Sheet6_1: 7398765025690329970
@@ -304,7 +284,6 @@ TextureImporter:
       Hands_down_idle-Sheet6_3: -4296762761238030081
       Hands_down_idle-Sheet6_4: -1827531207812531907
       Hands_down_idle-Sheet6_5: -3382343378452501038
-      Hands_down_idle-Sheet6_6: -8245524601726627209
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

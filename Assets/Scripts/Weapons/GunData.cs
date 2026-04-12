@@ -10,4 +10,5 @@ public class GunData : ScriptableObject
     public float spreadAngle;
     public int magSize;
     public float reloadTime;
+    public bool reloadOneByOne; // Nếu true, mỗi viên đạn sẽ được nạp lại sau reloadTime; nếu false, toàn bộ băng đạn sẽ được nạp lại cùng lúc
 }
