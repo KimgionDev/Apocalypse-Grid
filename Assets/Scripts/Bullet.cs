@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        if (!hitInfo.CompareTag("Player"))
+        if (!hitInfo.CompareTag("Player") && !hitInfo.CompareTag("Bullet"))
         {
             // Tương lai sẽ viết code trừ máu quái vật ở đây
             Destroy(gameObject);
