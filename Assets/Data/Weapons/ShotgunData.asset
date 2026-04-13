@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GunData
   gunName: Shotgun
   bulletPrefab: {fileID: 6380891232887730153, guid: 90d678b99d6498944b1a839f1085875c, type: 3}
+  muzzleFlashPrefab: {fileID: 2188037928399865599, guid: 15d7720e336763749b528a0fe4b20e3d, type: 3}
   fireRate: 1.2
   bulletCount: 6
   spreadAngle: 15
   magSize: 5
   reloadTime: 0.5
   reloadOneByOne: 1
+  bulletDamage: 5
+  bulletLifeTime: 0.5
+  flashScale: 1.5

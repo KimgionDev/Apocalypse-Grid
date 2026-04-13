@@ -33,15 +33,22 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    void Shoot()        // Bắn nhiều viên đạn cùng lúc với góc ngẫu nhiên dựa trên spreadAngle
+    void Shoot()
     {
         currentAmmo--;
+
+        if (gunData.muzzleFlashPrefab != null)
+        {
+            GameObject flash = Instantiate(gunData.muzzleFlashPrefab, firePoint.position, firePoint.rotation, firePoint);
+            flash.transform.localScale = new Vector3(gunData.flashScale, gunData.flashScale, 1f);
+        }
 
         for (int i = 0; i < gunData.bulletCount; i++)
         {
             float randomSpread = Random.Range(-gunData.spreadAngle, gunData.spreadAngle);
             Quaternion bulletRotation = firePoint.rotation * Quaternion.Euler(0, 0, randomSpread);
-            Instantiate(gunData.bulletPrefab, firePoint.position, bulletRotation);
+            GameObject bullet = Instantiate(gunData.bulletPrefab, firePoint.position, bulletRotation);
+            bullet.GetComponent<Bullet>().Setup(gunData.bulletDamage, gunData.bulletLifeTime);
         }
     }
 
@@ -49,7 +56,7 @@ public class PlayerShoot : MonoBehaviour
     {
         isReloading = true;
 
-        float baseClipLength = 1f;  // Giả sử độ dài cơ bản của clip là 1 giây
+        float baseClipLength = 1f;  // Giả sử độ dài cơ bản của clip reload là 1 giây (có thể điều chỉnh tùy theo animation thực tế)
 
         float calculatedSpeed = baseClipLength / gunData.reloadTime;    // Tính toán tốc độ reload dựa trên thời gian reload của súng
 

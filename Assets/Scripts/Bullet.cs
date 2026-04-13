@@ -4,21 +4,26 @@
 [RequireComponent(typeof(Collider2D))]
 public class Bullet : MonoBehaviour
 {
-    public float speed = 20f;
-    private Rigidbody2D rb;
+    private float damage;
 
-    void Start()
+    public void Setup(float setDamage, float setLifeTime)
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.linearVelocity = transform.right * speed;
-        Destroy(gameObject, 3f);
+        damage = setDamage;
+
+        GetComponent<Rigidbody2D>().linearVelocity = transform.right * 20f;
+
+        Destroy(gameObject, setLifeTime);
     }
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
         if (!hitInfo.CompareTag("Player") && !hitInfo.CompareTag("Bullet"))
         {
-            // Tương lai sẽ viết code trừ máu quái vật ở đây
+            if(hitInfo.CompareTag("Zombie"))
+            {
+                hitInfo.GetComponent<ZombieAI>().TakeDamage(damage);
+                
+            }
             Destroy(gameObject);
         }
     }
