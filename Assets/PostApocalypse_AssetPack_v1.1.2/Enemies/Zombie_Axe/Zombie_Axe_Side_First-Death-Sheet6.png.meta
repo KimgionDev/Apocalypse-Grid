@@ -49,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -63,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -130,10 +130,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 23
+        width: 27
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -150,12 +150,12 @@ TextureImporter:
       name: Zombie_Axe_Side_First-Death-Sheet6_1
       rect:
         serializedVersion: 2
-        x: 26
+        x: 27
         y: 0
-        width: 24
-        height: 17
+        width: 27
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -172,12 +172,12 @@ TextureImporter:
       name: Zombie_Axe_Side_First-Death-Sheet6_2
       rect:
         serializedVersion: 2
-        x: 53
+        x: 54
         y: 0
-        width: 24
+        width: 27
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -194,12 +194,12 @@ TextureImporter:
       name: Zombie_Axe_Side_First-Death-Sheet6_3
       rect:
         serializedVersion: 2
-        x: 80
+        x: 81
         y: 0
-        width: 25
+        width: 27
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -216,12 +216,12 @@ TextureImporter:
       name: Zombie_Axe_Side_First-Death-Sheet6_4
       rect:
         serializedVersion: 2
-        x: 107
+        x: 108
         y: 0
-        width: 55
-        height: 8
+        width: 27
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,11 +234,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Zombie_Axe_Side_First-Death-Sheet6_5
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 0
+        width: 27
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ee589734feaaad4a8f6c8d99c6a8394
+      internalID: 229488562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2e348dab06fcaef4c942bd5eb4686fbb
     internalID: 0
     vertices: []
     indices: 
@@ -246,13 +268,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":27.0,"y":18.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Zombie_Axe_Side_First-Death-Sheet6_0: 7163492557104761394
       Zombie_Axe_Side_First-Death-Sheet6_1: 3529936364862873569
       Zombie_Axe_Side_First-Death-Sheet6_2: -3671159355383318194
       Zombie_Axe_Side_First-Death-Sheet6_3: -5299467462301570763
       Zombie_Axe_Side_First-Death-Sheet6_4: 9131886247849830733
+      Zombie_Axe_Side_First-Death-Sheet6_5: 229488562
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

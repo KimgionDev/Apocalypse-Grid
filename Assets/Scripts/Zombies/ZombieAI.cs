@@ -1,17 +1,24 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class ZombieAI : MonoBehaviour
 {
     public EnemyData data;
     public Animator animator;
     public float stopDistance = 1.2f;
+    public float attackRate = 1f;
 
     private Transform target;
     private float currentHealth;
+    private bool isDead;
+    private Rigidbody2D rb;
+    private Vector2 direction;
+    private bool isWalking;
+    private float nextAttackTime = 0f;
 
-    void Start()
+    private void Start()
     {
-        // Khởi tạo thông số từ Data
+        rb = GetComponent<Rigidbody2D>();
         currentHealth = data.maxHealth;
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -21,43 +28,75 @@ public class ZombieAI : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if (target != null)
+        if (isDead || target == null) return;
+
+        float distance = Vector2.Distance(rb.position, target.position);
+        direction = ((Vector2)target.position - rb.position).normalized;
+        isWalking = distance > stopDistance;
+
+        if (animator != null)
         {
-            float distance = Vector2.Distance(transform.position, target.position);
-            Vector2 direction = (target.position - transform.position).normalized;
+            animator.SetBool("IsWalking", isWalking);
 
-            if (distance > stopDistance)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, target.position, data.moveSpeed * Time.deltaTime);
-                if (animator != null) animator.SetBool("IsWalking", true);
-            }
-            else
-            {
-                if (animator != null) animator.SetBool("IsWalking", false);
-            }
-
-            if (animator != null && direction != Vector2.zero)
+            if (direction != Vector2.zero)
             {
                 animator.SetFloat("DirX", direction.x);
                 animator.SetFloat("DirY", direction.y);
             }
         }
+
+        if (!isWalking && Time.time >= nextAttackTime)
+        {
+            AttackPlayer();
+            nextAttackTime = Time.time + (1f / attackRate);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDead || target == null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        rb.linearVelocity = isWalking ? direction * data.moveSpeed : Vector2.zero;
     }
 
     public void TakeDamage(float damage)
     {
+        if (isDead) return;
+
         currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (currentHealth <= 0f)
         {
             Die();
         }
     }
 
+    private void AttackPlayer()
+    {
+        PlayerHealth playerHealth = target.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(data.damage);
+            if (animator != null) animator.SetTrigger("Attack");
+        }
+    }
+
     public void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
+        rb.linearVelocity = Vector2.zero;
+
+        BoxCollider2D col = GetComponent<BoxCollider2D>();
+        if (col != null) col.enabled = false;
+
         if (animator != null) animator.SetTrigger("Die");
-        Destroy(gameObject, 0.5f); // Hủy sau 0.5 giây để hiệu ứng chết có thời gian phát
+        Destroy(gameObject, 1f);
     }
 }

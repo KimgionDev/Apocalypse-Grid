@@ -6,12 +6,12 @@ public class Bullet : MonoBehaviour
 {
     private float damage;
 
+    public GameObject bloodEffectPrefab;
+
     public void Setup(float setDamage, float setLifeTime)
     {
         damage = setDamage;
-
         GetComponent<Rigidbody2D>().linearVelocity = transform.right * 20f;
-
         Destroy(gameObject, setLifeTime);
     }
 
@@ -22,7 +22,10 @@ public class Bullet : MonoBehaviour
             if(hitInfo.CompareTag("Zombie"))
             {
                 hitInfo.GetComponent<ZombieAI>().TakeDamage(damage);
-                
+                if (bloodEffectPrefab != null)
+                {
+                    Instantiate(bloodEffectPrefab, transform.position, Quaternion.identity);
+                }
             }
             Destroy(gameObject);
         }

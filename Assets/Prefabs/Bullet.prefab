@@ -179,3 +179,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ead3af13dc76e97489daca42972691d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
+  bloodEffectPrefab: {fileID: 9097125421812263035, guid: b48a05db573a65f40a8c7e8bdb430d9f, type: 3}
