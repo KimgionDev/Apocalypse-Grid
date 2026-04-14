@@ -50,7 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZombieAI
   data: {fileID: 11400000, guid: 56ae991bb90adc640929f1d872b2998f, type: 2}
   animator: {fileID: 3306022519187630277}
-  stopDistance: 1.2
+  stopDistance: 0.9
+  attackRate: 1
 --- !u!95 &3306022519187630277
 Animator:
   serializedVersion: 7

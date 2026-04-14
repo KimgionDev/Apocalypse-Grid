@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NUnit.Framework.Internal.Execution;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class ZombieAI : MonoBehaviour
@@ -7,6 +8,8 @@ public class ZombieAI : MonoBehaviour
     public Animator animator;
     public float stopDistance = 1.2f;
     public float attackRate = 1f;
+    public GameObject lootPrefab;
+    public ItemData missionDrop;
 
     private Transform target;
     private float currentHealth;
@@ -98,5 +101,16 @@ public class ZombieAI : MonoBehaviour
 
         if (animator != null) animator.SetTrigger("Die");
         Destroy(gameObject, 1f);
+
+        if (missionDrop != null && lootPrefab != null)
+        {
+            GameObject drop = Instantiate(lootPrefab, transform.position, Quaternion.identity);
+
+            WorldItem wItem = drop.GetComponent<WorldItem>();
+            if (wItem != null)
+            {
+                wItem.SetupItem(missionDrop);
+            }
+        }
     }
 }

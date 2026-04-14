@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6067174695285640635
 Transform:
   m_ObjectHideFlags: 0
@@ -131,7 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZombieAI
   data: {fileID: 11400000, guid: 66ed551f4d882eb4aa01b04d7f13d909, type: 2}
   animator: {fileID: 3212629095776640408}
-  stopDistance: 1.2
+  stopDistance: 0.9
+  attackRate: 1
 --- !u!50 &177219652315690383
 Rigidbody2D:
   serializedVersion: 5

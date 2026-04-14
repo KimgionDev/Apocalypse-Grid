@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7257243446431769155
 Transform:
   m_ObjectHideFlags: 0
@@ -50,7 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZombieAI
   data: {fileID: 11400000, guid: a7c98389cb0c37d4885ecaeed06e70aa, type: 2}
   animator: {fileID: 1273851970123813650}
-  stopDistance: 1.2
+  stopDistance: 0.7
+  attackRate: 1
 --- !u!95 &1273851970123813650
 Animator:
   serializedVersion: 7

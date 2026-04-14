@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2812433014144168037
 Transform:
   m_ObjectHideFlags: 0
@@ -72,7 +72,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZombieAI
   data: {fileID: 11400000, guid: 0155fbf7681f57f498b88c9cc2036bd1, type: 2}
   animator: {fileID: 7131772970741882716}
-  stopDistance: 1.5
+  stopDistance: 0.9
+  attackRate: 1
 --- !u!212 &6116188647836844884
 SpriteRenderer:
   serializedVersion: 2
@@ -120,7 +121,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7188940616404631829, guid: 365fb0c42be871844b3adceafa72ca61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
