@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        if (!hitInfo.CompareTag("Player") && !hitInfo.CompareTag("Bullet"))
+        if (!hitInfo.CompareTag("Player") && !hitInfo.CompareTag("Bullet") && !hitInfo.CompareTag("Item"))
         {
             if(hitInfo.CompareTag("Zombie"))
             {

@@ -27,7 +27,7 @@ public class WorldItem : MonoBehaviour
             {
                 if (MissionManager.Instance != null)
                 {
-                    MissionManager.Instance.AddMissionItem(1);
+                    MissionManager.Instance.AddMissionItem(data, 1);
                     Debug.Log("Lụm vật phẩm nhiệm vụ: " + data.itemName);
                 }
             }

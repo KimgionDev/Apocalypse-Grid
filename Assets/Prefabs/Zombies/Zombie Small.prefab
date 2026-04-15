@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7257243446431769155
 Transform:
   m_ObjectHideFlags: 0
@@ -52,6 +52,25 @@ MonoBehaviour:
   animator: {fileID: 1273851970123813650}
   stopDistance: 0.7
   attackRate: 1
+  lootPrefab: {fileID: 7483606198236535669, guid: bfb4fb2f6a68d754a847d61e0eee9a64, type: 3}
+  goldData: {fileID: 11400000, guid: 4e68f2225c8720545977c6ae6987ce5e, type: 2}
+  goldDropChance: 80
+  itemPool:
+  - {fileID: 11400000, guid: 8f0e9d8e5f06f514389a6c114ab30658, type: 2}
+  - {fileID: 11400000, guid: 724878da3d488514bbd1999031884f88, type: 2}
+  - {fileID: 11400000, guid: b3106496bc6d2044594803cd1ec64a29, type: 2}
+  - {fileID: 11400000, guid: bd5b8477ace9fd1448b0c2f497c8c91d, type: 2}
+  - {fileID: 11400000, guid: 78b81cb63e61f0345816e3fc1b6d36ae, type: 2}
+  - {fileID: 11400000, guid: 622a1654ba9ffaa4c8125e68d05595d8, type: 2}
+  - {fileID: 11400000, guid: 5950bb062962a854aa61cd9aef6dba55, type: 2}
+  - {fileID: 11400000, guid: a42614cb2fa41bb4e8dbac847973bc53, type: 2}
+  - {fileID: 11400000, guid: 4e68f2225c8720545977c6ae6987ce5e, type: 2}
+  - {fileID: 11400000, guid: 7a813a4988c0c0349816aa1bf4dbcec9, type: 2}
+  - {fileID: 11400000, guid: 3b01ddd6ba3750548860ab38177498a5, type: 2}
+  - {fileID: 11400000, guid: bda5d917d99bd0546b97eb8aedd71a70, type: 2}
+  - {fileID: 11400000, guid: 42031b55301e8ed41aae54f4eeb3ce4b, type: 2}
+  - {fileID: 11400000, guid: b493f047f67a3b148988a5af74b33aff, type: 2}
+  itemDropChance: 40
 --- !u!95 &1273851970123813650
 Animator:
   serializedVersion: 7

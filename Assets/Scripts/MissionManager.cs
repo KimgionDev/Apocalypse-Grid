@@ -1,75 +1,95 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using System.Collections.Generic;
+
+[System.Serializable]
+public class MissionRequirement
+{
+    public ItemData item;
+    public int current;
+    public int target;
+}
 
 public class MissionManager : MonoBehaviour
 {
     public static MissionManager Instance;
 
-    [Header("UI Elements")]
-    public Image itemIcon;
-    public TextMeshProUGUI progressText;
+    [Header("Kho Dữ Liệu")]
+    public List<ItemData> allItemsDatabase;
 
-    [Header("Mission Data")]
-    public int targetAmount = 30;
-    private int currentAmount = 0;
+    [Header("UI Nhiệm Vụ")]
+    public Transform missionUIContainer;
+    public GameObject missionSlotPrefab;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    public List<MissionRequirement> currentMission = new List<MissionRequirement>();
+
+    private void Awake() => Instance = this;
 
     private void Start()
     {
-        UpdateUI();
+        GenerateRandomMission(2, 10);
     }
 
-    // Hàm gọi khi bắt đầu màn chơi mới 
-    public void StartNewMission(int newTarget, Sprite newIcon)
+    // Hàm tự động tạo nhiệm vụ ngẫu nhiên
+    public void GenerateRandomMission(int typesCount, int maxAmount)
     {
-        targetAmount = newTarget;
-        currentAmount = 0; // Reset bộ đếm về 0
+        currentMission.Clear();
+        List<ItemData> tempList = new List<ItemData>(allItemsDatabase);
 
-        // Cập nhật hình ảnh vật phẩm mới
-        if (itemIcon != null && newIcon != null)
+        for (int i = 0; i < typesCount; i++)
         {
-            itemIcon.sprite = newIcon;
-        }
+            if (tempList.Count == 0) break;
 
-        // Trả màu chữ về lại mặc định (trắng)
-        if (progressText != null)
-        {
-            progressText.color = Color.white;
-        }
+            int randIndex = Random.Range(0, tempList.Count);
 
-        UpdateUI();
+            currentMission.Add(new MissionRequirement
+            {
+                item = tempList[randIndex],
+                current = 0,
+                target = Random.Range(3, maxAmount + 1)
+            });
+
+            tempList.RemoveAt(randIndex);
+        }
+        RefreshUI();
     }
 
-    public void AddMissionItem(int amount = 1)
+    public void AddMissionItem(ItemData collectedItem, int amount = 1)
     {
-        if (currentAmount >= targetAmount) return; // Nhặt đủ rồi thì ngưng đếm
-
-        currentAmount += amount;
-        UpdateUI();
-
-        if (currentAmount >= targetAmount)
+        bool isMissionItem = false;
+        foreach (var req in currentMission)
         {
-            LevelComplete();
+            if (req.item == collectedItem && req.current < req.target)
+            {
+                req.current += amount;
+                isMissionItem = true;
+                break;
+            }
+        }
+
+        if (isMissionItem)
+        {
+            RefreshUI();
+            CheckWin();
         }
     }
 
-    private void UpdateUI()
+    void RefreshUI()
     {
-        if (progressText != null)
+        foreach (Transform child in missionUIContainer) Destroy(child.gameObject);
+
+        foreach (var req in currentMission)
         {
-            progressText.text = currentAmount + " / " + targetAmount;
+            GameObject slot = Instantiate(missionSlotPrefab, missionUIContainer);
+            slot.GetComponent<MissionSlotUI>().Setup(req.item.icon, req.current, req.target);
         }
     }
 
-    private void LevelComplete()
+    void CheckWin()
     {
-        Debug.Log("Mở cổng qua màn!");
-        progressText.text = "Hoàn thành!";
-        progressText.color = Color.green;
+        foreach (var req in currentMission)
+        {
+            if (req.current < req.target) return;
+        }
+        Debug.Log("ĐÃ NHẶT ĐỦ TẤT CẢ VẬT PHẨM! MỞ CỔNG!");
     }
 }
