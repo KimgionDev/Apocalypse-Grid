@@ -24,6 +24,27 @@ public class MissionManager : MonoBehaviour
         UpdateUI();
     }
 
+    // Hàm gọi khi bắt đầu màn chơi mới 
+    public void StartNewMission(int newTarget, Sprite newIcon)
+    {
+        targetAmount = newTarget;
+        currentAmount = 0; // Reset bộ đếm về 0
+
+        // Cập nhật hình ảnh vật phẩm mới
+        if (itemIcon != null && newIcon != null)
+        {
+            itemIcon.sprite = newIcon;
+        }
+
+        // Trả màu chữ về lại mặc định (trắng)
+        if (progressText != null)
+        {
+            progressText.color = Color.white;
+        }
+
+        UpdateUI();
+    }
+
     public void AddMissionItem(int amount = 1)
     {
         if (currentAmount >= targetAmount) return; // Nhặt đủ rồi thì ngưng đếm

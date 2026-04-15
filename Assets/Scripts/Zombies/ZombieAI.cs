@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework.Internal.Execution;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -8,8 +9,13 @@ public class ZombieAI : MonoBehaviour
     public Animator animator;
     public float stopDistance = 1.2f;
     public float attackRate = 1f;
+
+    [Header("Loot Settings")]
     public GameObject lootPrefab;
-    public ItemData missionDrop;
+    public ItemData goldData;
+    [Range(0, 100)] public float goldDropChance = 80f;
+    public List<ItemData> itemPool;
+    [Range(0, 100)] public float itemDropChance = 40f;
 
     private Transform target;
     private float currentHealth;
@@ -100,17 +106,40 @@ public class ZombieAI : MonoBehaviour
         if (col != null) col.enabled = false;
 
         if (animator != null) animator.SetTrigger("Die");
+        DropLoot();
         Destroy(gameObject, 1f);
+    }
 
-        if (missionDrop != null && lootPrefab != null)
+    private void DropLoot()
+    {
+        // 1. Xét tỷ lệ rớt Vàng
+        if (goldData != null && Random.Range(0, 100f) <= goldDropChance)
         {
-            GameObject drop = Instantiate(lootPrefab, transform.position, Quaternion.identity);
+            SpawnItem(goldData, transform.position);
+        }
 
-            WorldItem wItem = drop.GetComponent<WorldItem>();
-            if (wItem != null)
-            {
-                wItem.SetupItem(missionDrop);
-            }
+        // 2. Xét tỷ lệ rớt Vật phẩm
+        if (itemPool.Count > 0 && Random.Range(0, 100f) <= itemDropChance)
+        {
+            // Bốc ngẫu nhiên 1 món trong danh sách
+            int randomIndex = Random.Range(0, itemPool.Count);
+            ItemData randomItem = itemPool[randomIndex];
+
+            // Dịch vị trí rớt ra một chút để không đè lên cục vàng
+            Vector2 offsetPos = (Vector2)transform.position + new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+            SpawnItem(randomItem, offsetPos);
+        }
+    }
+
+    private void SpawnItem(ItemData data, Vector2 spawnPos)
+    {
+        if (lootPrefab == null) return;
+
+        GameObject drop = Instantiate(lootPrefab, spawnPos, Quaternion.identity);
+        WorldItem wItem = drop.GetComponent<WorldItem>();
+        if (wItem != null)
+        {
+            wItem.SetupItem(data);
         }
     }
 }

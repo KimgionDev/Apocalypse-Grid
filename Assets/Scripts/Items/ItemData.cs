@@ -5,6 +5,6 @@ public class ItemData : ScriptableObject
 {
     public string itemName;
     public Sprite icon;
-    public int value; // Giá tiền hoặc số lượng nhiệm vụ
-    public bool isGold; // Đánh dấu nếu là tiền để cộng dồn
+    public int value;
+    public bool isGold;
 }
