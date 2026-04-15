@@ -112,21 +112,20 @@ public class ZombieAI : MonoBehaviour
 
     private void DropLoot()
     {
-        // 1. Xét tỷ lệ rớt Vàng
-        if (goldData != null && Random.Range(0, 100f) <= goldDropChance)
+        if (goldData != null && Random.Range(0f, 100f) <= goldDropChance)
         {
             SpawnItem(goldData, transform.position);
         }
 
-        // 2. Xét tỷ lệ rớt Vật phẩm
-        if (itemPool.Count > 0 && Random.Range(0, 100f) <= itemDropChance)
+        if (itemPool != null && itemPool.Count > 0 && Random.Range(0f, 100f) <= itemDropChance)
         {
-            // Bốc ngẫu nhiên 1 món trong danh sách
             int randomIndex = Random.Range(0, itemPool.Count);
             ItemData randomItem = itemPool[randomIndex];
 
-            // Dịch vị trí rớt ra một chút để không đè lên cục vàng
-            Vector2 offsetPos = (Vector2)transform.position + new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+            Vector2 offsetPos = (Vector2)transform.position + new Vector2(
+                Random.Range(-0.5f, 0.5f),
+                Random.Range(-0.5f, 0.5f));
+
             SpawnItem(randomItem, offsetPos);
         }
     }
