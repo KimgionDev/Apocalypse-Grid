@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: First Aid Kit Red
   icon: {fileID: -1851657105382013312, guid: 3e244a8bf56a92b4c85ca4e9945f4744, type: 3}
   value: 0
-  isGold: 1
+  isGold: 0

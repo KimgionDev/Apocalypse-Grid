@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Canned Soup
   icon: {fileID: 4348664510329381291, guid: ab1118f446b3df148a3693aa55ae44bc, type: 3}
   value: 0
-  isGold: 1
+  isGold: 0

@@ -151,7 +151,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bda5d917d99bd0546b97eb8aedd71a70, type: 2}
   - {fileID: 11400000, guid: 42031b55301e8ed41aae54f4eeb3ce4b, type: 2}
   - {fileID: 11400000, guid: b493f047f67a3b148988a5af74b33aff, type: 2}
-  itemDropChance: 40
+  itemDropChance: 100
+  lootLifetime: 10
 --- !u!50 &177219652315690383
 Rigidbody2D:
   serializedVersion: 5

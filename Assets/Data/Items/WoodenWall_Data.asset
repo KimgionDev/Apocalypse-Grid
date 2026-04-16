@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Wooden Wall
   icon: {fileID: -950110555504886579, guid: 6bf71ab0f1fc1884ca212ef9e054a830, type: 3}
   value: 0
-  isGold: 1
+  isGold: 0

@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Bandage
   icon: {fileID: 3203174969821319000, guid: d6378f245ee008d4491dc933fa3dd07a, type: 3}
   value: 0
-  isGold: 1
+  isGold: 0

@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Canned Food
   icon: {fileID: 2493030267779117134, guid: 80e0fa467c24df743b65f6584cfe85c1, type: 3}
   value: 0
-  isGold: 1
+  isGold: 0

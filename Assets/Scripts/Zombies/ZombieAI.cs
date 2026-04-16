@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Internal.Execution;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -16,6 +15,7 @@ public class ZombieAI : MonoBehaviour
     [Range(0, 100)] public float goldDropChance = 80f;
     public List<ItemData> itemPool;
     [Range(0, 100)] public float itemDropChance = 40f;
+    public float lootLifetime = 10f;
 
     private Transform target;
     private float currentHealth;
@@ -140,5 +140,7 @@ public class ZombieAI : MonoBehaviour
         {
             wItem.SetupItem(data);
         }
+
+        Destroy(drop, lootLifetime);
     }
 }

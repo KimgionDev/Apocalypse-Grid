@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Rock
   icon: {fileID: 777925937548758176, guid: 796905c633e6e3645a16bca98a488ad1, type: 3}
   value: 0
-  isGold: 1
+  isGold: 0

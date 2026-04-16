@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Reinforced Wooden Wall Gate
   icon: {fileID: 1020961088573200681, guid: 58acf33af9624ec4790a597a472c514c, type: 3}
   value: 0
-  isGold: 1
+  isGold: 0

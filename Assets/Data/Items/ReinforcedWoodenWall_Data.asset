@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Reinforced Wooden Wall
   icon: {fileID: -4354340272794677976, guid: 88337371a750974468e94488de7516b9, type: 3}
   value: 0
-  isGold: 1
+  isGold: 0

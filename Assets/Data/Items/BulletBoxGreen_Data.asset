@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Bullet Box Green
   icon: {fileID: 2195716065293976390, guid: 2c8077ae7c4a9ff4585ddf93565a32ef, type: 3}
   value: 0
-  isGold: 1
+  isGold: 0

@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Wooden Wall Gate
   icon: {fileID: -7736771966516219082, guid: fc7713df174afbd4a917ae5aea6dd56b, type: 3}
   value: 0
-  isGold: 1
+  isGold: 0
