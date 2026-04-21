@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(AbstractDungeonGenerator), true)]  // thuộc tính này
+[CustomEditor(typeof(AbstractDungeonGenerator), true)]
 public class RandomDungeonGeneratorEditor : Editor
 {
     AbstractDungeonGenerator generator;

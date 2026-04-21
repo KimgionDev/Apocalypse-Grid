@@ -49,7 +49,7 @@ public static class Direction2D
         new Vector2Int(-1, 0) // Left
     };
 
-    public static Vector2Int GetRandomCardinalDirection()   // Hàm này trả về một hướng ngẫu nhiên từ danh sách các hướng chính (lên, phải, xuống, trái).
+    public static Vector2Int GetRandomCardinalDirection()
     {
         return cardinalDirectionsList[Random.Range(0, cardinalDirectionsList.Count)];
     }
