@@ -19,7 +19,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     {
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
         HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
-        CreateCorridors(floorPositions, potentialRoomPositions);
+        List<List<Vector2Int>> corridors = CreateCorridors(floorPositions, potentialRoomPositions);
 
         HashSet<Vector2Int> roomPositions = CreateRooms(potentialRoomPositions);
 
@@ -28,8 +28,88 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         floorPositions.UnionWith(roomPositions);
 
+        for (int i = 0; i < corridors.Count; i++)
+        {
+            corridors[i] = IncreaseCorridorSizeByOne(corridors[i]);
+            //corridors[i] = IncreaseCorridorBrush3by3(corridors[i]);
+            floorPositions.UnionWith(corridors[i]);
+        }
+
         tilemapVisualizer.PaintFloorTiles(floorPositions);
         WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
+    }
+
+    // Tăng kích thước hành lang lên 3x3 bằng cách thêm tất cả các ô gạch nằm xung quanh mỗi ô gạch của hành lang cũ
+    public List<Vector2Int> IncreaseCorridorBrush3by3(List<Vector2Int> corridor)
+    {
+        List<Vector2Int> newCorridor = new List<Vector2Int>();
+        for (int i = 0; i < corridor.Count; i++)
+        {
+            for (int x = -1; x < 2; x++)
+            {
+                for (int y = -1; y < 2; y++)
+                {
+                    newCorridor.Add(corridor[i] + new Vector2Int(x, y));
+                }
+            }
+        }
+        return newCorridor;
+    }
+
+    // Tăng kích thước hành lang lên 3x3 bằng cách thêm các ô gạch nằm xung quanh mỗi ô gạch của hành lang cũ
+    public List<Vector2Int> IncreaseCorridorSizeByOne(List<Vector2Int> corridor)
+    {
+        List<Vector2Int> newCorridor = new List<Vector2Int>();
+        Vector2Int previousDirection = Vector2Int.zero;
+
+        for (int i = 1; i < corridor.Count; i++)
+        {
+            // Lưu hướng di chuyển từ ô gạch trước đó đến ô gạch hiện tại
+            Vector2Int directionFromCell = corridor[i] - corridor[i - 1];
+
+            // Nếu không phải là ô gạch đầu tiên và hướng di chuyển thay đổi so với hướng trước đó, thêm tất cả các ô gạch xung quanh ô gạch trước đó để tạo ra một góc rộng hơn
+            if (previousDirection != Vector2Int.zero && directionFromCell != previousDirection)
+            {
+                for (int x = -1; x < 2; x++) // từ -1 vì muốn thêm cả ô gạch nằm ở bên trái và bên phải của ô gạch hiện tại, tương tự với y
+                {
+                    for (int y = -1; y < 2; y++)
+                    {
+                        newCorridor.Add(corridor[i - 1] + new Vector2Int(x, y));
+                    }
+                }
+            }
+            else
+            {
+                Vector2Int offset = GetDirection90From(directionFromCell);
+                newCorridor.Add(corridor[i - 1] + offset);
+                newCorridor.Add(corridor[i - 1] - offset);
+            }
+
+            newCorridor.Add(corridor[i - 1]);
+
+            previousDirection = directionFromCell;
+        }
+
+        if (corridor.Count > 0)
+        {
+            Vector2Int lastTile = corridor[corridor.Count - 1];
+            Vector2Int offset = GetDirection90From(previousDirection);
+            newCorridor.Add(lastTile);
+            newCorridor.Add(lastTile + offset);
+            newCorridor.Add(lastTile - offset);
+        }
+
+        return newCorridor;
+    }
+
+    // Hàm này có tác dụng xác định hướng 2 bên
+    private Vector2Int GetDirection90From(Vector2Int direction)
+    {
+        if (direction == Vector2Int.up) return Vector2Int.right;
+        if (direction == Vector2Int.right) return Vector2Int.down;
+        if (direction == Vector2Int.down) return Vector2Int.left;
+        if (direction == Vector2Int.left) return Vector2Int.up;
+        return Vector2Int.zero;
     }
 
     private void CreateRoomsAtDeadEnd(List<Vector2Int> deadEnds, HashSet<Vector2Int> roomFloors)
@@ -89,17 +169,20 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         return roomPositions;
     }
 
-    private void CreateCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
+    private List<List<Vector2Int>> CreateCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
     {
         var currentPosition = startPosition;
         potentialRoomPositions.Add(currentPosition);
+        List<List<Vector2Int>> corridors = new List<List<Vector2Int>>();
 
         for (int i = 0; i < corridorCount; i++)
         {
             var corridor = ProceduralGenerationAlgorithms.RandomWalkCorridor(currentPosition, corridorLength);
+            corridors.Add(corridor);
             currentPosition = corridor[corridor.Count - 1];
             potentialRoomPositions.Add(currentPosition);
             floorPositions.UnionWith(corridor);
         }
+        return corridors;
     }
 }
