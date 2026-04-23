@@ -37,9 +37,71 @@ public static class ProceduralGenerationAlgorithms
         }
         return corridor;
     }
-}
 
-public static class Direction2D
+    /*
+        Hàm này thực hiện thuật toán Binary Space Partitioning (BSP) để chia một không gian lớn thành các phòng nhỏ hơn.
+        Với đầu vào là một BoundsInt đại diện cho không gian cần chia, cùng với chiều rộng và chiều cao tối thiểu của các phòng
+        Hàm sẽ trả về một danh sách các BoundsInt đại diện cho các phòng đã được tạo ra.
+    */
+    public static List<BoundsInt> BinarySpacePartioning(BoundsInt spaceToSplit, int minWidth, int minHeight)
+    {
+        // BoundsInt là một cấu trúc dữ liệu trong Unity đại diện cho một khối hình chữ nhật trong không gian 3D, được xác định bởi một điểm gốc (origin) và kích thước (size).
+        // Trong trường hợp này, BoundsInt được sử dụng để đại diện cho các phòng trong quá trình chia không gian.
+        List<BoundsInt> roomsList = new List<BoundsInt>();  // roomsList sẽ chứa tất cả các phòng đã được tạo ra sau khi quá trình chia không gian hoàn thành.
+        Queue<BoundsInt> roomsQueue = new Queue<BoundsInt>();   // roomsQueue được sử dụng để quản lý các không gian cần được chia trong quá trình thực hiện thuật toán.
+        roomsQueue.Enqueue(spaceToSplit);
+
+        while (roomsQueue.Count > 0)
+        {
+            var room = roomsQueue.Dequeue();
+            if (room.size.y >= minHeight && room.size.x >= minWidth)
+            {
+                if (Random.value < 0.5f)
+                {
+                    if (room.size.y >= minHeight * 2)       // Nếu chiều cao của phòng đủ lớn để chia đôi theo chiều ngang, thực hiện chia theo chiều ngang
+                    {
+                        SplitHorizontally(minHeight, roomsList, roomsQueue, room);
+                    }
+                    else if(room.size.x >= minWidth * 2)    // Nếu chiều rộng của phòng đủ lớn để chia đôi theo chiều dọc, thực hiện chia theo chiều dọc
+                    {
+                         SplitVertically(minWidth, roomsList, roomsQueue, room);
+                    }
+                    else                                    // Nếu cả chiều cao và chiều rộng của phòng đều không đủ lớn để chia đôi, thêm phòng vào danh sách kết quả
+                    {
+                        roomsList.Add(room);
+                    }
+                }
+                else
+                {
+                    if (room.size.x >= minWidth * 2)
+                    {
+                        SplitVertically(minWidth, roomsList, roomsQueue, room);
+                    }
+                    else if (room.size.y >= minHeight * 2)
+                    {
+                        SplitHorizontally(minHeight, roomsList, roomsQueue, room);
+                    }
+                    else
+                    {
+                        roomsList.Add(room);
+                    }
+                }
+            }
+        }
+        return roomsList;
+    }
+
+    private static void SplitVertically(int minWidth, List<BoundsInt> rooms, Queue<BoundsInt> queue, BoundsInt room)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private static void SplitHorizontally(int minHeight, List<BoundsInt> rooms, Queue<BoundsInt> queue, BoundsInt room)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public static class Direction2D
 {
     public static List<Vector2Int> cardinalDirectionsList = new List<Vector2Int>
     {
@@ -53,4 +115,5 @@ public static class Direction2D
     {
         return cardinalDirectionsList[Random.Range(0, cardinalDirectionsList.Count)];
     }
+}
 }
