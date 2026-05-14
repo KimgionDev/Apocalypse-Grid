@@ -62,9 +62,9 @@ public static class ProceduralGenerationAlgorithms
                     {
                         SplitHorizontally(minHeight, roomsList, roomsQueue, room);
                     }
-                    else if(room.size.x >= minWidth * 2)    // Nếu chiều rộng của phòng đủ lớn để chia đôi theo chiều dọc, thực hiện chia theo chiều dọc
+                    else if (room.size.x >= minWidth * 2)    // Nếu chiều rộng của phòng đủ lớn để chia đôi theo chiều dọc, thực hiện chia theo chiều dọc
                     {
-                         SplitVertically(minWidth, roomsList, roomsQueue, room);
+                        SplitVertically(minWidth, roomsList, roomsQueue, room);
                     }
                     else                                    // Nếu cả chiều cao và chiều rộng của phòng đều không đủ lớn để chia đôi, thêm phòng vào danh sách kết quả
                     {
@@ -91,29 +91,41 @@ public static class ProceduralGenerationAlgorithms
         return roomsList;
     }
 
-    private static void SplitVertically(int minWidth, List<BoundsInt> rooms, Queue<BoundsInt> queue, BoundsInt room)
+    private static void SplitVertically(int minWidth, List<BoundsInt> rooms, Queue<BoundsInt> roomsQueue, BoundsInt room)
     {
-        throw new System.NotImplementedException();
+        var xSplit = Random.Range(1, room.size.x);
+
+        BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(xSplit, room.size.y, room.size.z));
+        BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x + xSplit, room.min.y, room.min.z), new Vector3Int(room.size.x - xSplit, room.size.y, room.size.z));
+
+        roomsQueue.Enqueue(room1);
+        roomsQueue.Enqueue(room2);
     }
 
-    private static void SplitHorizontally(int minHeight, List<BoundsInt> rooms, Queue<BoundsInt> queue, BoundsInt room)
+    private static void SplitHorizontally(int minHeight, List<BoundsInt> rooms, Queue<BoundsInt> roomsQueue, BoundsInt room)
     {
-        throw new System.NotImplementedException();
-    }
+        var ySplit = Random.Range(1, room.size.y);
 
-    public static class Direction2D
+        BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(room.size.x, ySplit, room.size.z));
+        BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x, room.min.y + ySplit, room.min.z), new Vector3Int(room.size.x, room.size.y - ySplit, room.size.z));
+
+        roomsQueue.Enqueue(room1);
+        roomsQueue.Enqueue(room2);
+    }
+}
+
+public static class Direction2D
 {
     public static List<Vector2Int> cardinalDirectionsList = new List<Vector2Int>
-    {
-        new Vector2Int(0, 1), // Up
-        new Vector2Int(1, 0), // Right
-        new Vector2Int(0, -1), // Down
-        new Vector2Int(-1, 0) // Left
-    };
+        {
+            new Vector2Int(0, 1), // Up
+            new Vector2Int(1, 0), // Right
+            new Vector2Int(0, -1), // Down
+            new Vector2Int(-1, 0) // Left
+        };
 
     public static Vector2Int GetRandomCardinalDirection()
     {
         return cardinalDirectionsList[Random.Range(0, cardinalDirectionsList.Count)];
     }
-}
 }
