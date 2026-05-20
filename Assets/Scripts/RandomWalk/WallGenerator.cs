@@ -13,7 +13,8 @@ public static class WallGenerator
         }
     }
 
-    private static HashSet<Vector2Int> FindWallsDirections(HashSet<Vector2Int> floorPositions, List<Vector2Int> directionsList)
+    private static HashSet<Vector2Int> FindWallsDirections(HashSet<Vector2Int> floorPositions,
+        List<Vector2Int> directionsList)
     {
         HashSet<Vector2Int> wallPositions = new HashSet<Vector2Int>();
         foreach (var position in floorPositions)
@@ -27,6 +28,7 @@ public static class WallGenerator
                 }
             }
         }
+
         return wallPositions;
     }
 }

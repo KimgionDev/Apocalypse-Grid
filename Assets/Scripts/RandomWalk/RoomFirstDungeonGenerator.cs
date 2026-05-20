@@ -17,7 +17,9 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private void CreateRooms()
     {
-        var roomList = ProceduralGenerationAlgorithms.BinarySpacePartioning(new BoundsInt((Vector3Int)startPosition, new Vector3Int(dungeonWidth, dungeonHeight, 0)), minRoomWidth, minRoomHeight);
+        var roomList = ProceduralGenerationAlgorithms.BinarySpacePartioning(
+            new BoundsInt((Vector3Int)startPosition, new Vector3Int(dungeonWidth, dungeonHeight, 0)), minRoomWidth,
+            minRoomHeight);
         HashSet<Vector2Int> floor = new HashSet<Vector2Int>();
 
         if (randomWalkRooms)
@@ -28,7 +30,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         {
             floor = CreateSimpleRooms(roomList);
         }
-        
+
         List<Vector2Int> roomCenters = new List<Vector2Int>();
         foreach (var room in roomList)
         {
@@ -47,17 +49,20 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         HashSet<Vector2Int> floor = new HashSet<Vector2Int>();
         for (int i = 0; i < roomList.Count; i++)
         {
-            var roomBounds =  roomList[i];
-            var roomCenter = new Vector2Int(Mathf.RoundToInt(roomBounds.center.x), Mathf.RoundToInt(roomBounds.center.y));
+            var roomBounds = roomList[i];
+            var roomCenter =
+                new Vector2Int(Mathf.RoundToInt(roomBounds.center.x), Mathf.RoundToInt(roomBounds.center.y));
             var roomFloor = RunRandomWalk(randomWalkParameters, roomCenter);
             foreach (var position in roomFloor)
             {
-                if(position.x >= roomBounds.xMin + offset && position.x <= roomBounds.xMax - offset && position.y >= roomBounds.yMin + offset && position.y <= roomBounds.yMax - offset)
+                if (position.x >= roomBounds.xMin + offset && position.x <= roomBounds.xMax - offset &&
+                    position.y >= roomBounds.yMin + offset && position.y <= roomBounds.yMax - offset)
                 {
                     floor.Add(position);
                 }
             }
         }
+
         return floor;
     }
 
@@ -75,6 +80,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             currentRoomCenter = closest;
             corridors.UnionWith(newCorridor);
         }
+
         return corridors;
     }
 
@@ -93,8 +99,10 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             {
                 position += Vector2Int.down;
             }
+
             corridor.Add(position);
         }
+
         while (position.x != destination.x)
         {
             if (destination.x > position.x)
@@ -105,8 +113,10 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             {
                 position += Vector2Int.left;
             }
+
             corridor.Add(position);
         }
+
         return corridor;
     }
 
@@ -114,7 +124,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     {
         Vector2Int closest = Vector2Int.zero;
         float distance = float.MaxValue;
-        foreach(var position in roomCenters)
+        foreach (var position in roomCenters)
         {
             float currentDistance = Vector2Int.Distance(currentRoomCenter, position);
             if (currentDistance < distance)
@@ -123,6 +133,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 distance = currentDistance;
             }
         }
+
         return closest;
     }
 
@@ -140,6 +151,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 }
             }
         }
+
         return floor;
     }
 }
