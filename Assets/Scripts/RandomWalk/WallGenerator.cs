@@ -21,7 +21,7 @@ public static class WallGenerator
             foreach (var direction in Direction2D.eightDirectionsList)
             {
                 var neighbourPosition = position + direction;
-                if (floorPositions.Contains(neighbourPosition) == true)
+                if (floorPositions.Contains(neighbourPosition))
                 {
                     neighboursBinaryType += 1;
                 }
@@ -42,7 +42,7 @@ public static class WallGenerator
             foreach (var direction in Direction2D.cardinalDirectionsList)
             {
                 var neighbourPosition = position + direction;
-                if (floorPositions.Contains(neighbourPosition) == true)
+                if (floorPositions.Contains(neighbourPosition))
                 {
                     neighboursBinaryType += 1;
                 }
