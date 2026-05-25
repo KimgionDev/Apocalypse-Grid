@@ -69,9 +69,8 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             // Nếu không phải là ô gạch đầu tiên và hướng di chuyển thay đổi so với hướng trước đó, thêm tất cả các ô gạch xung quanh ô gạch trước đó để tạo ra một góc rộng hơn
             if (previousDirection != Vector2Int.zero && directionFromCell != previousDirection)
             {
-                for (int x = -1;
-                     x < 2;
-                     x++) // từ -1 vì muốn thêm cả ô gạch nằm ở bên trái và bên phải của ô gạch hiện tại, tương tự với y
+                // từ -1 vì muốn thêm cả ô gạch nằm ở bên trái và bên phải của ô gạch hiện tại, tương tự với y
+                for (int x = -1; x < 2; x++)
                 {
                     for (int y = -1; y < 2; y++)
                     {
@@ -87,7 +86,6 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             }
 
             newCorridor.Add(corridor[i - 1]);
-
             previousDirection = directionFromCell;
         }
 
@@ -112,7 +110,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         if (direction == Vector2Int.left) return Vector2Int.up;
         return Vector2Int.zero;
     }
-    
+
     private void CreateRoomsAtDeadEnd(List<Vector2Int> deadEnds, HashSet<Vector2Int> roomFloors)
     {
         foreach (var position in deadEnds)
