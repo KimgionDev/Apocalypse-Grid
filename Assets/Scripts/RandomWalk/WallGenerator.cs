@@ -7,7 +7,7 @@ public static class WallGenerator
     public static void CreateWalls(HashSet<Vector2Int> floorPositions, TilemapVisualizer tilemapVisualizer)
     {
         var basicWallPositions = FindWallsDirections(floorPositions, Direction2D.cardinalDirectionsList);
-        var connerWallPositions = FindWallsDirections(floorPositions, Direction2D.cardinalDirectionsList);
+        var connerWallPositions = FindWallsDirections(floorPositions, Direction2D.eightDirectionsList);
         
         CreateBasicWall(tilemapVisualizer, basicWallPositions, floorPositions);
         CreateConnerWalls(tilemapVisualizer, connerWallPositions, floorPositions);

@@ -87,33 +87,37 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     {
         HashSet<Vector2Int> corridor = new HashSet<Vector2Int>();
         var position = currentRoomCenter;
-        corridor.Add(position);
-        while (position.y != destination.y)
+    
+        // Hàm phụ để đắp thêm gạch vào xung quanh vị trí hiện tại (làm hành lang rộng 3x3)
+        void AddWideCorridorPosition(Vector2Int pos)
         {
-            if (destination.y > position.y)
+            for (int x = -1; x <= 1; x++)
             {
-                position += Vector2Int.up;
+                for (int y = -1; y <= 1; y++)
+                {
+                    corridor.Add(pos + new Vector2Int(x, y));
+                }
             }
-            else if (destination.y < position.y)
-            {
-                position += Vector2Int.down;
-            }
-
-            corridor.Add(position);
         }
 
+        AddWideCorridorPosition(position);
+
+        // Đi dọc theo trục Y
+        while (position.y != destination.y)
+        {
+            if (destination.y > position.y) { position += Vector2Int.up; }
+            else if (destination.y < position.y) { position += Vector2Int.down; }
+        
+            AddWideCorridorPosition(position);
+        }
+
+        // Đi ngang theo trục X
         while (position.x != destination.x)
         {
-            if (destination.x > position.x)
-            {
-                position += Vector2Int.right;
-            }
-            else if (destination.x < position.x)
-            {
-                position += Vector2Int.left;
-            }
-
-            corridor.Add(position);
+            if (destination.x > position.x) { position += Vector2Int.right; }
+            else if (destination.x < position.x) { position += Vector2Int.left; }
+        
+            AddWideCorridorPosition(position);
         }
 
         return corridor;

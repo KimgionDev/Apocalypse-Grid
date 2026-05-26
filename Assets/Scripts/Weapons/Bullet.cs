@@ -19,6 +19,11 @@ public class Bullet : MonoBehaviour
     {
         if (!hitInfo.CompareTag("Player") && !hitInfo.CompareTag("Bullet") && !hitInfo.CompareTag("Item"))
         {
+            if (hitInfo.CompareTag("Wall")) 
+            {
+                Destroy(gameObject);
+                return;
+            }
             if(hitInfo.CompareTag("Zombie"))
             {
                 hitInfo.GetComponent<ZombieAI>().TakeDamage(damage);
