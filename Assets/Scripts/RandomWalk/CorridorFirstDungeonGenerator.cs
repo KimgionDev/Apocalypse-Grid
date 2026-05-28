@@ -111,6 +111,8 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         return Vector2Int.zero;
     }
 
+    // Hàm này sẽ tạo ra một phòng mới tại mỗi điểm ngõ cụt nếu điểm đó chưa được biến thành phòng từ trước.
+    // Điều này giúp đảm bảo rằng tất cả các điểm ngõ cụt đều được kết nối với một phòng, tránh tình trạng có những điểm ngõ cụt không có lối thoát.
     private void CreateRoomsAtDeadEnd(List<Vector2Int> deadEnds, HashSet<Vector2Int> roomFloors)
     {
         foreach (var position in deadEnds)
@@ -155,15 +157,12 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private HashSet<Vector2Int> CreateRooms(HashSet<Vector2Int> potentialRoomPositions)
     {
+        // Tính toán số lượng phòng cần tạo dựa trên phần trăm đã định sẵn và số lượng vị trí tiềm năng.
         HashSet<Vector2Int> roomPositions = new HashSet<Vector2Int>();
-        int roomToCreateCount =
-            Mathf.RoundToInt(potentialRoomPositions.Count *
-                             roomPercent); // Tính toán số lượng phòng cần tạo dựa trên phần trăm đã định sẵn và số lượng vị trí tiềm năng.
+        int roomToCreateCount = Mathf.RoundToInt(potentialRoomPositions.Count * roomPercent);
 
-        List<Vector2Int>
-            roomsToCreate =
-                potentialRoomPositions.OrderBy(x => Guid.NewGuid()).Take(roomToCreateCount)
-                    .ToList(); // Lấy ngẫu nhiên một số lượng vị trí từ potentialRoomPositions để tạo phòng. Sử dụng OrderBy với Guid.NewGuid() để xáo trộn danh sách và Take để lấy số lượng cần thiết.
+        // Lấy ngẫu nhiên một số lượng vị trí từ potentialRoomPositions để tạo phòng. Sử dụng OrderBy với Guid.NewGuid() để xáo trộn danh sách và Take để lấy số lượng cần thiết.
+        List<Vector2Int> roomsToCreate = potentialRoomPositions.OrderBy(x => Guid.NewGuid()).Take(roomToCreateCount).ToList();
 
         foreach (var roomPosision in roomsToCreate)
         {
@@ -174,8 +173,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         return roomPositions;
     }
 
-    private List<List<Vector2Int>> CreateCorridors(HashSet<Vector2Int> floorPositions,
-        HashSet<Vector2Int> potentialRoomPositions)
+    private List<List<Vector2Int>> CreateCorridors(HashSet<Vector2Int> floorPositions, HashSet<Vector2Int> potentialRoomPositions)
     {
         var currentPosition = startPosition;
         potentialRoomPositions.Add(currentPosition);
