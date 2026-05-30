@@ -29,6 +29,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private void CreateRooms()
     {
+        tilemapVisualizer.Clear();
+
         var roomList = ProceduralGenerationAlgorithms.BinarySpacePartioning(new BoundsInt((Vector3Int)startPosition,
             new Vector3Int(dungeonWidth, dungeonHeight, 0)), minRoomWidth, minRoomHeight);
         HashSet<Vector2Int> floor = new HashSet<Vector2Int>();
@@ -59,6 +61,12 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private void PopulateDungeon(List<BoundsInt> roomList, Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary, HashSet<Vector2Int> corridors)
     {
+        GameObject oldEntities = GameObject.Find("Entities");
+        if (oldEntities != null) Destroy(oldEntities);
+
+        GameObject oldProps = GameObject.Find("Props");
+        if (oldProps != null) Destroy(oldProps);
+
         Vector2Int startRoomCenter = (Vector2Int)Vector3Int.RoundToInt(roomList[0].center);
         Vector2Int finalRoomCenter = (Vector2Int)Vector3Int.RoundToInt(roomList[roomList.Count - 1].center);
 
@@ -72,7 +80,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
             if (currentRoomCenter == startRoomCenter)
             {
-                GameObject playerInstance = Instantiate(playerPrefab, centerWorldPos, Quaternion.identity, entityGroup);                if (vcam != null)
+                GameObject playerInstance = Instantiate(playerPrefab, centerWorldPos, Quaternion.identity, entityGroup);                
+                if (vcam != null)
                 {
                     vcam.Follow = playerInstance.transform; 
                 }
@@ -82,14 +91,24 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 GameObject portal = Instantiate(hiddenPortalPrefab, centerWorldPos, Quaternion.identity, entityGroup);
                 portal.SetActive(false); 
                 
+                if (MissionManager.Instance != null)
+                {
+                    MissionManager.Instance.RegisterPortal(portal);
+                    Debug.Log("THÀNH CÔNG: Đã giao Cổng cho MissionManager giữ!");
+                }
+                else
+                {
+                    Debug.LogError("THẤT BẠI: MissionManager.Instance bị NULL ngay lúc đẻ Cổng!");
+                }
+                
                 Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
             }
             else
             {
                 Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
             }
-            ItemPlacementHelper placementHelper = new ItemPlacementHelper(room.Value, corridors);
             
+            ItemPlacementHelper placementHelper = new ItemPlacementHelper(room.Value, corridors);
             SpawnStaticDecorations(dungeonDecorations, placementHelper, propGroup);
         }
     }
@@ -167,7 +186,6 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         HashSet<Vector2Int> corridor = new HashSet<Vector2Int>();
         var position = currentRoomCenter;
 
-        // Hàm phụ để đắp thêm gạch vào xung quanh vị trí hiện tại (làm hành lang rộng 3x3)
         void AddWideCorridorPosition(Vector2Int pos)
         {
             for (int x = -1; x <= 1; x++)
@@ -181,7 +199,6 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         AddWideCorridorPosition(position);
 
-        // Đi dọc theo trục Y
         while (position.y != destination.y)
         {
             if (destination.y > position.y)
@@ -196,7 +213,6 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             AddWideCorridorPosition(position);
         }
 
-        // Đi ngang theo trục X
         while (position.x != destination.x)
         {
             if (destination.x > position.x)
@@ -238,7 +254,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         foreach (var room in roomList)
         {
-            HashSet<Vector2Int> roomFloor = new HashSet<Vector2Int>(); // HashSet riêng cho phòng này
+            HashSet<Vector2Int> roomFloor = new HashSet<Vector2Int>(); 
             Vector2Int roomCenter = (Vector2Int)Vector3Int.RoundToInt(room.center);
             for (int col = offset; col < room.size.x - offset; col++)
             {

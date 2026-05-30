@@ -29,8 +29,8 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private int groundStepToIncreaseType = 2;
 
     public List<MissionRequirement> currentMission = new List<MissionRequirement>();
-
     private bool isMissionCompleted;
+    private GameObject currentLevelPortal; 
 
     private void Awake()
     {
@@ -40,6 +40,11 @@ public class MissionManager : MonoBehaviour
     private void Start()
     {
         GenerateMissionForCurrentGround();
+    }
+
+    public void RegisterPortal(GameObject portal)
+    {
+        currentLevelPortal = portal;
     }
 
     public void GenerateMissionForCurrentGround()
@@ -156,6 +161,16 @@ public class MissionManager : MonoBehaviour
 
         isMissionCompleted = true;
         Debug.Log("ĐÃ NHẶT ĐỦ TẤT CẢ VẬT PHẨM! MỞ CỔNG!");
+
+        if (currentLevelPortal != null)
+        {
+            currentLevelPortal.SetActive(true);
+            Debug.Log("Cổng đã xuất hiện thành công!");
+        }
+        else
+        {
+            Debug.LogError("LỖI: MissionManager không tìm thấy currentLevelPortal! Không có gì để Active!");
+        }
     }
 
     public void CompleteGroundAndGenerateNextMission()

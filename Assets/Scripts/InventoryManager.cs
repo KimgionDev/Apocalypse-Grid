@@ -10,7 +10,14 @@ public class InventoryManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     public void AddItem(DropItemData data)
@@ -28,6 +35,11 @@ public class InventoryManager : MonoBehaviour
                 missionItems.Add(data.itemName, 1);
 
             Debug.Log("Đã nhặt: " + data.itemName + ". Số lượng: " + missionItems[data.itemName]);
+            
+            if (MissionManager.Instance != null)
+            {
+                MissionManager.Instance.AddMissionItem(data, 1);
+            }
         }
     }
 }

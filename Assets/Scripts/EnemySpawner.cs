@@ -5,31 +5,48 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private float spawnInterval = 3f;
-    [SerializeField] private int maxEnemiesPerRoom = 10;
+    [SerializeField] private int enemiesPerWave = 10;
+    [SerializeField] private float timeBetweenWaves = 5f;
     [SerializeField] private float spawnRadius = 2f;
     [SerializeField] private List<GameObject> enemyPrefabs;
 
-    private int currentEnemyCount = 0;
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
 
     private void Start()
     {
-        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnWaveRoutine());
     }
 
-    private IEnumerator SpawnEnemyRoutine()
+    private IEnumerator SpawnWaveRoutine()
     {
-        while (currentEnemyCount < maxEnemiesPerRoom)
+        while (true)
         {
-            yield return new WaitForSeconds(spawnInterval);
+            for (int i = 0; i < enemiesPerWave; i++)
+            {
+                yield return new WaitForSeconds(spawnInterval);
 
-            int randomIndex = Random.Range(0, enemyPrefabs.Count);
-            GameObject enemyToSpawn = enemyPrefabs[randomIndex];
+                int randomIndex = Random.Range(0, enemyPrefabs.Count);
+                GameObject enemyToSpawn = enemyPrefabs[randomIndex];
 
-            Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPosition = transform.position + new Vector3(randomOffset.x, randomOffset.y, 0);
+                Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
+                Vector3 spawnPosition = transform.position + new Vector3(randomOffset.x, randomOffset.y, 0);
 
-            Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity, transform);
-            currentEnemyCount++;
+                GameObject newEnemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity, transform);
+                
+                spawnedEnemies.Add(newEnemy);
+            }
+
+            yield return new WaitUntil(() => AllEnemiesDead());
+
+            Debug.Log("Đã dọn sạch phòng! Sẵn sàng cho đợt tiếp theo...");
+            yield return new WaitForSeconds(timeBetweenWaves);
         }
+    }
+
+    private bool AllEnemiesDead()
+    {
+        spawnedEnemies.RemoveAll(enemy => enemy == null);
+        
+        return spawnedEnemies.Count == 0;
     }
 }
