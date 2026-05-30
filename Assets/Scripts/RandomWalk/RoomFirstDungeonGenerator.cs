@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,7 +10,18 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField] private int dungeonWidth = 20, dungeonHeight = 20;
     [SerializeField] [Range(0, 10)] private int offset = 1;
     [SerializeField] private bool randomWalkRooms = false;
-
+    
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private CinemachineCamera vcam;
+    [SerializeField] private GameObject hiddenPortalPrefab;
+    [SerializeField] private GameObject enemySpawnerPrefab;
+    [SerializeField] private List<ItemData> dungeonDecorations;
+    
+    private void Start()
+    {
+        GenerateDungeon();
+    }
+    
     protected override void RunProceduralGeneration()
     {
         CreateRooms();
@@ -42,29 +54,67 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         tilemapVisualizer.PaintFloorTiles(floor);
         WallGenerator.CreateWalls(floor, tilemapVisualizer);
-        PlaceItemsInRooms(roomsDictionary, corridors);
+        PopulateDungeon(roomList, roomsDictionary, corridors);
     }
 
-    private void PlaceItemsInRooms(Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary,
-        HashSet<Vector2Int> corridors)
+    private void PopulateDungeon(List<BoundsInt> roomList, Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary, HashSet<Vector2Int> corridors)
     {
-        // Duyệt qua từng phòng đã được tạo
+        Vector2Int startRoomCenter = (Vector2Int)Vector3Int.RoundToInt(roomList[0].center);
+        Vector2Int finalRoomCenter = (Vector2Int)Vector3Int.RoundToInt(roomList[roomList.Count - 1].center);
+
+        Transform entityGroup = new GameObject("Entities").transform;
+        Transform propGroup = new GameObject("Props").transform;
+
         foreach (var room in roomsDictionary)
         {
-            // Khởi tạo Helper kiểm tra không gian 8 hướng cho phòng hiện tại, đồng thời loại trừ hành lang
+            Vector2Int currentRoomCenter = room.Key;
+            Vector3 centerWorldPos = new Vector3(currentRoomCenter.x + 0.5f, currentRoomCenter.y + 0.5f, 0);
+
+            if (currentRoomCenter == startRoomCenter)
+            {
+                GameObject playerInstance = Instantiate(playerPrefab, centerWorldPos, Quaternion.identity, entityGroup);                if (vcam != null)
+                {
+                    vcam.Follow = playerInstance.transform; 
+                }
+            }
+            else if (currentRoomCenter == finalRoomCenter)
+            {
+                GameObject portal = Instantiate(hiddenPortalPrefab, centerWorldPos, Quaternion.identity, entityGroup);
+                portal.SetActive(false); 
+                
+                Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
+            }
+            else
+            {
+                Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
+            }
             ItemPlacementHelper placementHelper = new ItemPlacementHelper(room.Value, corridors);
-
-            // Bắt đầu logic TryPlaceItem ở đây (ví dụ minh họa)
-            // Debug.Log($"Đang xử lý phòng tại {room.Key} có {room.Value.Count} ô gạch sàn.");
-
-            // Mã giả:
-            // if (placementHelper.TryPlaceItem(tableData, out Vector2Int placedPos))
-            // {
-            //      Instantiate(tableData.prefab, (Vector3Int)placedPos, Quaternion.identity);
-            // }
+            
+            SpawnStaticDecorations(dungeonDecorations, placementHelper, propGroup);
         }
     }
+    
+    private void SpawnStaticDecorations(List<ItemData> items, ItemPlacementHelper helper, Transform parent)
+    {
+        foreach (var itemData in items)
+        {
+            int quantityToPlace = Random.Range(itemData.minQuantity, itemData.maxQuantity + 1);
 
+            for (int i = 0; i < quantityToPlace; i++)
+            {
+                if (helper.TryPlaceItem(itemData, out Vector2Int placedPos))
+                {
+                    Vector3 spawnPosition = new Vector3(placedPos.x + 0.5f, placedPos.y + 0.5f, 0); 
+                    Instantiate(itemData.prefab, spawnPosition, Quaternion.identity, parent);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+    
     private HashSet<Vector2Int> CreateRandomRooms(List<BoundsInt> roomList,
         Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary)
     {
@@ -76,7 +126,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                 new Vector2Int(Mathf.RoundToInt(roomBounds.center.x), Mathf.RoundToInt(roomBounds.center.y));
             var roomFloor = RunRandomWalk(randomWalkParameters, roomCenter);
 
-            HashSet<Vector2Int> individualRoomFloor = new HashSet<Vector2Int>(); // HashSet riêng cho phòng này
+            HashSet<Vector2Int> individualRoomFloor = new HashSet<Vector2Int>();
 
             foreach (var position in roomFloor)
             {
@@ -84,11 +134,10 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
                     position.y >= roomBounds.yMin + offset && position.y <= roomBounds.yMax - offset)
                 {
                     floor.Add(position);
-                    individualRoomFloor.Add(position); // Lưu ô gạch vào phòng
+                    individualRoomFloor.Add(position);
                 }
             }
 
-            // Thêm dữ liệu phòng vào Dictionary
             roomsDictionary.Add(roomCenter, individualRoomFloor);
         }
 

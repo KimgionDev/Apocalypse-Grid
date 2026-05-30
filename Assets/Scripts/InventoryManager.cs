@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
     }
 
-    public void AddItem(ItemData data)
+    public void AddItem(DropItemData data)
     {
         if (data.isGold)
         {

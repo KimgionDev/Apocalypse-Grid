@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemPlacementHelper
 {
-    private Dictionary<PlacementType, List<Vector2Int>> freeSpaces; 
+    private Dictionary<PlacementType, List<Vector2Int>> freeSpaces;
 
     public ItemPlacementHelper(HashSet<Vector2Int> roomFloor, HashSet<Vector2Int> corridorPositions)
     {
@@ -18,7 +18,7 @@ public class ItemPlacementHelper
         foreach (var pos in roomFloor)
         {
             // Trừ đi các vị trí hành lang để không block lối đi 
-            if (corridorPositions.Contains(pos)) continue; 
+            if (corridorPositions.Contains(pos)) continue;
 
             // Phân loại ô 
             if (roomGraph.CountEightNeighbors(pos) < 8)
@@ -27,12 +27,13 @@ public class ItemPlacementHelper
                 freeSpaces[PlacementType.OpenSpace].Add(pos);
         }
     }
+
     public bool TryPlaceItem(ItemData item, out Vector2Int placedPosition)
     {
         placedPosition = Vector2Int.zero;
         int maxIterations = 100; // Tránh lặp vô hạn
         int iterations = 0;
-        
+
         List<Vector2Int> availableSpaces = freeSpaces[item.placementType];
 
         while (iterations < maxIterations && availableSpaces.Count > 0)
@@ -54,14 +55,14 @@ public class ItemPlacementHelper
             if (canPlace)
             {
                 placedPosition = potentialPos;
-                // Nhớ xóa tất cả các ô mà vật phẩm lớn này chiếm dụng khỏi danh sách availableSpaces
                 MarkSpaceAsTaken(potentialPos, item.size, availableSpaces);
                 return true;
             }
 
             iterations++;
         }
-        return false; 
+
+        return false;
     }
 
     // Hàm kiểm tra không gian cho vật phẩm lớn
@@ -78,6 +79,7 @@ public class ItemPlacementHelper
                 }
             }
         }
+
         return true;
     }
 
