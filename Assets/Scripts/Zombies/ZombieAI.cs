@@ -11,9 +11,9 @@ public class ZombieAI : MonoBehaviour
 
     [Header("Loot Settings")]
     public GameObject lootPrefab;
-    public ItemData goldData;
+    public DropItemData goldData;
     [Range(0, 100)] public float goldDropChance = 80f;
-    public List<ItemData> itemPool;
+    public List<DropItemData> itemPool;
     [Range(0, 100)] public float itemDropChance = 40f;
     public float lootLifetime = 10f;
 
@@ -120,7 +120,7 @@ public class ZombieAI : MonoBehaviour
         if (itemPool != null && itemPool.Count > 0 && Random.Range(0f, 100f) <= itemDropChance)
         {
             int randomIndex = Random.Range(0, itemPool.Count);
-            ItemData randomItem = itemPool[randomIndex];
+            DropItemData randomItem = itemPool[randomIndex];
 
             Vector2 offsetPos = (Vector2)transform.position + new Vector2(
                 Random.Range(-0.5f, 0.5f),
@@ -130,7 +130,7 @@ public class ZombieAI : MonoBehaviour
         }
     }
 
-    private void SpawnItem(ItemData data, Vector2 spawnPos)
+    private void SpawnItem(DropItemData data, Vector2 spawnPos)
     {
         if (lootPrefab == null) return;
 

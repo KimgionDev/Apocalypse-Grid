@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class MissionRequirement
 {
-    public ItemData item;
+    public DropItemData item;
     public int current;
     public int target;
 }
@@ -14,7 +14,7 @@ public class MissionManager : MonoBehaviour
     public static MissionManager Instance;
 
     [Header("Kho Dữ Liệu")]
-    public List<ItemData> allItemsDatabase;
+    public List<DropItemData> allItemsDatabase;
 
     [Header("UI Nhiệm Vụ")]
     public Transform missionUIContainer;
@@ -46,8 +46,8 @@ public class MissionManager : MonoBehaviour
     {
         isMissionCompleted = false;
 
-        List<ItemData> missionCandidates = new List<ItemData>();
-        foreach (ItemData item in allItemsDatabase)
+        List<DropItemData> missionCandidates = new List<DropItemData>();
+        foreach (DropItemData item in allItemsDatabase)
         {
             if (item != null && !item.isGold)
             {
@@ -71,17 +71,17 @@ public class MissionManager : MonoBehaviour
         GenerateRandomMission(typesCount, maxAmount, missionCandidates);
     }
 
-    private void GenerateRandomMission(int typesCount, int maxAmount, List<ItemData> candidateItems)
+    private void GenerateRandomMission(int typesCount, int maxAmount, List<DropItemData> candidateItems)
     {
         currentMission.Clear();
-        List<ItemData> tempList = new List<ItemData>(candidateItems);
+        List<DropItemData> tempList = new List<DropItemData>(candidateItems);
 
         for (int i = 0; i < typesCount; i++)
         {
             if (tempList.Count == 0) break;
 
             int randIndex = Random.Range(0, tempList.Count);
-            ItemData picked = tempList[randIndex];
+            DropItemData picked = tempList[randIndex];
 
             currentMission.Add(new MissionRequirement
             {
@@ -96,7 +96,7 @@ public class MissionManager : MonoBehaviour
         RefreshUI();
     }
 
-    public void AddMissionItem(ItemData collectedItem, int amount = 1)
+    public void AddMissionItem(DropItemData collectedItem, int amount = 1)
     {
         if (collectedItem == null || amount <= 0 || currentMission.Count == 0)
         {

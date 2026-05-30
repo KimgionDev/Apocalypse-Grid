@@ -5,18 +5,38 @@ using System.Collections.Generic;
 [System.Serializable]
 public class WeaponData
 {
-    public GameObject physicalGun; // Súng trên tay nhân vật
-    public Sprite uiIcon;          // Ảnh hiển thị dưới UI
+    public GameObject physicalGun;
+    public Sprite uiIcon;
 }
 
 public class WeaponManager : MonoBehaviour
 {
     public List<WeaponData> inventory = new List<WeaponData>();
-    public Image[] slotImages;       // 6 ô chứa hình
-    public RectTransform highlight;  // Khung vàng
+    
+    private Image[] slotImages = new Image[6]; 
+    private RectTransform highlight;
 
     void Start()
     {
+        GameObject hlObj = GameObject.Find("Highlight");
+        if (hlObj != null) 
+        {
+            highlight = hlObj.GetComponent<RectTransform>();
+        }
+
+        for (int i = 0; i < 6; i++)
+        {
+            GameObject slotObj = GameObject.Find("InventoryItem" + i);
+            if (slotObj != null)
+            {
+                slotImages[i] = slotObj.GetComponent<Image>();
+            }
+            else
+            {
+                Debug.LogWarning("Không tìm thấy UI tên là 'Slot" + i + "' ngoài Scene!");
+            }
+        }
+
         RefreshUI();
         if (inventory.Count > 0) SelectWeapon(0);
     }
@@ -33,10 +53,13 @@ public class WeaponManager : MonoBehaviour
     {
         for (int i = 0; i < inventory.Count; i++)
         {
-            inventory[i].physicalGun.SetActive(i == index);
+            if (inventory[i].physicalGun != null)
+            {
+                inventory[i].physicalGun.SetActive(i == index);
+            }
         }
 
-        if (highlight != null && index < slotImages.Length)
+        if (highlight != null && index < slotImages.Length && slotImages[index] != null)
         {
             highlight.position = slotImages[index].rectTransform.position;
         }
@@ -46,6 +69,8 @@ public class WeaponManager : MonoBehaviour
     {
         for (int i = 0; i < slotImages.Length; i++)
         {
+            if (slotImages[i] == null) continue; 
+
             if (i < inventory.Count)
             {
                 slotImages[i].sprite = inventory[i].uiIcon;
@@ -53,7 +78,7 @@ public class WeaponManager : MonoBehaviour
             }
             else
             {
-                slotImages[i].color = new Color(0, 0, 0, 0);
+                slotImages[i].color = new Color(0, 0, 0, 0); // Làm trong suốt ô trống
             }
         }
     }

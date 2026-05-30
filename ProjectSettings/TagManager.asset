@@ -9,6 +9,7 @@ TagManager:
   - Item
   - Wall
   - Floor
+  - Slot
   layers:
   - Default
   - TransparentFX

@@ -75,8 +75,6 @@ public class TilemapVisualizer : MonoBehaviour
         {
             tile = wallFullTile;
         }
-
-        Debug.LogWarning(position + binaryType);
         
         if (tile != null)
         {
