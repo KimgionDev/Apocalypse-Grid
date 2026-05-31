@@ -19,6 +19,7 @@ public class MissionManager : MonoBehaviour
     [Header("UI Nhiệm Vụ")]
     public Transform missionUIContainer;
     public GameObject missionSlotPrefab;
+    public bool isMissionCompleted;
 
     [Header("Tiến trình Ground")]
     [SerializeField] private int currentGround = 1;
@@ -27,9 +28,7 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private int baseMaxAmount = 6;
     [SerializeField] private int amountIncreasePerGround = 2;
     [SerializeField] private int groundStepToIncreaseType = 2;
-
     public List<MissionRequirement> currentMission = new List<MissionRequirement>();
-    private bool isMissionCompleted;
     private GameObject currentLevelPortal; 
 
     private void Awake()

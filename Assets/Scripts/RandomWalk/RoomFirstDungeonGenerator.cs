@@ -89,18 +89,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             else if (currentRoomCenter == finalRoomCenter)
             {
                 GameObject portal = Instantiate(hiddenPortalPrefab, centerWorldPos, Quaternion.identity, entityGroup);
-                portal.SetActive(false); 
-                
-                if (MissionManager.Instance != null)
-                {
-                    MissionManager.Instance.RegisterPortal(portal);
-                    Debug.Log("THÀNH CÔNG: Đã giao Cổng cho MissionManager giữ!");
-                }
-                else
-                {
-                    Debug.LogError("THẤT BẠI: MissionManager.Instance bị NULL ngay lúc đẻ Cổng!");
-                }
-                
+                MissionManager.Instance.RegisterPortal(portal);
                 Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
             }
             else

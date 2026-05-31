@@ -443,8 +443,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -1691906987, guid: 954fb5594ba5f124a8dd645ea5345cca, type: 3}
-    m_PressedSprite: {fileID: 2216714451544662160, guid: 78e563103989c94428296622114aede3, type: 3}
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: -1691906987, guid: 954fb5594ba5f124a8dd645ea5345cca, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -563,8 +563,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 1754335398, guid: 78e563103989c94428296622114aede3, type: 3}
-    m_PressedSprite: {fileID: 2216714451544662160, guid: 78e563103989c94428296622114aede3, type: 3}
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 1754335398, guid: 78e563103989c94428296622114aede3, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -1327,7 +1327,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 400, y: 600}
+  m_CellSize: {x: 300, y: 500}
   m_Spacing: {x: 100, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 3
