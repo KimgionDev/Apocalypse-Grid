@@ -5,7 +5,7 @@ public class MainMenuManager : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("UpgradeMenuScene"); 
+        SceneManager.LoadScene("DashboardScene"); 
     }
 
     public void QuitGame()

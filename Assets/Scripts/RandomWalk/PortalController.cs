@@ -3,14 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class PortalController : MonoBehaviour
 {
-    [SerializeField] private string nextSceneName = "UpgradeMenuScene";
+    [SerializeField] private string nextSceneName = "DashboardScene";
     [SerializeField] private Animator portalAnimator; 
     
     private bool isOpen = false;
 
     private void Update()
     {
-        // Chờ nhiệm vụ hoàn thành để mở cổng (chỉ gọi 1 lần)
         if (!isOpen && MissionManager.Instance != null && MissionManager.Instance.isMissionCompleted)
         {
             OpenPortal();
@@ -33,6 +32,15 @@ public class PortalController : MonoBehaviour
         {
             if (isOpen)
             {
+                if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
+                {
+                    SaveManager.Instance.playerStats.totalGold += InventoryManager.Instance.gold;
+                    
+                    SaveManager.Instance.playerStats.currentLevel++;
+
+                    SaveManager.Instance.SaveGame();
+                }
+
                 SceneManager.LoadScene(nextSceneName);
             }
             else

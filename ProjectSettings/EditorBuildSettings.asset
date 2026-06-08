@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: 5d75ccf190cd58d4d875444ad6f66beb
   - enabled: 1
-    path: Assets/Scenes/UpgradeMenuScene.unity
+    path: Assets/Scenes/DashboardScene.unity
     guid: d524158a73c563245b04ad5910397875
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
