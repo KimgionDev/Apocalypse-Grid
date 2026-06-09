@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    public PlayerStatsSO playerStats;
+
     public GunData gunData;
     public Transform firePoint;
     public Animator animator;
@@ -48,22 +50,27 @@ public class PlayerShoot : MonoBehaviour
             flash.transform.localScale = new Vector3(gunData.flashScale, gunData.flashScale, 1f);
         }
 
+        float totalDamage = gunData.bulletDamage;
+        if (playerStats != null)
+        {
+            totalDamage += playerStats.baseDamage; 
+        }
+
         for (int i = 0; i < gunData.bulletCount; i++)
         {
             float randomSpread = Random.Range(-gunData.spreadAngle, gunData.spreadAngle);
             Quaternion bulletRotation = firePoint.rotation * Quaternion.Euler(0, 0, randomSpread);
             GameObject bullet = Instantiate(gunData.bulletPrefab, firePoint.position, bulletRotation);
-            bullet.GetComponent<Bullet>().Setup(gunData.bulletDamage, gunData.bulletLifeTime);
+            
+            bullet.GetComponent<Bullet>().Setup(totalDamage, gunData.bulletLifeTime);
         }
     }
 
     IEnumerator ReloadRoutine()
     {
         isReloading = true;
-
-        float baseClipLength = 1f;  // Giả sử độ dài cơ bản của clip reload là 1 giây
-
-        float calculatedSpeed = baseClipLength / gunData.reloadTime;    // Tính toán tốc độ reload dựa trên thời gian reload của súng
+        float baseClipLength = 1f;  
+        float calculatedSpeed = baseClipLength / gunData.reloadTime;    
 
         if (animator != null)
         {

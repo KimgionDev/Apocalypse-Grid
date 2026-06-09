@@ -393,6 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a8ffc5d7183f5438a59afb2ded48e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShoot
+  playerStats: {fileID: 11400000, guid: 79864ec58900b8d43969ed78f473cb34, type: 2}
   gunData: {fileID: 11400000, guid: 7ef986ac94d032a449a391f4e4c080db, type: 2}
   firePoint: {fileID: 7861642897009248412}
   animator: {fileID: 1027648886252571078}
@@ -473,6 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd094792864c0684cb47e3e6d4c9dd40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  playerStats: {fileID: 11400000, guid: 79864ec58900b8d43969ed78f473cb34, type: 2}
   moveSpeed: 5
   bodyAnimator: {fileID: 7830463285451357025}
 --- !u!70 &619281134085106673
@@ -524,6 +526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854a98e4a2faa80429ae803212f65c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  playerStats: {fileID: 11400000, guid: 79864ec58900b8d43969ed78f473cb34, type: 2}
   maxHealth: 100
   currentHealth: 0
   animator: {fileID: 7830463285451357025}
@@ -674,6 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a8ffc5d7183f5438a59afb2ded48e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShoot
+  playerStats: {fileID: 11400000, guid: 79864ec58900b8d43969ed78f473cb34, type: 2}
   gunData: {fileID: 11400000, guid: 822b8950862eb424284e2c27076f33af, type: 2}
   firePoint: {fileID: 9214601918623393686}
   animator: {fileID: 2327415962544372612}
@@ -805,6 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a8ffc5d7183f5438a59afb2ded48e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShoot
+  playerStats: {fileID: 11400000, guid: 79864ec58900b8d43969ed78f473cb34, type: 2}
   gunData: {fileID: 11400000, guid: c8f8b26e135049f4ba1d1fd5a4f11465, type: 2}
   firePoint: {fileID: 8473360594078675782}
   animator: {fileID: 4480866290090820652}

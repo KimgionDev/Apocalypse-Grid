@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MainPlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatsSO
   currentLevel: 1
-  totalGold: 0
-  maxHealth: 100
-  baseDamage: 10
-  moveSpeed: 5
+  totalGold: 10000
+  maxHealth: 2000000
+  baseDamage: 100
+  moveSpeed: 20

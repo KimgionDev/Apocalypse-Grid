@@ -2,6 +2,9 @@
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Header("Dữ liệu Nâng cấp")]
+    public PlayerStatsSO playerStats;
+
     public float maxHealth = 100f;
     public float currentHealth;
     private bool isDead;
@@ -9,6 +12,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
+        if (playerStats != null)
+        {
+            maxHealth = playerStats.maxHealth;
+        }
+        
         currentHealth = maxHealth;
     }
 

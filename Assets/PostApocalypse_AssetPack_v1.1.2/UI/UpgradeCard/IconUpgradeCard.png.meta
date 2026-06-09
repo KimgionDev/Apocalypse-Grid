@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: c6aecddd3b05d6847b134b6a8b2cba94
+guid: 8fb0aa0cc7faca44583e8ad9b9c25ebd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6751677169473763982
-    second: Gemini_Generated_Image_te7ttzte7ttzte7t-removebg-preview_0
+      213: -3885573550374285661
+    second: IconUpgradeCard_0
+  - first:
+      213: 1432584464170490750
+    second: IconUpgradeCard_1
+  - first:
+      213: -1371678458850005096
+    second: IconUpgradeCard_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DameUpgradeCard_0
+      name: IconUpgradeCard_0
       rect:
         serializedVersion: 2
-        x: 230
-        y: 42
-        width: 204
-        height: 334
+        x: 86
+        y: 131
+        width: 115
+        height: 107
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: b0bcd847f7bf6b7478ab146a236beb46
-      internalID: 1568187769
+      spriteID: 3ae894d417ba31ac0800000000000000
+      internalID: -3885573550374285661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconUpgradeCard_1
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 134
+        width: 154
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7b10a1eaff81e310800000000000000
+      internalID: 1432584464170490750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IconUpgradeCard_2
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 130
+        width: 61
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89fa03a85b1d6fce0800000000000000
+      internalID: -1371678458850005096
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 26bc839345c2e8d42a9de830ceb58ddc
+    spriteID: 2df78d6b15919b14fa8071ec1614f6f0
     internalID: 0
     vertices: []
     indices: 
@@ -146,11 +196,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      DameUpgradeCard_0: 1568187769
+      IconUpgradeCard_0: -3885573550374285661
+      IconUpgradeCard_1: 1432584464170490750
+      IconUpgradeCard_2: -1371678458850005096
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

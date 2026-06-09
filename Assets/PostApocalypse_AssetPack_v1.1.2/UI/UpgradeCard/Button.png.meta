@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: a8a633a0b577db0488c25ac9ab0e947d
+guid: 26ec18573ec751644bd4060a085a716f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1990049365017853582
-    second: Gemini_Generated_Image_iiuyediiuyediiuy-removebg-preview_0
+      213: 649223268058989734
+    second: Button_0
+  - first:
+      213: -9000188618666376746
+    second: Button_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SpeedUpgradeCard_0
+      name: Button_0
       rect:
         serializedVersion: 2
-        x: 231
-        y: 41
-        width: 204
-        height: 335
+        x: 0
+        y: 222
+        width: 293
+        height: 133
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 80485f8bd993b2d4fac1720012634974
-      internalID: -1427756057
+      spriteID: 6a403906f11820900800000000000000
+      internalID: 649223268058989734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 13
+        width: 292
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d180e8e228e81380800000000000000
+      internalID: -9000188618666376746
       vertices: []
       indices: 
       edges: []
@@ -138,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a30edf4a58309b5489cb69d16c204fb8
+    spriteID: 6c43b1d7659f4ec4bba55616a8e815da
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +175,8 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      SpeedUpgradeCard_0: -1427756057
+      Button_0: 649223268058989734
+      Button_1: -9000188618666376746
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

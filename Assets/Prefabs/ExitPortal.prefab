@@ -174,5 +174,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed54f5312bee8244b1275e93fdf49ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortalController
-  nextSceneName: UpgradeMenuScene
+  nextSceneName: DashboardScene
   portalAnimator: {fileID: 1852603106490223556}

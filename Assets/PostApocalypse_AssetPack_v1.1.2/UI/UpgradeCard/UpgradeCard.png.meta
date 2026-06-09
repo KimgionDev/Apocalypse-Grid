@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: ffcfe50e5752c5949bb223a84824b90b
+guid: 9c94580b5dbd83c42912df9a8ea0e8ff
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8623659062825549987
-    second: Gemini_Generated_Image_p85pd2p85pd2p85p-removebg-preview_0
+      213: -7769099458016553895
+    second: UpgradeCard_0
+  - first:
+      213: 770914417887765665
+    second: UpgradeCard_1
+  - first:
+      213: 4032903212002458609
+    second: UpgradeCard_2
+  - first:
+      213: 8865111834490468898
+    second: UpgradeCard_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,12 +122,34 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HealthUpgradeCard_0
+      name: UpgradeCard_0
       rect:
         serializedVersion: 2
-        x: 236
-        y: 37
-        width: 208
+        x: 47
+        y: 135
+        width: 222
+        height: 337
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9545e34943d9e2490800000000000000
+      internalID: -7769099458016553895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeCard_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 130
+        width: 225
         height: 343
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -126,10 +157,54 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 074af0c73ae53a04eb74aeff27a966fc
-      internalID: -706864953
+      spriteID: 1a46d6e1496d2ba00800000000000000
+      internalID: 770914417887765665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeCard_2
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 130
+        width: 225
+        height: 343
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fb30f4aa10c7f730800000000000000
+      internalID: 4032903212002458609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeCard_3
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 131
+        width: 236
+        height: 347
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22a7aec7e34370b70800000000000000
+      internalID: 8865111834490468898
       vertices: []
       indices: 
       edges: []
@@ -138,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 8c5cb662e52b99042a60c99c5959676a
+    spriteID: 85e4b5aa182f1b04dad40861e0417fd5
     internalID: 0
     vertices: []
     indices: 
@@ -146,11 +221,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      HealthUpgradeCard_0: -706864953
+      UpgradeCard_0: -7769099458016553895
+      UpgradeCard_1: 770914417887765665
+      UpgradeCard_2: 4032903212002458609
+      UpgradeCard_3: 8865111834490468898
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

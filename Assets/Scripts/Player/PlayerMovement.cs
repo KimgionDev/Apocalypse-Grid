@@ -3,6 +3,8 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
+    public PlayerStatsSO playerStats;
+
     [SerializeField] private float moveSpeed = 5f;
 
     private Rigidbody2D rb;
@@ -14,9 +16,16 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        // Giảm khả năng xuyên tường khi di chuyển nhanh
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+    }
+
+    private void Start()
+    {
+        if (playerStats != null)
+        {
+            moveSpeed = playerStats.moveSpeed;
+        }
     }
 
     private void Update()

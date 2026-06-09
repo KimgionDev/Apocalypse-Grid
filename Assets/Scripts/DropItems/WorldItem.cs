@@ -21,12 +21,13 @@ public class WorldItem : MonoBehaviour
             return;
         }
 
-        if (data.isGold)
+        if (InventoryManager.Instance != null)
         {
+            InventoryManager.Instance.AddItem(data);
         }
-        else if (MissionManager.Instance != null)
+        else
         {
-            MissionManager.Instance.AddMissionItem(data, 1);
+            Debug.LogWarning("Không tìm thấy InventoryManager trong Scene!");
         }
 
         Destroy(gameObject);
