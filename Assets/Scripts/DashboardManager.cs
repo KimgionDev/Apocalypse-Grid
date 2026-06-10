@@ -1,21 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DashboardManager : MonoBehaviour
 {
-    [Header("Dữ liệu Người chơi")]
-    public PlayerStatsSO playerStats;
+    [Header("Dữ liệu Người chơi")] public PlayerStatsSO playerStats;
 
     [Header("Cụm Player Status (Góc phải trên)")]
     public TextMeshProUGUI txtCurrentGold;
+
     public TextMeshProUGUI txtCurrentHP;
     public TextMeshProUGUI txtCurrentDamage;
     public TextMeshProUGUI txtCurrentSpeed;
-    public TextMeshProUGUI txtCurrentLevel; 
+    public TextMeshProUGUI txtCurrentLevel;
 
-    [Header("Thẻ Máu (Health Card)")]
-    public TextMeshProUGUI txtPriceHealth;
+    [Header("Thẻ Máu (Health Card)")] public TextMeshProUGUI txtPriceHealth;
     public Button btnUpgradeHealth;
     public float healthBaseValue = 100f;
     public float healthIncreaseStep = 20f;
@@ -23,13 +23,13 @@ public class DashboardManager : MonoBehaviour
 
     [Header("Thẻ Sát Thương (Damage Card)")]
     public TextMeshProUGUI txtPriceDamage;
+
     public Button btnUpgradeDamage;
     public float damageBaseValue = 10f;
     public float damageIncreaseStep = 5f;
     public int damageBaseCost = 50;
 
-    [Header("Thẻ Tốc Độ (Speed Card)")]
-    public TextMeshProUGUI txtPriceSpeed;
+    [Header("Thẻ Tốc Độ (Speed Card)")] public TextMeshProUGUI txtPriceSpeed;
     public Button btnUpgradeSpeed;
     public float speedBaseValue = 5f;
     public float speedIncreaseStep = 1f;
@@ -38,6 +38,21 @@ public class DashboardManager : MonoBehaviour
     private void Start()
     {
         RefreshUI();
+    }
+    
+    public void OnClickStartRun()
+    {
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.SaveGame();
+        }
+        
+        SceneManager.LoadScene("PlayScene"); 
+    }
+
+    public void OnClickBack()
+    {
+        SceneManager.LoadScene("MenuScene"); 
     }
 
     public void RefreshUI()
@@ -50,8 +65,10 @@ public class DashboardManager : MonoBehaviour
         txtCurrentSpeed.text = "Speed: " + playerStats.moveSpeed;
         txtCurrentLevel.text = "Level: " + playerStats.currentLevel;
 
-        int currentHealthCost = CalculateCost(healthBaseCost, playerStats.maxHealth, healthBaseValue, healthIncreaseStep);
-        int currentDamageCost = CalculateCost(damageBaseCost, playerStats.baseDamage, damageBaseValue, damageIncreaseStep);
+        int currentHealthCost =
+            CalculateCost(healthBaseCost, playerStats.maxHealth, healthBaseValue, healthIncreaseStep);
+        int currentDamageCost =
+            CalculateCost(damageBaseCost, playerStats.baseDamage, damageBaseValue, damageIncreaseStep);
         int currentSpeedCost = CalculateCost(speedBaseCost, playerStats.moveSpeed, speedBaseValue, speedIncreaseStep);
 
         txtPriceHealth.text = currentHealthCost + " Gold";
@@ -65,10 +82,10 @@ public class DashboardManager : MonoBehaviour
 
     private int CalculateCost(int baseCost, float currentStat, float baseStatValue, float stepAmount)
     {
-        int upgradeCount = Mathf.FloorToInt((currentStat - baseStatValue) / stepAmount);
+        int upgradeCount = Mathf.Max(0, Mathf.FloorToInt((currentStat - baseStatValue) / stepAmount));
         return baseCost + Mathf.FloorToInt(baseCost * 0.5f * upgradeCount);
     }
-    
+
     public void OnClickUpgradeHealth()
     {
         int cost = CalculateCost(healthBaseCost, playerStats.maxHealth, healthBaseValue, healthIncreaseStep);
@@ -108,6 +125,7 @@ public class DashboardManager : MonoBehaviour
         {
             SaveManager.Instance.SaveGame();
         }
-        RefreshUI(); 
+
+        RefreshUI();
     }
 }

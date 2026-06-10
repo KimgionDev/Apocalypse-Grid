@@ -2,8 +2,7 @@
 
 public class PlayerHealth : MonoBehaviour
 {
-    [Header("Dữ liệu Nâng cấp")]
-    public PlayerStatsSO playerStats;
+    [Header("Dữ liệu Nâng cấp")] public PlayerStatsSO playerStats;
 
     public float maxHealth = 100f;
     public float currentHealth;
@@ -16,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
         {
             maxHealth = playerStats.maxHealth;
         }
-        
+
         currentHealth = maxHealth;
     }
 
@@ -35,8 +34,22 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
-        Debug.Log("Game Over!");
         if (animator != null) animator.SetTrigger("Die");
-        Destroy(gameObject, 1f);
+        if (GameUIManager.Instance != null)
+        {
+            GameUIManager.Instance.ShowResult(false);
+        }
+
+        PlayerMovement movement = GetComponent<PlayerMovement>();
+        if (movement != null)
+        {
+            movement.enabled = false;
+        }
+
+        PlayerShoot shoot = GetComponentInChildren<PlayerShoot>();
+        if (shoot != null)
+        {
+            shoot.enabled = false;
+        }
     }
 }

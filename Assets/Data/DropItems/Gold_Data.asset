@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Gold
   icon: {fileID: -2681474285018058943, guid: 97e5c1a09e810464aa3c8684c7b5986e, type: 3}
-  value: 10
+  value: 1
   isGold: 1

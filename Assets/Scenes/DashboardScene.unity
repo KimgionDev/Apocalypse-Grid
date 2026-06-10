@@ -748,7 +748,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 244690565}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1484163284}
+        m_TargetAssemblyTypeName: DashboardManager, Assembly-CSharp
+        m_MethodName: OnClickStartRun
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &244690565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1143,7 +1155,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 456525667}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1484163284}
+        m_TargetAssemblyTypeName: DashboardManager, Assembly-CSharp
+        m_MethodName: OnClickBack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &456525667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2647,17 +2671,17 @@ MonoBehaviour:
   btnUpgradeHealth: {fileID: 147688619}
   healthBaseValue: 100
   healthIncreaseStep: 10
-  healthBaseCost: 10
+  healthBaseCost: 50
   txtPriceDamage: {fileID: 1861654194}
   btnUpgradeDamage: {fileID: 602638301}
-  damageBaseValue: 10
-  damageIncreaseStep: 2
-  damageBaseCost: 10
+  damageBaseValue: 2
+  damageIncreaseStep: 1
+  damageBaseCost: 50
   txtPriceSpeed: {fileID: 878174314}
   btnUpgradeSpeed: {fileID: 730842862}
   speedBaseValue: 5
-  speedIncreaseStep: 1
-  speedBaseCost: 10
+  speedIncreaseStep: 0.5
+  speedBaseCost: 50
 --- !u!4 &1484163285
 Transform:
   m_ObjectHideFlags: 0

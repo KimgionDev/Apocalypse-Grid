@@ -17,6 +17,10 @@ public class ZombieAI : MonoBehaviour
     [Range(0, 100)] public float itemDropChance = 40f;
     public float lootLifetime = 10f;
 
+    private float currentMaxHealth;
+    [HideInInspector] public float currentDamage;
+    private float currentMoveSpeed;
+
     private Transform target;
     private float currentHealth;
     private bool isDead;
@@ -28,7 +32,21 @@ public class ZombieAI : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        currentHealth = data.maxHealth;
+
+        int currentLevel = 1;
+        if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
+        {
+            currentLevel = SaveManager.Instance.playerStats.currentLevel;
+        }
+
+        float statMultiplier = 1f + ((currentLevel - 1) * 0.20f); 
+        float speedMultiplier = 1f + ((currentLevel - 1) * 0.05f);
+
+        currentMaxHealth = data.maxHealth * statMultiplier;
+        currentDamage = data.damage * statMultiplier;
+        currentMoveSpeed = data.moveSpeed * speedMultiplier;
+
+        currentHealth = currentMaxHealth; 
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)

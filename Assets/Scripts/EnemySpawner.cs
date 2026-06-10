@@ -5,15 +5,24 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private float spawnInterval = 3f;
-    [SerializeField] private int enemiesPerWave = 10;
+    [SerializeField] private int baseEnemiesPerWave = 10;
     [SerializeField] private float timeBetweenWaves = 5f;
     [SerializeField] private float spawnRadius = 2f;
     [SerializeField] private List<GameObject> enemyPrefabs;
 
     private List<GameObject> spawnedEnemies = new List<GameObject>();
+    private int currentLevelEnemies;
 
     private void Start()
     {
+        int level = 1;
+        if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
+        {
+            level = SaveManager.Instance.playerStats.currentLevel;
+        }
+
+        currentLevelEnemies = baseEnemiesPerWave + ((level - 1) * 3);
+
         StartCoroutine(SpawnWaveRoutine());
     }
 
@@ -21,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            for (int i = 0; i < enemiesPerWave; i++)
+            for (int i = 0; i < currentLevelEnemies; i++) 
             {
                 yield return new WaitForSeconds(spawnInterval);
 
@@ -38,7 +47,7 @@ public class EnemySpawner : MonoBehaviour
 
             yield return new WaitUntil(() => AllEnemiesDead());
 
-            Debug.Log("Đã dọn sạch phòng! Sẵn sàng cho đợt tiếp theo...");
+            Debug.Log($"Đã dọn sạch đợt quái ({currentLevelEnemies} con)! Sẵn sàng cho đợt tiếp theo...");
             yield return new WaitForSeconds(timeBetweenWaves);
         }
     }
@@ -46,7 +55,6 @@ public class EnemySpawner : MonoBehaviour
     private bool AllEnemiesDead()
     {
         spawnedEnemies.RemoveAll(enemy => enemy == null);
-        
         return spawnedEnemies.Count == 0;
     }
 }

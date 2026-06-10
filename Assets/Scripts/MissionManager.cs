@@ -27,7 +27,7 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private int maxTypesCount = 5;
     [SerializeField] private int baseMaxAmount = 6;
     [SerializeField] private int amountIncreasePerGround = 2;
-    [SerializeField] private int groundStepToIncreaseType = 2;
+    [SerializeField] private int groundStepToIncreaseType = 3;
     public List<MissionRequirement> currentMission = new List<MissionRequirement>();
     private GameObject currentLevelPortal; 
 
@@ -38,7 +38,18 @@ public class MissionManager : MonoBehaviour
 
     private void Start()
     {
+        if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
+        {
+            currentGround = SaveManager.Instance.playerStats.currentLevel;
+        }
+        else
+        {
+            currentGround = 1;
+        }
+
         GenerateMissionForCurrentGround();
+        
+        Debug.Log("Đang ở Level: " + currentGround + " - Đã tăng độ khó Nhiệm vụ!");
     }
 
     public void RegisterPortal(GameObject portal)

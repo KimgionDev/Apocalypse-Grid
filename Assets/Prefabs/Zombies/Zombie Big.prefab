@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5150110445948083813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -153,6 +153,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b493f047f67a3b148988a5af74b33aff, type: 2}
   itemDropChance: 100
   lootLifetime: 10
+  currentDamage: 0
 --- !u!50 &177219652315690383
 Rigidbody2D:
   serializedVersion: 5

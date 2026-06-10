@@ -35,19 +35,17 @@ public class PortalController : MonoBehaviour
                 if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null && InventoryManager.Instance != null)
                 {
                     SaveManager.Instance.playerStats.totalGold += InventoryManager.Instance.gold;
-                    
                     SaveManager.Instance.playerStats.currentLevel++;
-
                     SaveManager.Instance.SaveGame();
-                    
-                    Debug.Log($"Đã lưu thành công! Chuyển {InventoryManager.Instance.gold} Vàng vào ví vĩnh viễn.");
-                }
-                else
-                {
-                    Debug.LogWarning("Thiếu hệ thống SaveManager hoặc InventoryManager để lưu trữ tiền!");
                 }
 
-                SceneManager.LoadScene(nextSceneName);
+                if (GameUIManager.Instance != null)
+                {
+                    GameUIManager.Instance.ShowResult(true);
+                    
+                    other.GetComponent<PlayerMovement>().enabled = false;
+                    other.GetComponent<PlayerShoot>().enabled = false;
+                }
             }
             else
             {
