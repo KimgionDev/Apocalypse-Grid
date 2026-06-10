@@ -4,33 +4,28 @@ using System.IO;
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance;
-
-    [Header("Dữ liệu cần lưu")]
-    public PlayerStatsSO playerStats; 
+    public PlayerStatsSO playerStats;
 
     private string saveFilePath;
 
     private void Awake()
     {
-        // Singleton pattern
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        Instance = this;
-        DontDestroyOnLoad(gameObject); 
 
-        // Thiết lập đường dẫn lưu file an toàn trên hệ điều hành cục bộ
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         saveFilePath = Application.persistentDataPath + "/savegame.json";
-        
         LoadGame();
     }
 
     public void SaveGame()
     {
         if (playerStats == null) return;
-        
+
         string json = JsonUtility.ToJson(playerStats, true);
 
         File.WriteAllText(saveFilePath, json);

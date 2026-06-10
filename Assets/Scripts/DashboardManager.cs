@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class DashboardManager : MonoBehaviour
 {
-    [Header("Dữ liệu Người chơi")] public PlayerStatsSO playerStats;
+    public PlayerStatsSO playerStats;
 
     [Header("Cụm Player Status (Góc phải trên)")]
     public TextMeshProUGUI txtCurrentGold;

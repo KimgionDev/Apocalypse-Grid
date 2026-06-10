@@ -43,13 +43,18 @@ public class PortalController : MonoBehaviour
                 {
                     GameUIManager.Instance.ShowResult(true);
                     
-                    other.GetComponent<PlayerMovement>().enabled = false;
-                    other.GetComponent<PlayerShoot>().enabled = false;
+                    PlayerMovement movement = other.GetComponent<PlayerMovement>();
+                    if (movement != null) 
+                    {
+                        movement.enabled = false;
+                    }
+
+                    PlayerShoot shoot = other.GetComponentInChildren<PlayerShoot>();
+                    if (shoot != null) 
+                    {
+                        shoot.enabled = false;
+                    }
                 }
-            }
-            else
-            {
-                Debug.Log("Cổng chưa mở, hãy làm xong nhiệm vụ!");
             }
         }
     }

@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager Instance;
+
     public GameObject resultPanel;
     public TextMeshProUGUI txtTitle;
     public TextMeshProUGUI txtMessage;
     public TextMeshProUGUI txtGold;
 
     private bool isWaitingToReturn = false;
+    private bool canSkipInput = false;
     private string nextScene = "DashboardScene";
 
     private void Awake()
@@ -22,7 +24,7 @@ public class GameUIManager : MonoBehaviour
 
     private void Update()
     {
-        if (isWaitingToReturn && Input.anyKeyDown)
+        if (isWaitingToReturn && canSkipInput && Input.anyKeyDown)
         {
             ReturnToDashboard();
         }
@@ -30,24 +32,33 @@ public class GameUIManager : MonoBehaviour
 
     public void ShowResult(bool isVictory)
     {
+        StartCoroutine(ShowResultRoutine(isVictory));
+    }
+
+    private IEnumerator ShowResultRoutine(bool isVictory)
+    {
+        yield return new WaitForSecondsRealtime(1.2f);
+
         if (resultPanel != null) resultPanel.SetActive(true);
         isWaitingToReturn = true;
+        canSkipInput = false;
+
 
         int earnedGold = InventoryManager.Instance != null ? InventoryManager.Instance.gold : 0;
         txtGold.text = "+ " + earnedGold + " Vàng";
 
         if (isVictory)
         {
-            txtTitle.text = "HOÀN THÀNH!";
+            txtTitle.text = "MISSION COMPLETE!";
             txtTitle.color = Color.green;
-            txtMessage.text = "Bạn đã sống sót và tìm được lối thoát.";
+            txtMessage.text = "You've survived the zombie horde! Prepare for the next challenge";
         }
         else
         {
-            txtTitle.text = "TỬ TRẬN!";
+            txtTitle.text = "DEFEATED!";
             txtTitle.color = Color.red;
-            txtMessage.text = "Bầy xác sống đã xé xác bạn...";
-            
+            txtMessage.text = "The zombies overwhelmed you this time. Don't give up, try again!";
+
             if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
             {
                 SaveManager.Instance.playerStats.totalGold += earnedGold;
@@ -55,14 +66,11 @@ public class GameUIManager : MonoBehaviour
             }
         }
 
-        StartCoroutine(AutoReturnRoutine());
-    }
+        yield return new WaitForSecondsRealtime(1.5f);
+        canSkipInput = true;
 
-    private IEnumerator AutoReturnRoutine()
-    {
-        yield return new WaitForSecondsRealtime(5f); 
-        
-        if (isWaitingToReturn)
+        yield return new WaitForSecondsRealtime(3.5f);
+
         {
             ReturnToDashboard();
         }
@@ -71,6 +79,7 @@ public class GameUIManager : MonoBehaviour
     private void ReturnToDashboard()
     {
         isWaitingToReturn = false;
+        canSkipInput = false;
         SceneManager.LoadScene(nextScene);
     }
 }
