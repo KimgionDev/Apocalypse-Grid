@@ -12,6 +12,7 @@ public class PlayerShoot : MonoBehaviour
     private int currentAmmo;
     private bool isReloading = false;
     private float nextFireTime = 0f;
+    private Coroutine reloadCoroutine;
 
     void Start()
     {
@@ -25,11 +26,25 @@ public class PlayerShoot : MonoBehaviour
 
     void Update()
     {
-        if (isReloading) return;
+        if (isReloading)
+        {
+            if (gunData.reloadOneByOne && currentAmmo > 0 && Input.GetMouseButton(0) && Time.time >= nextFireTime)
+            {
+                if (reloadCoroutine != null)
+                {
+                    StopCoroutine(reloadCoroutine);
+                }
+                isReloading = false;
+            }
+            else
+            {
+                return;
+            }
+        }
 
         if (currentAmmo <= 0 || (Input.GetKeyDown(KeyCode.R) && currentAmmo < gunData.magSize))
         {
-            StartCoroutine(ReloadRoutine());
+            reloadCoroutine = StartCoroutine(ReloadRoutine());
             return;
         }
 

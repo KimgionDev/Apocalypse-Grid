@@ -13,23 +13,22 @@ public class MissionManager : MonoBehaviour
 {
     public static MissionManager Instance;
 
-    [Header("Kho Dữ Liệu")]
-    public List<DropItemData> allItemsDatabase;
+    [Header("Kho Dữ Liệu")] public List<DropItemData> allItemsDatabase;
 
-    [Header("UI Nhiệm Vụ")]
-    public Transform missionUIContainer;
+    [Header("UI Nhiệm Vụ")] public Transform missionUIContainer;
     public GameObject missionSlotPrefab;
     public bool isMissionCompleted;
 
-    [Header("Tiến trình Ground")]
-    [SerializeField] private int currentGround = 1;
-    [SerializeField] private int baseTypesCount = 2;
+    [Header("Tiến trình Ground")] [SerializeField]
+    private int currentGround = 1;
+
+    [SerializeField] private int baseTypesCount = 1;
     [SerializeField] private int maxTypesCount = 5;
-    [SerializeField] private int baseMaxAmount = 6;
-    [SerializeField] private int amountIncreasePerGround = 2;
-    [SerializeField] private int groundStepToIncreaseType = 3;
+    [SerializeField] private int baseMaxAmount = 3;
+    [SerializeField] private int amountIncreasePerGround = 1;
+    [SerializeField] private int groundStepToIncreaseType = 1; // Nghĩa là sau ... ground sẽ tăng 1 loại
     public List<MissionRequirement> currentMission = new List<MissionRequirement>();
-    private GameObject currentLevelPortal; 
+    private GameObject currentLevelPortal;
 
     private void Awake()
     {
@@ -41,6 +40,7 @@ public class MissionManager : MonoBehaviour
         if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
         {
             currentGround = SaveManager.Instance.playerStats.currentLevel;
+            if (currentGround <= 0) currentGround = 1;
         }
         else
         {
@@ -48,8 +48,6 @@ public class MissionManager : MonoBehaviour
         }
 
         GenerateMissionForCurrentGround();
-        
-        Debug.Log("Đang ở Level: " + currentGround + " - Đã tăng độ khó Nhiệm vụ!");
     }
 
     public void RegisterPortal(GameObject portal)
@@ -170,16 +168,19 @@ public class MissionManager : MonoBehaviour
         }
 
         isMissionCompleted = true;
-        Debug.Log("ĐÃ NHẶT ĐỦ TẤT CẢ VẬT PHẨM! MỞ CỔNG!");
 
         if (currentLevelPortal != null)
         {
             currentLevelPortal.SetActive(true);
-            Debug.Log("Cổng đã xuất hiện thành công!");
+
+            if (GameUIManager.Instance != null)
+            {
+                GameUIManager.Instance.ShowNotification("CỔNG ĐÃ MỞ!\nHÃY QUAY LẠI CỔNG!");
+            }
         }
         else
         {
-            Debug.LogError("LỖI: MissionManager không tìm thấy currentLevelPortal! Không có gì để Active!");
+            Debug.LogError("LỖI: MissionManager không tìm thấy currentLevelPortal!");
         }
     }
 

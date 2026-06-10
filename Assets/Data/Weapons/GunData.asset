@@ -19,7 +19,7 @@ MonoBehaviour:
   bulletCount: 1
   spreadAngle: 6
   magSize: 30
-  reloadTime: 2.5
+  reloadTime: 2
   reloadOneByOne: 0
   bulletDamage: 10
   bulletLifeTime: 1.5

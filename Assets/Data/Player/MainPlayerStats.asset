@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a57f6492d0af048ab1dab12b6981fa, type: 3}
   m_Name: MainPlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatsSO
-  currentLevel: 0
-  totalGold: 0
+  currentLevel: 2
+  totalGold: 31
   maxHealth: 100
-  baseDamage: 2
-  moveSpeed: 5
+  baseDamage: 5
+  moveSpeed: 5.5

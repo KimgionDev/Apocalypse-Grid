@@ -33,8 +33,6 @@ public class InventoryManager : MonoBehaviour
                 missionItems[data.itemName] += 1;
             else
                 missionItems.Add(data.itemName, 1);
-
-            Debug.Log("Đã nhặt: " + data.itemName + ". Số lượng: " + missionItems[data.itemName]);
             
             if (MissionManager.Instance != null)
             {

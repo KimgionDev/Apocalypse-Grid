@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class PortalController : MonoBehaviour
 {
-    [SerializeField] private string nextSceneName = "DashboardScene";
     [SerializeField] private Animator portalAnimator; 
     
     private bool isOpen = false;

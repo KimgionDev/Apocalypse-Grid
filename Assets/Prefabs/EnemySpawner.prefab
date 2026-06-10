@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   spawnInterval: 2
-  maxEnemiesPerRoom: 2
-  spawnRadius: 3
+  baseEnemiesPerWave: 5
+  timeBetweenWaves: 5
+  spawnRadius: 2
   enemyPrefabs:
   - {fileID: 5042243327083189171, guid: 3c93005328a850b41b9ddb1c57e2094e, type: 3}
   - {fileID: 5150110445948083813, guid: f71f368b7f77c4f4b91fad4d29d423b6, type: 3}
