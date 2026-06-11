@@ -6,18 +6,16 @@ using UnityEngine.SceneManagement;
 public class GameUIManager : MonoBehaviour
 {
     public static GameUIManager Instance;
-
-    [Header("Giao diện Kết quả")] public GameObject resultPanel;
+    public GameObject resultPanel;
     public TextMeshProUGUI txtTitle;
     public TextMeshProUGUI txtMessage;
     public TextMeshProUGUI txtGold;
-
-    [Header("Giao diện Thông Báo (Popup)")]
     public GameObject notificationPanel;
-
+    public GameObject pausePanel;
     public TextMeshProUGUI txtNotification;
-    private Coroutine notificationCoroutine;
 
+    private Coroutine notificationCoroutine;
+    private bool isPaused = false;
     private bool isWaitingToReturn = false;
     private bool canSkipInput = false;
     private string nextScene = "DashboardScene";
@@ -94,10 +92,41 @@ public class GameUIManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape) && !isWaitingToReturn)
+        {
+            TogglePause();
+        }
+
         if (isWaitingToReturn && canSkipInput && Input.anyKeyDown)
         {
             ReturnToDashboard();
         }
+    }
+
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            if (pausePanel != null) pausePanel.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            if (pausePanel != null) pausePanel.SetActive(false);
+        }
+    }
+
+    public void ResumeGame()
+    {
+        if (isPaused) TogglePause();
+    }
+
+    public void QuitToDashboard()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(nextScene);
     }
 
     public void ShowResult(bool isVictory)
