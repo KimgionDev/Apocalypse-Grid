@@ -10,18 +10,18 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField] private int dungeonWidth = 20, dungeonHeight = 20;
     [SerializeField] [Range(0, 10)] private int offset = 1;
     [SerializeField] private bool randomWalkRooms = false;
-    
+
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private CinemachineCamera vcam;
     [SerializeField] private GameObject hiddenPortalPrefab;
     [SerializeField] private GameObject enemySpawnerPrefab;
     [SerializeField] private List<ItemData> dungeonDecorations;
-    
+
     private void Start()
     {
         GenerateDungeon();
     }
-    
+
     protected override void RunProceduralGeneration()
     {
         CreateRooms();
@@ -59,7 +59,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         PopulateDungeon(roomList, roomsDictionary, corridors);
     }
 
-    private void PopulateDungeon(List<BoundsInt> roomList, Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary, HashSet<Vector2Int> corridors)
+    private void PopulateDungeon(List<BoundsInt> roomList, Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary,
+        HashSet<Vector2Int> corridors)
     {
         GameObject oldEntities = GameObject.Find("Entities");
         if (oldEntities != null) Destroy(oldEntities);
@@ -80,28 +81,30 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
             if (currentRoomCenter == startRoomCenter)
             {
-                GameObject playerInstance = Instantiate(playerPrefab, centerWorldPos, Quaternion.identity, entityGroup);                
+                GameObject playerInstance = Instantiate(playerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
                 if (vcam != null)
                 {
-                    vcam.Follow = playerInstance.transform; 
+                    vcam.Follow = playerInstance.transform;
                 }
             }
             else if (currentRoomCenter == finalRoomCenter)
             {
                 GameObject portal = Instantiate(hiddenPortalPrefab, centerWorldPos, Quaternion.identity, entityGroup);
                 MissionManager.Instance.RegisterPortal(portal);
-                Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
+                GameObject spawner = Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
+                spawner.GetComponent<EnemySpawner>().InitializeSpawner(room.Value);
             }
             else
             {
-                Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
+                GameObject spawner = Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
+                spawner.GetComponent<EnemySpawner>().InitializeSpawner(room.Value);
             }
-            
+
             ItemPlacementHelper placementHelper = new ItemPlacementHelper(room.Value, corridors);
             SpawnStaticDecorations(dungeonDecorations, placementHelper, propGroup);
         }
     }
-    
+
     private void SpawnStaticDecorations(List<ItemData> items, ItemPlacementHelper helper, Transform parent)
     {
         foreach (var itemData in items)
@@ -112,7 +115,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             {
                 if (helper.TryPlaceItem(itemData, out Vector2Int placedPos))
                 {
-                    Vector3 spawnPosition = new Vector3(placedPos.x + 0.5f, placedPos.y + 0.5f, 0); 
+                    Vector3 spawnPosition = new Vector3(placedPos.x + 0.5f, placedPos.y + 0.5f, 0);
                     Instantiate(itemData.prefab, spawnPosition, Quaternion.identity, parent);
                 }
                 else
@@ -122,7 +125,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             }
         }
     }
-    
+
     private HashSet<Vector2Int> CreateRandomRooms(List<BoundsInt> roomList,
         Dictionary<Vector2Int, HashSet<Vector2Int>> roomsDictionary)
     {
@@ -243,7 +246,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
         foreach (var room in roomList)
         {
-            HashSet<Vector2Int> roomFloor = new HashSet<Vector2Int>(); 
+            HashSet<Vector2Int> roomFloor = new HashSet<Vector2Int>();
             Vector2Int roomCenter = (Vector2Int)Vector3Int.RoundToInt(room.center);
             for (int col = offset; col < room.size.x - offset; col++)
             {
