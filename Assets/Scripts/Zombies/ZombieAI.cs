@@ -17,6 +17,12 @@ public class ZombieAI : MonoBehaviour
     [Range(0, 100)] public float itemDropChance = 40f;
     public float lootLifetime = 10f;
 
+    [Header("Hit Effect (Shader)")]
+    public float blinkDecaySpeed = 10f;
+    private SpriteRenderer[] renderers;
+    private MaterialPropertyBlock propertyBlock;
+    private float blinkFactor = 0f;
+
     private float currentMaxHealth;
     [HideInInspector] public float currentDamage;
     private float currentMoveSpeed;
@@ -53,10 +59,22 @@ public class ZombieAI : MonoBehaviour
         {
             target = playerObject.transform;
         }
+
+        renderers = GetComponentsInChildren<SpriteRenderer>();
+        propertyBlock = new MaterialPropertyBlock();
+        blinkFactor = 0f;
+        ApplyBlinkFactor();
     }
 
     private void Update()
     {
+        if (blinkFactor > 0f)
+        {
+            blinkFactor = Mathf.Lerp(blinkFactor, 0f, Time.deltaTime * blinkDecaySpeed);
+            if (blinkFactor < 0.01f) blinkFactor = 0f;
+            ApplyBlinkFactor();
+        }
+
         if (isDead || target == null) return;
 
         float distance = Vector2.Distance(rb.position, target.position);
@@ -80,6 +98,16 @@ public class ZombieAI : MonoBehaviour
             nextAttackTime = Time.time + (1f / attackRate);
         }
     }
+    
+    private void ApplyBlinkFactor()
+    {
+        foreach (var renderer in renderers)
+        {
+            renderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetFloat("_BlinkFactor", blinkFactor); 
+            renderer.SetPropertyBlock(propertyBlock);
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -89,7 +117,7 @@ public class ZombieAI : MonoBehaviour
             return;
         }
 
-        rb.linearVelocity = isWalking ? direction * data.moveSpeed : Vector2.zero;
+        rb.linearVelocity = isWalking ? direction * currentMoveSpeed : Vector2.zero;
     }
 
     public void TakeDamage(float damage)
@@ -97,6 +125,10 @@ public class ZombieAI : MonoBehaviour
         if (isDead) return;
 
         currentHealth -= damage;
+        
+        blinkFactor = 1f;
+        ApplyBlinkFactor();
+
         if (currentHealth <= 0f)
         {
             Die();
@@ -108,7 +140,7 @@ public class ZombieAI : MonoBehaviour
         PlayerHealth playerHealth = target.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage(data.damage);
+            playerHealth.TakeDamage(currentDamage);
             if (animator != null) animator.SetTrigger("Attack");
         }
     }
@@ -148,7 +180,7 @@ public class ZombieAI : MonoBehaviour
         }
     }
 
-    private void SpawnItem(DropItemData data, Vector2 spawnPos)
+    private void SpawnItem(DropItemData itemData, Vector2 spawnPos)
     {
         if (lootPrefab == null) return;
 
@@ -156,7 +188,7 @@ public class ZombieAI : MonoBehaviour
         WorldItem wItem = drop.GetComponent<WorldItem>();
         if (wItem != null)
         {
-            wItem.SetupItem(data);
+            wItem.SetupItem(itemData);
         }
 
         Destroy(drop, lootLifetime);
