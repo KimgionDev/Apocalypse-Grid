@@ -24,6 +24,10 @@ public class WorldItem : MonoBehaviour
         if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.AddItem(data);
+            if (data.pickupSound != null && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(data.pickupSound);
+            }
         }
         else
         {

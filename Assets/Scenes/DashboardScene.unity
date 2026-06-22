@@ -542,6 +542,7 @@ GameObject:
   - component: {fileID: 147688618}
   - component: {fileID: 147688617}
   - component: {fileID: 147688619}
+  - component: {fileID: 147688620}
   m_Layer: 5
   m_Name: HealthCard
   m_TagString: Untagged
@@ -666,6 +667,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &147688620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147688615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6281ce115e5f5134883eeae618f7df89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonAudio
+  hoverSound: {fileID: 8300000, guid: 7f284a9543ef80141a55ca2dc2800e6a, type: 3}
+  clickSound: {fileID: 8300000, guid: dc6bc5200b389554da7ffe2b6f8569c3, type: 3}
+  errorSound: {fileID: 8300000, guid: a76afbd1edb03e6488cbf9d0e62fe2de, type: 3}
 --- !u!1 &244690562
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,6 +694,7 @@ GameObject:
   - component: {fileID: 244690566}
   - component: {fileID: 244690565}
   - component: {fileID: 244690564}
+  - component: {fileID: 244690567}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -799,6 +816,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244690562}
   m_CullTransparentMesh: 1
+--- !u!114 &244690567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244690562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6281ce115e5f5134883eeae618f7df89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonAudio
+  hoverSound: {fileID: 8300000, guid: 7f284a9543ef80141a55ca2dc2800e6a, type: 3}
+  clickSound: {fileID: 8300000, guid: 6e33ddb37488d2d4192b1d657d3ee8e6, type: 3}
+  errorSound: {fileID: 0}
 --- !u!1 &259871210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,6 +1119,7 @@ GameObject:
   - component: {fileID: 456525668}
   - component: {fileID: 456525667}
   - component: {fileID: 456525666}
+  - component: {fileID: 456525669}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -1208,6 +1241,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456525664}
   m_CullTransparentMesh: 1
+--- !u!114 &456525669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456525664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6281ce115e5f5134883eeae618f7df89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonAudio
+  hoverSound: {fileID: 8300000, guid: 7f284a9543ef80141a55ca2dc2800e6a, type: 3}
+  clickSound: {fileID: 8300000, guid: 6e33ddb37488d2d4192b1d657d3ee8e6, type: 3}
+  errorSound: {fileID: 0}
 --- !u!1 &532507601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,6 +1405,7 @@ GameObject:
   - component: {fileID: 602638300}
   - component: {fileID: 602638299}
   - component: {fileID: 602638301}
+  - component: {fileID: 602638302}
   m_Layer: 5
   m_Name: DameCard
   m_TagString: Untagged
@@ -1481,6 +1530,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &602638302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602638297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6281ce115e5f5134883eeae618f7df89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonAudio
+  hoverSound: {fileID: 8300000, guid: 7f284a9543ef80141a55ca2dc2800e6a, type: 3}
+  clickSound: {fileID: 8300000, guid: dc6bc5200b389554da7ffe2b6f8569c3, type: 3}
+  errorSound: {fileID: 8300000, guid: a76afbd1edb03e6488cbf9d0e62fe2de, type: 3}
 --- !u!1 &668995061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1709,6 +1773,7 @@ GameObject:
   - component: {fileID: 730842861}
   - component: {fileID: 730842860}
   - component: {fileID: 730842862}
+  - component: {fileID: 730842863}
   m_Layer: 5
   m_Name: SpeedCard
   m_TagString: Untagged
@@ -1833,6 +1898,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &730842863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730842858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6281ce115e5f5134883eeae618f7df89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonAudio
+  hoverSound: {fileID: 8300000, guid: 7f284a9543ef80141a55ca2dc2800e6a, type: 3}
+  clickSound: {fileID: 8300000, guid: dc6bc5200b389554da7ffe2b6f8569c3, type: 3}
+  errorSound: {fileID: 8300000, guid: a76afbd1edb03e6488cbf9d0e62fe2de, type: 3}
 --- !u!1 &775723640
 GameObject:
   m_ObjectHideFlags: 0

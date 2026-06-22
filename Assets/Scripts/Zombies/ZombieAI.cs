@@ -9,16 +9,14 @@ public class ZombieAI : MonoBehaviour
     public float stopDistance = 1.2f;
     public float attackRate = 1f;
 
-    [Header("Loot Settings")]
-    public GameObject lootPrefab;
+    [Header("Loot Settings")] public GameObject lootPrefab;
     public DropItemData goldData;
     [Range(0, 100)] public float goldDropChance = 80f;
     public List<DropItemData> itemPool;
     [Range(0, 100)] public float itemDropChance = 40f;
     public float lootLifetime = 10f;
 
-    [Header("Hit Effect (Shader)")]
-    public float blinkDecaySpeed = 10f;
+    [Header("Hit Effect (Shader)")] public float blinkDecaySpeed = 10f;
     private SpriteRenderer[] renderers;
     private MaterialPropertyBlock propertyBlock;
     private float blinkFactor = 0f;
@@ -34,6 +32,8 @@ public class ZombieAI : MonoBehaviour
     private Vector2 direction;
     private bool isWalking;
     private float nextAttackTime = 0f;
+    private float nextGrowlTime = 0f;
+    private static float globalNextGrowlTime = 0f;
 
     private void Start()
     {
@@ -45,14 +45,14 @@ public class ZombieAI : MonoBehaviour
             currentLevel = SaveManager.Instance.playerStats.currentLevel;
         }
 
-        float statMultiplier = 1f + ((currentLevel - 1) * 0.20f); 
+        float statMultiplier = 1f + ((currentLevel - 1) * 0.20f);
         float speedMultiplier = 1f + ((currentLevel - 1) * 0.05f);
 
         currentMaxHealth = data.maxHealth * statMultiplier;
         currentDamage = data.damage * statMultiplier;
         currentMoveSpeed = data.moveSpeed * speedMultiplier;
 
-        currentHealth = currentMaxHealth; 
+        currentHealth = currentMaxHealth;
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
@@ -64,6 +64,7 @@ public class ZombieAI : MonoBehaviour
         propertyBlock = new MaterialPropertyBlock();
         blinkFactor = 0f;
         ApplyBlinkFactor();
+        nextGrowlTime = Time.time + Random.Range(2f, 5f);
     }
 
     private void Update()
@@ -92,19 +93,26 @@ public class ZombieAI : MonoBehaviour
             }
         }
 
+        if (isWalking && distance <= 10f && Time.time >= nextGrowlTime && Time.time >= globalNextGrowlTime && data.growlSound != null)
+        {
+            AudioManager.Instance.PlaySFX(data.growlSound);
+            nextGrowlTime = Time.time + Random.Range(12f, 20f); 
+            globalNextGrowlTime = Time.time + Random.Range(3f, 5f); 
+        }
+
         if (!isWalking && Time.time >= nextAttackTime)
         {
             AttackPlayer();
             nextAttackTime = Time.time + (1f / attackRate);
         }
     }
-    
+
     private void ApplyBlinkFactor()
     {
         foreach (var renderer in renderers)
         {
             renderer.GetPropertyBlock(propertyBlock);
-            propertyBlock.SetFloat("_BlinkFactor", blinkFactor); 
+            propertyBlock.SetFloat("_BlinkFactor", blinkFactor);
             renderer.SetPropertyBlock(propertyBlock);
         }
     }
@@ -125,9 +133,14 @@ public class ZombieAI : MonoBehaviour
         if (isDead) return;
 
         currentHealth -= damage;
-        
+
         blinkFactor = 1f;
         ApplyBlinkFactor();
+
+        if (data.takeDamageSound != null)
+        {
+            AudioManager.Instance.PlaySFX(data.takeDamageSound);
+        }
 
         if (currentHealth <= 0f)
         {
@@ -143,6 +156,11 @@ public class ZombieAI : MonoBehaviour
             playerHealth.TakeDamage(currentDamage);
             if (animator != null) animator.SetTrigger("Attack");
         }
+
+        if (data.attackSound != null)
+        {
+            AudioManager.Instance.PlaySFX(data.attackSound);
+        }
     }
 
     public void Die()
@@ -156,6 +174,12 @@ public class ZombieAI : MonoBehaviour
         if (col != null) col.enabled = false;
 
         if (animator != null) animator.SetTrigger("Die");
+
+        if (data.deathSound != null)
+        {
+            AudioManager.Instance.PlaySFX(data.deathSound);
+        }
+
         DropLoot();
         Destroy(gameObject, 1f);
     }

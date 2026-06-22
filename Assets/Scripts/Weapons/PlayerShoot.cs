@@ -4,10 +4,11 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     public PlayerStatsSO playerStats;
-
     public GunData gunData;
     public Transform firePoint;
     public Animator animator;
+    public AudioClip shootSound;
+    public AudioClip reloadSound;
 
     private int currentAmmo;
     private bool isReloading = false;
@@ -79,6 +80,11 @@ public class PlayerShoot : MonoBehaviour
             
             bullet.GetComponent<Bullet>().Setup(totalDamage, gunData.bulletLifeTime);
         }
+        
+        if (shootSound != null)
+        {
+            AudioManager.Instance.PlaySFX(shootSound);
+        }
     }
 
     IEnumerator ReloadRoutine()
@@ -98,6 +104,9 @@ public class PlayerShoot : MonoBehaviour
             for (int i = 0; i < ammoNeeded; i++)
             {
                 if (animator != null) animator.SetTrigger("Reload");
+                
+                if (reloadSound != null) AudioManager.Instance.PlaySFX(reloadSound);
+                
                 yield return new WaitForSeconds(gunData.reloadTime);
                 currentAmmo++;
             }
@@ -105,6 +114,9 @@ public class PlayerShoot : MonoBehaviour
         else
         {
             if (animator != null) animator.SetTrigger("Reload");
+            
+            if (reloadSound != null) AudioManager.Instance.PlaySFX(reloadSound);
+            
             yield return new WaitForSeconds(gunData.reloadTime);
             currentAmmo = gunData.magSize;
         }

@@ -9,8 +9,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 inputDirection;
-
     [SerializeField] private Animator bodyAnimator;
+    
+    public AudioClip footstepSound;
+    public float footstepDelay = 0.35f;
+    private float nextFootstepTime = 0f;
 
     private void Awake()
     {
@@ -40,9 +43,18 @@ public class PlayerMovement : MonoBehaviour
 
         inputDirection = new Vector2(moveX, moveY).normalized;
 
-        if(bodyAnimator != null)
+        if (bodyAnimator != null)
         {
             bodyAnimator.SetFloat("Speed", inputDirection.magnitude);
+        }
+
+        if (inputDirection.magnitude > 0f)
+        {
+            if (Time.time >= nextFootstepTime && footstepSound != null && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(footstepSound);
+                nextFootstepTime = Time.time + footstepDelay;
+            }
         }
     }
 

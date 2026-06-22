@@ -16,3 +16,7 @@ MonoBehaviour:
   maxHealth: 20
   moveSpeed: 4
   damage: 2
+  growlSound: {fileID: 8300000, guid: 05f860bb66f844d89908829a80c6fe13, type: 3}
+  takeDamageSound: {fileID: 8300000, guid: a876179e000ff4ff09b30761b1a88595, type: 3}
+  attackSound: {fileID: 8300000, guid: 0f4df8bc62d9e4512ba322688123d96a, type: 3}
+  deathSound: {fileID: 8300000, guid: d8285c976a26141b7b956c30552425bb, type: 3}

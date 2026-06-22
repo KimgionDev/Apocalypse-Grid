@@ -397,6 +397,8 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 7ef986ac94d032a449a391f4e4c080db, type: 2}
   firePoint: {fileID: 7861642897009248412}
   animator: {fileID: 1027648886252571078}
+  shootSound: {fileID: 8300000, guid: 74079e3b043b8a549a28e1350566b7e0, type: 3}
+  reloadSound: {fileID: 8300000, guid: 406c929b7299afb469c82778f8d15d5b, type: 3}
 --- !u!1 &6409573472346491493
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,6 +479,8 @@ MonoBehaviour:
   playerStats: {fileID: 11400000, guid: 79864ec58900b8d43969ed78f473cb34, type: 2}
   moveSpeed: 5
   bodyAnimator: {fileID: 7830463285451357025}
+  footstepSound: {fileID: 8300000, guid: 8503c42970d2247a89300b4be374668c, type: 3}
+  footstepDelay: 0.35
 --- !u!70 &619281134085106673
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -683,6 +687,8 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: 822b8950862eb424284e2c27076f33af, type: 2}
   firePoint: {fileID: 9214601918623393686}
   animator: {fileID: 2327415962544372612}
+  shootSound: {fileID: 8300000, guid: 30114844b380b88418785402b1e582c0, type: 3}
+  reloadSound: {fileID: 8300000, guid: 406c929b7299afb469c82778f8d15d5b, type: 3}
 --- !u!1 &7763522169942318900
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,6 +821,8 @@ MonoBehaviour:
   gunData: {fileID: 11400000, guid: c8f8b26e135049f4ba1d1fd5a4f11465, type: 2}
   firePoint: {fileID: 8473360594078675782}
   animator: {fileID: 4480866290090820652}
+  shootSound: {fileID: 8300000, guid: b7c83d02d034c2b4c9fd14359cb69164, type: 3}
+  reloadSound: {fileID: 8300000, guid: af63539a5e39c99489395bdea2471f60, type: 3}
 --- !u!1 &7783048915278203848
 GameObject:
   m_ObjectHideFlags: 0

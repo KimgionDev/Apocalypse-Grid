@@ -7,4 +7,5 @@ public class DropItemData : ScriptableObject
     public Sprite icon;
     public int value;
     public bool isGold;
+    public AudioClip pickupSound;
 }

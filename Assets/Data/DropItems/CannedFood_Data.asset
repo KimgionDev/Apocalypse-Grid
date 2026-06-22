@@ -16,3 +16,4 @@ MonoBehaviour:
   icon: {fileID: 2493030267779117134, guid: 80e0fa467c24df743b65f6584cfe85c1, type: 3}
   value: 0
   isGold: 0
+  pickupSound: {fileID: 8300000, guid: cad11a4481c77fe4aabeb5563cb0bd6c, type: 3}
