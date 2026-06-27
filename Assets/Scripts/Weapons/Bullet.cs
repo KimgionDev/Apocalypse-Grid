@@ -5,7 +5,7 @@
 public class Bullet : MonoBehaviour
 {
     private float damage;
-
+    
     public GameObject bloodEffectPrefab;
 
     public void Setup(float setDamage, float setLifeTime)
@@ -17,9 +17,9 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        if (!hitInfo.CompareTag("Player") && !hitInfo.CompareTag("Bullet") && !hitInfo.CompareTag("Item"))
+        if (!hitInfo.CompareTag(Tags.Player) && !hitInfo.CompareTag(Tags.Bullet) && !hitInfo.CompareTag(Tags.Item))
         {
-            if (hitInfo.CompareTag("Wall")) 
+            if (hitInfo.CompareTag(Tags.Wall)) 
             {
                 Destroy(gameObject);
                 return;

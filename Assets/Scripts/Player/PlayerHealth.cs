@@ -62,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
         if (isDead) return;
         isDead = true;
         
-        if (animator != null) animator.SetTrigger("Die"); 
+        if (animator != null) animator.SetTrigger(AnimParams.Die); 
         
         if (GameUIManager.Instance != null)
         {

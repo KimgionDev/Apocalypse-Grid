@@ -19,7 +19,7 @@ public class PlayerShoot : MonoBehaviour
     {
         currentAmmo = gunData.magSize;
     }
-    
+
     private void OnDisable()
     {
         isReloading = false;
@@ -35,6 +35,7 @@ public class PlayerShoot : MonoBehaviour
                 {
                     StopCoroutine(reloadCoroutine);
                 }
+
                 isReloading = false;
             }
             else
@@ -69,7 +70,7 @@ public class PlayerShoot : MonoBehaviour
         float totalDamage = gunData.bulletDamage;
         if (playerStats != null)
         {
-            totalDamage += playerStats.baseDamage; 
+            totalDamage += playerStats.baseDamage;
         }
 
         for (int i = 0; i < gunData.bulletCount; i++)
@@ -77,11 +78,14 @@ public class PlayerShoot : MonoBehaviour
             float randomSpread = Random.Range(-gunData.spreadAngle, gunData.spreadAngle);
             Quaternion bulletRotation = firePoint.rotation * Quaternion.Euler(0, 0, randomSpread);
             GameObject bullet = Instantiate(gunData.bulletPrefab, firePoint.position, bulletRotation);
-            
-            bullet.GetComponent<Bullet>().Setup(totalDamage, gunData.bulletLifeTime);
+
+            if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
+            {
+                bulletScript.Setup(totalDamage, gunData.bulletLifeTime);
+            }
         }
-        
-        if (shootSound != null)
+
+        if (shootSound != null && AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySFX(shootSound);
         }
@@ -90,12 +94,12 @@ public class PlayerShoot : MonoBehaviour
     IEnumerator ReloadRoutine()
     {
         isReloading = true;
-        float baseClipLength = 1f;  
-        float calculatedSpeed = baseClipLength / gunData.reloadTime;    
+        float baseClipLength = 1f;
+        float calculatedSpeed = baseClipLength / gunData.reloadTime;
 
         if (animator != null)
         {
-            animator.SetFloat("ReloadSpeed", calculatedSpeed);
+            animator.SetFloat(AnimParams.ReloadSpeed, calculatedSpeed);
         }
 
         if (gunData.reloadOneByOne)
@@ -103,20 +107,18 @@ public class PlayerShoot : MonoBehaviour
             int ammoNeeded = gunData.magSize - currentAmmo;
             for (int i = 0; i < ammoNeeded; i++)
             {
-                if (animator != null) animator.SetTrigger("Reload");
-                
-                if (reloadSound != null) AudioManager.Instance.PlaySFX(reloadSound);
-                
+                if (animator != null) animator.SetTrigger(AnimParams.Reload);
+                if (reloadSound != null && AudioManager.Instance != null) AudioManager.Instance.PlaySFX(reloadSound);
+
                 yield return new WaitForSeconds(gunData.reloadTime);
                 currentAmmo++;
             }
         }
         else
         {
-            if (animator != null) animator.SetTrigger("Reload");
-            
-            if (reloadSound != null) AudioManager.Instance.PlaySFX(reloadSound);
-            
+            if (animator != null) animator.SetTrigger(AnimParams.Reload);
+            if (reloadSound != null && AudioManager.Instance != null) AudioManager.Instance.PlaySFX(reloadSound);
+
             yield return new WaitForSeconds(gunData.reloadTime);
             currentAmmo = gunData.magSize;
         }

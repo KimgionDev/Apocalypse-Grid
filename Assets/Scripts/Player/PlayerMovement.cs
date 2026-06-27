@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (bodyAnimator != null)
         {
-            bodyAnimator.SetFloat("Speed", inputDirection.magnitude);
+            bodyAnimator.SetFloat(AnimParams.Speed, inputDirection.magnitude);
         }
 
         if (inputDirection.magnitude > 0f)

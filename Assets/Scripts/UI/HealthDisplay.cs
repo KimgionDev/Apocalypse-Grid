@@ -3,25 +3,41 @@ using UnityEngine.UI;
 
 public class HealthDisplay : MonoBehaviour
 {
-    private PlayerHealth playerHealth;
     public Image healthFill;
+    
+    private PlayerHealth playerHealth;
+    private float lastFillAmount = -1f;
+
+    void Start()
+    {
+        FindPlayer();
+    }
 
     void Update()
     {
         if (playerHealth == null)
         {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            
-            if (playerObj != null)
-            {
-                playerHealth = playerObj.GetComponent<PlayerHealth>();
-            }
+            FindPlayer();
+            return;
         }
 
-        if (playerHealth != null && healthFill != null)
+        if (healthFill != null)
         {
             float fillAmount = playerHealth.currentHealth / playerHealth.maxHealth;
-            healthFill.fillAmount = fillAmount;
+            if (fillAmount != lastFillAmount)
+            {
+                healthFill.fillAmount = fillAmount;
+                lastFillAmount = fillAmount;
+            }
+        }
+    }
+
+    private void FindPlayer()
+    {
+        Transform playerObj = PlayerMovement.InstanceTransform;
+        if (playerObj != null)
+        {
+            playerHealth = playerObj.GetComponent<PlayerHealth>();
         }
     }
 }

@@ -30,12 +30,11 @@ public class ZombieAI : MonoBehaviour
     private float nextGrowlTime = 0f;
     private static float globalNextGrowlTime = 0f;
     private FlashEffect flashEffect;
-
-    private static readonly int IsWalkingHash = Animator.StringToHash("IsWalking");
-    private static readonly int DirXHash = Animator.StringToHash("DirX");
-    private static readonly int DirYHash = Animator.StringToHash("DirY");
-    private static readonly int AttackHash = Animator.StringToHash("Attack");
-    private static readonly int DieHash = Animator.StringToHash("Die");
+    private static readonly int IsWalkingHash = AnimParams.IsWalking;
+    private static readonly int DirXHash = AnimParams.DirX;
+    private static readonly int DirYHash = AnimParams.DirY;
+    private static readonly int AttackHash = AnimParams.Attack;
+    private static readonly int DieHash = AnimParams.Die;
 
     private void Awake()
     {
