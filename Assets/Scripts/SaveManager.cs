@@ -19,7 +19,19 @@ public class SaveManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         saveFilePath = Application.persistentDataPath + "/savegame.json";
+        ResetSOToDefault();
         LoadGame();
+    }
+
+    private void ResetSOToDefault()
+    {
+        if (playerStats != null)
+        {
+            playerStats.currentLevel = 1;
+            playerStats.totalGold = 0;
+            playerStats.maxHealth = 100f;
+            playerStats.moveSpeed = 5f;
+        }
     }
 
     public void SaveGame()
@@ -37,22 +49,23 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(saveFilePath))
         {
             string json = File.ReadAllText(saveFilePath);
-
             JsonUtility.FromJsonOverwrite(json, playerStats);
             Debug.Log("Đã tải dữ liệu game thành công!");
         }
         else
         {
-            Debug.LogWarning("Không tìm thấy file save, sẽ tạo mới khi lưu.");
+            Debug.LogWarning("Không tìm thấy file save, giữ nguyên thông số mặc định Level 1.");
+            SaveGame();
         }
     }
-    
-    public  static int GetCurrentLevel()
+
+    public static int GetCurrentLevel()
     {
         if (Instance != null && Instance.playerStats != null)
         {
             return Mathf.Max(1, Instance.playerStats.currentLevel);
         }
+
         return 1;
     }
 }
