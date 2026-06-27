@@ -10,7 +10,6 @@ public class HealthDisplay : MonoBehaviour
     {
         if (playerHealth == null)
         {
-            // Tìm Object có gắn Tag là "Player"
             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
             
             if (playerObj != null)

@@ -4,21 +4,20 @@ using System.Collections;
 public class PlayerHealth : MonoBehaviour
 {
     public PlayerStatsSO playerStats;
-
     public float maxHealth = 100f;
     public float currentHealth;
     private bool isDead;
     public Animator animator;
-
-    [Header("Hiệu ứng Flash Shader")]
-    public float blinkDecaySpeed = 10f;
-    private SpriteRenderer[] renderers;
-    private MaterialPropertyBlock propertyBlock;
-    private float blinkFactor = 0f;
-
+    
     [Header("Cơ chế Bất tử (I-Frames)")]
     public float invulnerabilityTime = 0.5f;
     private bool isInvulnerable = false;
+    private FlashEffect flashEffect; 
+
+    private void Awake()
+    {
+        flashEffect = GetComponent<FlashEffect>();
+    }
 
     private void Start()
     {
@@ -28,35 +27,6 @@ public class PlayerHealth : MonoBehaviour
         }
 
         currentHealth = maxHealth;
-
-        renderers = GetComponentsInChildren<SpriteRenderer>();
-        propertyBlock = new MaterialPropertyBlock();
-        
-        blinkFactor = 0f;
-        ApplyBlinkFactor();
-    }
-
-    private void Update()
-    {
-        if (blinkFactor > 0f)
-        {
-            blinkFactor = Mathf.Lerp(blinkFactor, 0f, Time.deltaTime * blinkDecaySpeed);
-            if (blinkFactor < 0.01f)
-            {
-                blinkFactor = 0f;
-            }
-            ApplyBlinkFactor();
-        }
-    }
-
-    private void ApplyBlinkFactor()
-    {
-        foreach (var renderer in renderers)
-        {
-            renderer.GetPropertyBlock(propertyBlock);
-            propertyBlock.SetFloat("_BlinkFactor", blinkFactor);
-            renderer.SetPropertyBlock(propertyBlock);
-        }
     }
 
     public void TakeDamage(float damage)
@@ -71,8 +41,11 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            blinkFactor = 1f;
-            ApplyBlinkFactor();
+            if (flashEffect != null)
+            {
+                flashEffect.TriggerFlash();
+            }
+            
             StartCoroutine(InvulnerabilityRoutine());
         }
     }
@@ -89,7 +62,6 @@ public class PlayerHealth : MonoBehaviour
         if (isDead) return;
         isDead = true;
         
-        // Đoạn này của bạn gọi Animation siêu chuẩn
         if (animator != null) animator.SetTrigger("Die"); 
         
         if (GameUIManager.Instance != null)

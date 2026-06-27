@@ -26,7 +26,7 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private int maxTypesCount = 5;
     [SerializeField] private int baseMaxAmount = 3;
     [SerializeField] private int amountIncreasePerGround = 1;
-    [SerializeField] private int groundStepToIncreaseType = 1; // Nghĩa là sau ... ground sẽ tăng 1 loại
+    [SerializeField] private int groundStepToIncreaseType = 1; 
     public List<MissionRequirement> currentMission = new List<MissionRequirement>();
     private GameObject currentLevelPortal;
 
@@ -37,16 +37,7 @@ public class MissionManager : MonoBehaviour
 
     private void Start()
     {
-        if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
-        {
-            currentGround = SaveManager.Instance.playerStats.currentLevel;
-            if (currentGround <= 0) currentGround = 1;
-        }
-        else
-        {
-            currentGround = 1;
-        }
-
+        currentGround = SaveManager.GetCurrentLevel();
         GenerateMissionForCurrentGround();
     }
 
@@ -150,8 +141,8 @@ public class MissionManager : MonoBehaviour
         foreach (MissionRequirement req in currentMission)
         {
             GameObject slot = Instantiate(missionSlotPrefab, missionUIContainer);
-            MissionSlotUI slotUI = slot.GetComponent<MissionSlotUI>();
-            if (slotUI != null && req.item != null)
+            
+            if (slot.TryGetComponent<MissionSlotUI>(out MissionSlotUI slotUI) && req.item != null)
             {
                 slotUI.Setup(req.item.icon, req.current, req.target);
             }
@@ -175,7 +166,7 @@ public class MissionManager : MonoBehaviour
 
             if (GameUIManager.Instance != null)
             {
-                GameUIManager.Instance.ShowNotification("CỔNG ĐÃ MỞ!\nHÃY QUAY LẠI CỔNG!");
+                GameUIManager.Instance.ShowNotification("PORTAL UNLOCKED!\nESCAPE NOW!");
             }
         }
         else

@@ -46,4 +46,13 @@ public class SaveManager : MonoBehaviour
             Debug.LogWarning("Không tìm thấy file save, sẽ tạo mới khi lưu.");
         }
     }
+    
+    public  static int GetCurrentLevel()
+    {
+        if (Instance != null && Instance.playerStats != null)
+        {
+            return Mathf.Max(1, Instance.playerStats.currentLevel);
+        }
+        return 1;
+    }
 }

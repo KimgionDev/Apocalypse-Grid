@@ -9,13 +9,13 @@ public class DashboardManager : MonoBehaviour
 
     [Header("Cụm Player Status (Góc phải trên)")]
     public TextMeshProUGUI txtCurrentGold;
-
     public TextMeshProUGUI txtCurrentHP;
     public TextMeshProUGUI txtCurrentDamage;
     public TextMeshProUGUI txtCurrentSpeed;
     public TextMeshProUGUI txtCurrentLevel;
 
-    [Header("Thẻ Máu (Health Card)")] public TextMeshProUGUI txtPriceHealth;
+    [Header("Thẻ Máu (Health Card)")] 
+    public TextMeshProUGUI txtPriceHealth;
     public Button btnUpgradeHealth;
     public float healthBaseValue = 100f;
     public float healthIncreaseStep = 20f;
@@ -29,7 +29,8 @@ public class DashboardManager : MonoBehaviour
     public float damageIncreaseStep = 5f;
     public int damageBaseCost = 50;
 
-    [Header("Thẻ Tốc Độ (Speed Card)")] public TextMeshProUGUI txtPriceSpeed;
+    [Header("Thẻ Tốc Độ (Speed Card)")] 
+    public TextMeshProUGUI txtPriceSpeed;
     public Button btnUpgradeSpeed;
     public float speedBaseValue = 5f;
     public float speedIncreaseStep = 1f;

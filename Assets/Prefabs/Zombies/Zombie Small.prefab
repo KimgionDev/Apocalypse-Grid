@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1751481772802584592}
   - component: {fileID: 7974613834188513771}
   - component: {fileID: 8573264256936889582}
+  - component: {fileID: 8279002050668626586}
   m_Layer: 0
   m_Name: Zombie Small
   m_TagString: Zombie
@@ -72,7 +73,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b493f047f67a3b148988a5af74b33aff, type: 2}
   itemDropChance: 100
   lootLifetime: 10
-  blinkDecaySpeed: 10
   currentDamage: 0
 --- !u!95 &1273851970123813650
 Animator:
@@ -228,3 +228,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.75, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8279002050668626586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977667042578018526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 882f3a74bd49785438e253ba58543d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlashEffect
+  blinkDecaySpeed: 10

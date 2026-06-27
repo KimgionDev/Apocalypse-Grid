@@ -1030,6 +1030,8 @@ MonoBehaviour:
   notificationPanel: {fileID: 845458860}
   pausePanel: {fileID: 456913152}
   txtNotification: {fileID: 48666119}
+  victorySound: {fileID: 8300000, guid: 41cbdeb3f2e34be4aa3db5dcf4958b4d, type: 3}
+  defeatSound: {fileID: 8300000, guid: 9f8305f82bf32ea4f82fdf3698f01921, type: 3}
 --- !u!4 &430877773
 Transform:
   m_ObjectHideFlags: 0

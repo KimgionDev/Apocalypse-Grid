@@ -24,9 +24,9 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
                 return;
             }
-            if(hitInfo.CompareTag("Zombie"))
+            if(hitInfo.TryGetComponent<ZombieAI>(out ZombieAI zombie))
             {
-                hitInfo.GetComponent<ZombieAI>().TakeDamage(damage);
+                zombie.TakeDamage(damage);
                 if (bloodEffectPrefab != null)
                 {
                     Instantiate(bloodEffectPrefab, transform.position, Quaternion.identity);

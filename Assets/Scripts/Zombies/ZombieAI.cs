@@ -9,22 +9,17 @@ public class ZombieAI : MonoBehaviour
     public float stopDistance = 1.2f;
     public float attackRate = 1f;
 
-    [Header("Loot Settings")] public GameObject lootPrefab;
+    [Header("Loot Settings")] 
+    public GameObject lootPrefab;
     public DropItemData goldData;
     [Range(0, 100)] public float goldDropChance = 80f;
     public List<DropItemData> itemPool;
     [Range(0, 100)] public float itemDropChance = 40f;
     public float lootLifetime = 10f;
-
-    [Header("Hit Effect (Shader)")] public float blinkDecaySpeed = 10f;
-    private SpriteRenderer[] renderers;
-    private MaterialPropertyBlock propertyBlock;
-    private float blinkFactor = 0f;
+    public float currentDamage;
 
     private float currentMaxHealth;
-    [HideInInspector] public float currentDamage;
     private float currentMoveSpeed;
-
     private Transform target;
     private float currentHealth;
     private bool isDead;
@@ -34,16 +29,23 @@ public class ZombieAI : MonoBehaviour
     private float nextAttackTime = 0f;
     private float nextGrowlTime = 0f;
     private static float globalNextGrowlTime = 0f;
+    private FlashEffect flashEffect;
+
+    private static readonly int IsWalkingHash = Animator.StringToHash("IsWalking");
+    private static readonly int DirXHash = Animator.StringToHash("DirX");
+    private static readonly int DirYHash = Animator.StringToHash("DirY");
+    private static readonly int AttackHash = Animator.StringToHash("Attack");
+    private static readonly int DieHash = Animator.StringToHash("Die");
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        flashEffect = GetComponent<FlashEffect>();
+    }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-
-        int currentLevel = 1;
-        if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
-        {
-            currentLevel = SaveManager.Instance.playerStats.currentLevel;
-        }
+        int currentLevel = SaveManager.GetCurrentLevel();
 
         float statMultiplier = 1f + ((currentLevel - 1) * 0.20f);
         float speedMultiplier = 1f + ((currentLevel - 1) * 0.05f);
@@ -53,29 +55,14 @@ public class ZombieAI : MonoBehaviour
         currentMoveSpeed = data.moveSpeed * speedMultiplier;
 
         currentHealth = currentMaxHealth;
+        
+        target = PlayerMovement.InstanceTransform;
 
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null)
-        {
-            target = playerObject.transform;
-        }
-
-        renderers = GetComponentsInChildren<SpriteRenderer>();
-        propertyBlock = new MaterialPropertyBlock();
-        blinkFactor = 0f;
-        ApplyBlinkFactor();
         nextGrowlTime = Time.time + Random.Range(2f, 5f);
     }
 
     private void Update()
     {
-        if (blinkFactor > 0f)
-        {
-            blinkFactor = Mathf.Lerp(blinkFactor, 0f, Time.deltaTime * blinkDecaySpeed);
-            if (blinkFactor < 0.01f) blinkFactor = 0f;
-            ApplyBlinkFactor();
-        }
-
         if (isDead || target == null) return;
 
         float distance = Vector2.Distance(rb.position, target.position);
@@ -84,36 +71,27 @@ public class ZombieAI : MonoBehaviour
 
         if (animator != null)
         {
-            animator.SetBool("IsWalking", isWalking);
+            animator.SetBool(IsWalkingHash, isWalking);
 
             if (direction != Vector2.zero)
             {
-                animator.SetFloat("DirX", direction.x);
-                animator.SetFloat("DirY", direction.y);
+                animator.SetFloat(DirXHash, direction.x);
+                animator.SetFloat(DirYHash, direction.y);
             }
         }
 
-        if (isWalking && distance <= 10f && Time.time >= nextGrowlTime && Time.time >= globalNextGrowlTime && data.growlSound != null)
+        if (isWalking && distance <= 10f && Time.time >= nextGrowlTime && Time.time >= globalNextGrowlTime &&
+            data.growlSound != null)
         {
             AudioManager.Instance.PlaySFX(data.growlSound);
-            nextGrowlTime = Time.time + Random.Range(12f, 20f); 
-            globalNextGrowlTime = Time.time + Random.Range(3f, 5f); 
+            nextGrowlTime = Time.time + Random.Range(12f, 20f);
+            globalNextGrowlTime = Time.time + Random.Range(3f, 5f);
         }
 
         if (!isWalking && Time.time >= nextAttackTime)
         {
             AttackPlayer();
             nextAttackTime = Time.time + (1f / attackRate);
-        }
-    }
-
-    private void ApplyBlinkFactor()
-    {
-        foreach (var renderer in renderers)
-        {
-            renderer.GetPropertyBlock(propertyBlock);
-            propertyBlock.SetFloat("_BlinkFactor", blinkFactor);
-            renderer.SetPropertyBlock(propertyBlock);
         }
     }
 
@@ -134,8 +112,10 @@ public class ZombieAI : MonoBehaviour
 
         currentHealth -= damage;
 
-        blinkFactor = 1f;
-        ApplyBlinkFactor();
+        if (flashEffect != null)
+        {
+            flashEffect.TriggerFlash();
+        }
 
         if (data.takeDamageSound != null)
         {
@@ -150,11 +130,10 @@ public class ZombieAI : MonoBehaviour
 
     private void AttackPlayer()
     {
-        PlayerHealth playerHealth = target.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
+        if (target.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
         {
             playerHealth.TakeDamage(currentDamage);
-            if (animator != null) animator.SetTrigger("Attack");
+            if (animator != null) animator.SetTrigger(AttackHash);
         }
 
         if (data.attackSound != null)
@@ -170,10 +149,9 @@ public class ZombieAI : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
 
-        BoxCollider2D col = GetComponent<BoxCollider2D>();
-        if (col != null) col.enabled = false;
+        if (TryGetComponent<BoxCollider2D>(out BoxCollider2D col)) col.enabled = false;
 
-        if (animator != null) animator.SetTrigger("Die");
+        if (animator != null) animator.SetTrigger(DieHash);
 
         if (data.deathSound != null)
         {
@@ -209,8 +187,8 @@ public class ZombieAI : MonoBehaviour
         if (lootPrefab == null) return;
 
         GameObject drop = Instantiate(lootPrefab, spawnPos, Quaternion.identity);
-        WorldItem wItem = drop.GetComponent<WorldItem>();
-        if (wItem != null)
+        
+        if (drop.TryGetComponent<WorldItem>(out WorldItem wItem))
         {
             wItem.SetupItem(itemData);
         }

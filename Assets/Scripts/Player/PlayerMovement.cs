@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerStatsSO playerStats;
 
     [SerializeField] private float moveSpeed = 5f;
+    public static Transform InstanceTransform { get; private set; }
 
     private Rigidbody2D rb;
     private Vector2 inputDirection;
@@ -18,9 +19,9 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+        InstanceTransform = this.transform;
     }
 
     private void Start()

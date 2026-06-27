@@ -13,6 +13,8 @@ public class GameUIManager : MonoBehaviour
     public GameObject notificationPanel;
     public GameObject pausePanel;
     public TextMeshProUGUI txtNotification;
+    public AudioClip victorySound;
+    public AudioClip defeatSound;
 
     private Coroutine notificationCoroutine;
     private bool isPaused = false;
@@ -38,7 +40,7 @@ public class GameUIManager : MonoBehaviour
             if (level <= 0) level = 1;
         }
 
-        ShowNotification("TẦNG " + level + "\nTHU THẬP VẬT PHẨM ĐỂ MỞ CỔNG!");
+        ShowNotification("FLOOR " + level + "\nCOLLECT LOOT TO UNLOCK PORTAL!");
     }
 
     private IEnumerator SlideUI(RectTransform uiElement, Vector2 startPos, Vector2 endPos, float duration)
@@ -140,6 +142,11 @@ public class GameUIManager : MonoBehaviour
 
         Time.timeScale = 0f;
 
+        if (AudioManager.Instance != null && AudioManager.Instance.musicSource != null)
+        {
+            AudioManager.Instance.musicSource.Stop();
+        }
+
         if (resultPanel != null)
         {
             resultPanel.SetActive(true);
@@ -162,12 +169,22 @@ public class GameUIManager : MonoBehaviour
             txtTitle.text = "MISSION COMPLETE";
             txtTitle.color = Color.green;
             txtMessage.text = "You've survived the zombie horde! Prepare for the next challenge";
+            
+            if (victorySound != null && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(victorySound);
+            }
         }
         else
         {
             txtTitle.text = "DEFEATED";
             txtTitle.color = Color.red;
             txtMessage.text = "The zombies overwhelmed you this time. Don't give up, try again!";
+
+            if (defeatSound != null && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(defeatSound);
+            }
 
             if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
             {
