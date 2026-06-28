@@ -74,6 +74,10 @@ MonoBehaviour:
   itemDropChance: 100
   lootLifetime: 10
   currentDamage: 0
+  obstacleCheckDistance: 0.8
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!95 &3306022519187630277
 Animator:
   serializedVersion: 7

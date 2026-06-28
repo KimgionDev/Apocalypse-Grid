@@ -155,6 +155,10 @@ MonoBehaviour:
   itemDropChance: 100
   lootLifetime: 10
   currentDamage: 0
+  obstacleCheckDistance: 0.8
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!50 &177219652315690383
 Rigidbody2D:
   serializedVersion: 5

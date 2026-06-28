@@ -5,7 +5,7 @@
 public class Bullet : MonoBehaviour
 {
     private float damage;
-    
+
     public GameObject bloodEffectPrefab;
 
     public void Setup(float setDamage, float setLifeTime)
@@ -17,14 +17,15 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        if (!hitInfo.CompareTag(Tags.Player) && !hitInfo.CompareTag(Tags.Bullet) && !hitInfo.CompareTag(Tags.Item))
+        if (!hitInfo.CompareTag(Tags.Player) && !hitInfo.CompareTag(Tags.Bullet) && !hitInfo.CompareTag(Tags.ItemDrop))
         {
-            if (hitInfo.CompareTag(Tags.Wall)) 
+            if (hitInfo.CompareTag(Tags.Wall))
             {
                 Destroy(gameObject);
                 return;
             }
-            if(hitInfo.TryGetComponent<ZombieAI>(out ZombieAI zombie))
+
+            if (hitInfo.TryGetComponent<ZombieAI>(out ZombieAI zombie))
             {
                 zombie.TakeDamage(damage);
                 if (bloodEffectPrefab != null)
@@ -32,6 +33,7 @@ public class Bullet : MonoBehaviour
                     Instantiate(bloodEffectPrefab, transform.position, Quaternion.identity);
                 }
             }
+
             Destroy(gameObject);
         }
     }

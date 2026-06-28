@@ -6,15 +6,16 @@ TagManager:
   tags:
   - Bullet
   - Zombie
-  - Item
   - Wall
   - Floor
   - Slot
+  - ItemDrop
+  - Obstacle
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - 
