@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 8462795770200590075}
   - component: {fileID: 4021658754264027467}
   - component: {fileID: 1253513506915785688}
-  m_Layer: 0
+  - component: {fileID: -2092400883171938897}
+  - component: {fileID: 3512938747531407547}
+  m_Layer: 8
   m_Name: BarrelBlue
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -59,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: ca08644e2e9fa5c42b7d2d61476838af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,3 +140,36 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.75, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-2092400883171938897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5905898130190050020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 882f3a74bd49785438e253ba58543d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlashEffect
+  blinkDecaySpeed: 10
+--- !u!114 &3512938747531407547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5905898130190050020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8af1842d125df4e8ee3b031d2d3fd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplosiveBarrel
+  maxHealth: 20
+  breakSound: {fileID: 8300000, guid: 054d0f73ff2325a4c8d8875005aa4056, type: 3}
+  breakEffectPrefab: {fileID: 4803787681655331731, guid: ffdaeb8e41d10324faad6ba520e60ee5, type: 3}
+  explosionRadius: 2.5
+  explosionDamage: 100
+  damageableLayers:
+    serializedVersion: 2
+    m_Bits: 448

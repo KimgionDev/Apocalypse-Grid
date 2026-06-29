@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class ZombieAI : MonoBehaviour
+public class ZombieAI : MonoBehaviour, IDamageable
 {
     public EnemyData data;
     public Animator animator;

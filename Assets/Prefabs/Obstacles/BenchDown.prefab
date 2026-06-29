@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 669011591087692701}
   - component: {fileID: 2762463668097885467}
   - component: {fileID: 4665417507073515857}
-  m_Layer: 0
+  - component: {fileID: 1611732115954153529}
+  - component: {fileID: 5475319742999953893}
+  m_Layer: 8
   m_Name: BenchDown
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -59,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: ca08644e2e9fa5c42b7d2d61476838af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,3 +140,31 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2, y: 0.9375}
   m_EdgeRadius: 0
+--- !u!114 &1611732115954153529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6135536317123394339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bbe93abfa4bd5b48bfc0433d85744ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestructibleObject
+  maxHealth: 40
+  breakSound: {fileID: 8300000, guid: ab143e6eb95baf74a859e07475cbcf2e, type: 3}
+  breakEffectPrefab: {fileID: 7602198703979458519, guid: fd9d5b9bdb25a8e4db2c56b317271be1, type: 3}
+--- !u!114 &5475319742999953893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6135536317123394339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 882f3a74bd49785438e253ba58543d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlashEffect
+  blinkDecaySpeed: 10

@@ -2445,7 +2445,7 @@ GameObject:
   - component: {fileID: 1104552166}
   - component: {fileID: 1104552167}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: MissonManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

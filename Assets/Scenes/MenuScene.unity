@@ -585,6 +585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonAudio
   hoverSound: {fileID: 8300000, guid: cad11a4481c77fe4aabeb5563cb0bd6c, type: 3}
   clickSound: {fileID: 8300000, guid: 41fe389abc552ae4ea67e78dcfbfa9fb, type: 3}
+  errorSound: {fileID: 0}
 --- !u!1 &1214315149
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,6 +733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIButtonAudio
   hoverSound: {fileID: 8300000, guid: cad11a4481c77fe4aabeb5563cb0bd6c, type: 3}
   clickSound: {fileID: 8300000, guid: 41fe389abc552ae4ea67e78dcfbfa9fb, type: 3}
+  errorSound: {fileID: 0}
 --- !u!1 &1277166509
 GameObject:
   m_ObjectHideFlags: 0

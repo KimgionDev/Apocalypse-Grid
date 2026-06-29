@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6704007528748927444}
   - component: {fileID: 3133754993837485741}
   - component: {fileID: 1642599903627363529}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Zombie NoAxe
   m_TagString: Zombie
   m_Icon: {fileID: 0}

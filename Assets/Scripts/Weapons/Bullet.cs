@@ -17,24 +17,27 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        if (!hitInfo.CompareTag(Tags.Player) && !hitInfo.CompareTag(Tags.Bullet) && !hitInfo.CompareTag(Tags.ItemDrop))
+        if (hitInfo.CompareTag(Tags.Player) || hitInfo.CompareTag(Tags.Bullet) || hitInfo.CompareTag(Tags.ItemDrop))
         {
-            if (hitInfo.CompareTag(Tags.Wall))
-            {
-                Destroy(gameObject);
-                return;
-            }
+            return;
+        }
 
-            if (hitInfo.TryGetComponent<ZombieAI>(out ZombieAI zombie))
+        if (hitInfo.TryGetComponent<IDamageable>(out IDamageable damageableTarget))
+        {
+            damageableTarget.TakeDamage(damage);
+            if (hitInfo.CompareTag(Tags.Zombie) && bloodEffectPrefab != null)
             {
-                zombie.TakeDamage(damage);
-                if (bloodEffectPrefab != null)
-                {
-                    Instantiate(bloodEffectPrefab, transform.position, Quaternion.identity);
-                }
+                Instantiate(bloodEffectPrefab, transform.position, Quaternion.identity);
             }
 
             Destroy(gameObject);
+            return;
+        }
+
+        if (hitInfo.CompareTag(Tags.Wall))
+        {
+            Destroy(gameObject);
+            return;
         }
     }
 }
