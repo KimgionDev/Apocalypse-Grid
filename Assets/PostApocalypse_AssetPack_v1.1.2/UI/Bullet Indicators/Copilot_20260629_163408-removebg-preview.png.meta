@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 28d04a531a0ad4d419b324771faecf14
+guid: 961d0805fe75e5c418dff96a8833fd2e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -640459767616055313
-    second: Gun-Bullet_0
+      213: -52353638686753325
+    second: Copilot_20260629_163408-removebg-preview_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 900
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gun-Bullet_0
+      name: Copilot_20260629_163408-removebg-preview_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 7
-        height: 25
+        x: 130
+        y: 152
+        width: 240
+        height: 220
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fe7d0521c31ac17f0800000000000000
-      internalID: -640459767616055313
+      spriteID: 3dd706b94a0064ff0800000000000000
+      internalID: -52353638686753325
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Gun-Bullet_0: -640459767616055313
+      Copilot_20260629_163408-removebg-preview_0: -52353638686753325
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

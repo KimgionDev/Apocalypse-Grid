@@ -81,4 +81,16 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             shoot.enabled = false;
         }
     }
+    
+    public void Heal(float amount)
+    {
+        if (isDead) return;
+
+        currentHealth += amount;
+        
+        if (currentHealth > maxHealth) 
+        {
+            currentHealth = maxHealth;
+        }
+    }
 }

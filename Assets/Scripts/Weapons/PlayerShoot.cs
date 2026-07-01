@@ -13,16 +13,27 @@ public class PlayerShoot : MonoBehaviour
     private int currentAmmo;
     private bool isReloading = false;
     private float nextFireTime = 0f;
+    private bool isInitialized = false;
     private Coroutine reloadCoroutine;
 
     void Start()
     {
         currentAmmo = gunData.magSize;
+        isInitialized = true;
+        UpdateAmmoUI();
     }
 
     private void OnDisable()
     {
         isReloading = false;
+    }
+
+    private void OnEnable()
+    {
+        if (isInitialized)
+        {
+            UpdateAmmoUI();
+        }
     }
 
     void Update()
@@ -60,7 +71,8 @@ public class PlayerShoot : MonoBehaviour
     void Shoot()
     {
         currentAmmo--;
-
+        UpdateAmmoUI();
+        
         if (gunData.muzzleFlashPrefab != null)
         {
             GameObject flash = Instantiate(gunData.muzzleFlashPrefab, firePoint.position, firePoint.rotation, firePoint);
@@ -94,6 +106,8 @@ public class PlayerShoot : MonoBehaviour
     IEnumerator ReloadRoutine()
     {
         isReloading = true;
+        ShowReloadingUI();
+        
         float baseClipLength = 1f;
         float calculatedSpeed = baseClipLength / gunData.reloadTime;
 
@@ -112,6 +126,7 @@ public class PlayerShoot : MonoBehaviour
 
                 yield return new WaitForSeconds(gunData.reloadTime);
                 currentAmmo++;
+                UpdateAmmoUI();
             }
         }
         else
@@ -121,8 +136,25 @@ public class PlayerShoot : MonoBehaviour
 
             yield return new WaitForSeconds(gunData.reloadTime);
             currentAmmo = gunData.magSize;
+            UpdateAmmoUI();
         }
 
         isReloading = false;
+    }
+    
+    private void UpdateAmmoUI()
+    {
+        if (GameUIManager.Instance != null)
+        {
+            GameUIManager.Instance.UpdateAmmo(currentAmmo);
+        }
+    }
+
+    private void ShowReloadingUI()
+    {
+        if (GameUIManager.Instance != null)
+        {
+            GameUIManager.Instance.ShowReloadingText();
+        }
     }
 }

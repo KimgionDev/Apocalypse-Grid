@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gold_Data
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Gold
-  icon: {fileID: -2681474285018058943, guid: 97e5c1a09e810464aa3c8684c7b5986e, type: 3}
+  icon: {fileID: -52353638686753325, guid: 961d0805fe75e5c418dff96a8833fd2e, type: 3}
   value: 1
   isGold: 1
   pickupSound: {fileID: 8300000, guid: 644c5b1dfcfdf534caaa5a2b9e2c71da, type: 3}

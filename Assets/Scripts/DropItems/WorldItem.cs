@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class WorldItem : MonoBehaviour
 {
@@ -21,17 +22,30 @@ public class WorldItem : MonoBehaviour
             return;
         }
 
-        if (InventoryManager.Instance != null)
+        if (data.isHealItem)
         {
-            InventoryManager.Instance.AddItem(data);
-            if (data.pickupSound != null && AudioManager.Instance != null)
+            if (collision.TryGetComponent<PlayerHealth>(out PlayerHealth health))
             {
-                AudioManager.Instance.PlaySFX(data.pickupSound);
+                health.Heal(data.healAmount);
+                Console.WriteLine($"Đã hồi {data.healAmount} máu cho người chơi.");
             }
+            Console.WriteLine("Người chơi đã nhặt một vật phẩm hồi máu: " + data.itemName);
         }
         else
         {
-            Debug.LogWarning("Không tìm thấy InventoryManager trong Scene!");
+            if (InventoryManager.Instance != null)
+            {
+                InventoryManager.Instance.AddItem(data);
+            }
+            else
+            {
+                Debug.LogWarning("Không tìm thấy InventoryManager trong Scene!");
+            }
+        }
+
+        if (data.pickupSound != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(data.pickupSound);
         }
 
         Destroy(gameObject);

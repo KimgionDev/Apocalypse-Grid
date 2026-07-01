@@ -13,6 +13,7 @@ public class GameUIManager : MonoBehaviour
     public GameObject notificationPanel;
     public GameObject pausePanel;
     public TextMeshProUGUI txtNotification;
+    public TextMeshProUGUI txtAmmo;
     public AudioClip victorySound;
     public AudioClip defeatSound;
 
@@ -210,5 +211,21 @@ public class GameUIManager : MonoBehaviour
         isWaitingToReturn = false;
         canSkipInput = false;
         SceneManager.LoadScene(nextScene);
+    }
+    
+    public void UpdateAmmo(int currentAmmo)
+    {
+        if (txtAmmo != null)
+        {
+            txtAmmo.text = currentAmmo.ToString() + "/∞";
+        }
+    }
+
+    public void ShowReloadingText()
+    {
+        if (txtAmmo != null)
+        {
+            txtAmmo.text = "Reloading...";
+        }
     }
 }
