@@ -27,20 +27,16 @@ public class WorldItem : MonoBehaviour
             if (collision.TryGetComponent<PlayerHealth>(out PlayerHealth health))
             {
                 health.Heal(data.healAmount);
-                Console.WriteLine($"Đã hồi {data.healAmount} máu cho người chơi.");
             }
-            Console.WriteLine("Người chơi đã nhặt một vật phẩm hồi máu: " + data.itemName);
+        }
+        
+        if (InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.AddItem(data);
         }
         else
         {
-            if (InventoryManager.Instance != null)
-            {
-                InventoryManager.Instance.AddItem(data);
-            }
-            else
-            {
-                Debug.LogWarning("Không tìm thấy InventoryManager trong Scene!");
-            }
+            Debug.LogWarning("Không tìm thấy InventoryManager trong Scene!");
         }
 
         if (data.pickupSound != null && AudioManager.Instance != null)
