@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -47,7 +47,7 @@ public class ZombieAI : MonoBehaviour, IDamageable
         flashEffect = GetComponent<FlashEffect>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         int currentLevel = SaveManager.GetCurrentLevel();
 
@@ -59,6 +59,10 @@ public class ZombieAI : MonoBehaviour, IDamageable
         currentMoveSpeed = data.moveSpeed * speedMultiplier;
 
         currentHealth = currentMaxHealth;
+        isDead = false;
+        avoidTimeLeft = 0f;
+
+        if (TryGetComponent<BoxCollider2D>(out BoxCollider2D col)) col.enabled = true;
 
         target = PlayerMovement.InstanceTransform;
 
@@ -225,7 +229,14 @@ public class ZombieAI : MonoBehaviour, IDamageable
         }
 
         DropLoot();
-        Destroy(gameObject, 1f);
+        StartCoroutine(ReturnToPoolAfterDelay(1f));
+    }
+
+    private System.Collections.IEnumerator ReturnToPoolAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (ObjectPoolManager.Instance != null) ObjectPoolManager.Instance.ReturnToPool(gameObject);
+        else Destroy(gameObject);
     }
 
     private void DropLoot()
@@ -252,13 +263,19 @@ public class ZombieAI : MonoBehaviour, IDamageable
     {
         if (lootPrefab == null) return;
 
-        GameObject drop = Instantiate(lootPrefab, spawnPos, Quaternion.identity);
+        GameObject drop;
+        if (ObjectPoolManager.Instance != null)
+        {
+            drop = ObjectPoolManager.Instance.SpawnFromPool(lootPrefab, spawnPos, Quaternion.identity);
+        }
+        else
+        {
+            drop = Instantiate(lootPrefab, spawnPos, Quaternion.identity);
+        }
 
         if (drop.TryGetComponent<WorldItem>(out WorldItem wItem))
         {
             wItem.SetupItem(itemData);
         }
-
-        Destroy(drop, lootLifetime);
     }
 }

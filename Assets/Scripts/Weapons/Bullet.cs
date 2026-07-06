@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
@@ -8,11 +8,22 @@ public class Bullet : MonoBehaviour
 
     public GameObject bloodEffectPrefab;
 
+    private Coroutine lifetimeCoroutine;
+
     public void Setup(float setDamage, float setLifeTime)
     {
         damage = setDamage;
         GetComponent<Rigidbody2D>().linearVelocity = transform.right * 20f;
-        Destroy(gameObject, setLifeTime);
+        
+        if (lifetimeCoroutine != null) StopCoroutine(lifetimeCoroutine);
+        lifetimeCoroutine = StartCoroutine(ReturnToPoolAfterTime(setLifeTime));
+    }
+
+    private System.Collections.IEnumerator ReturnToPoolAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (ObjectPoolManager.Instance != null) ObjectPoolManager.Instance.ReturnToPool(gameObject);
+        else Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D hitInfo)
@@ -27,16 +38,25 @@ public class Bullet : MonoBehaviour
             damageableTarget.TakeDamage(damage);
             if (hitInfo.CompareTag(Tags.Zombie) && bloodEffectPrefab != null)
             {
-                Instantiate(bloodEffectPrefab, transform.position, Quaternion.identity);
+                if (ObjectPoolManager.Instance != null)
+                {
+                    ObjectPoolManager.Instance.SpawnFromPool(bloodEffectPrefab, transform.position, Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(bloodEffectPrefab, transform.position, Quaternion.identity);
+                }
             }
 
-            Destroy(gameObject);
+            if (ObjectPoolManager.Instance != null) ObjectPoolManager.Instance.ReturnToPool(gameObject);
+            else Destroy(gameObject);
             return;
         }
 
         if (hitInfo.CompareTag(Tags.Wall))
         {
-            Destroy(gameObject);
+            if (ObjectPoolManager.Instance != null) ObjectPoolManager.Instance.ReturnToPool(gameObject);
+            else Destroy(gameObject);
             return;
         }
     }

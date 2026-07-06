@@ -46,7 +46,18 @@ public class EnemySpawner : MonoBehaviour
                         validRoomFloors, out Vector2Int validSpawnPos))
                 {
                     Vector3 spawnPosition = new Vector3(validSpawnPos.x + 0.5f, validSpawnPos.y + 0.5f, 0);
-                    GameObject newEnemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity, transform);
+                    GameObject newEnemy;
+                    
+                    if (ObjectPoolManager.Instance != null)
+                    {
+                        newEnemy = ObjectPoolManager.Instance.SpawnFromPool(enemyToSpawn, spawnPosition, Quaternion.identity);
+                        newEnemy.transform.SetParent(transform);
+                    }
+                    else
+                    {
+                        newEnemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity, transform);
+                    }
+                    
                     spawnedEnemies.Add(newEnemy);
                 }
             }
@@ -83,7 +94,7 @@ public class EnemySpawner : MonoBehaviour
 
     private bool AllEnemiesDead()
     {
-        spawnedEnemies.RemoveAll(enemy => enemy == null);
+        spawnedEnemies.RemoveAll(enemy => enemy == null || !enemy.activeInHierarchy);
         return spawnedEnemies.Count == 0;
     }
 }
