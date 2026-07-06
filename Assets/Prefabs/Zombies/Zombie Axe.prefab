@@ -99,7 +99,7 @@ MonoBehaviour:
   obstacleCheckDistance: 0.8
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
 --- !u!212 &6116188647836844884
 SpriteRenderer:
   serializedVersion: 2

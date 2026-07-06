@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: -3712128994827043547}
   - component: {fileID: -5573954221959481531}
   - component: {fileID: 8644693500086085204}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ExitPortal
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

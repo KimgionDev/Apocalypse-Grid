@@ -158,7 +158,7 @@ MonoBehaviour:
   obstacleCheckDistance: 0.8
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
 --- !u!50 &177219652315690383
 Rigidbody2D:
   serializedVersion: 5

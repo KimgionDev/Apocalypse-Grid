@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Unity.Cinemachine;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerShoot : MonoBehaviour
     public Animator animator;
     public AudioClip shootSound;
     public AudioClip reloadSound;
+    public CinemachineImpulseSource impulseSource;
+
 
     private int currentAmmo;
     private bool isReloading = false;
@@ -72,6 +75,11 @@ public class PlayerShoot : MonoBehaviour
     {
         currentAmmo--;
         UpdateAmmoUI();
+        
+        if (impulseSource != null)
+        {
+            impulseSource.GenerateImpulse(); 
+        }
         
         if (gunData.muzzleFlashPrefab != null)
         {

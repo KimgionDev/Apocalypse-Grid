@@ -77,7 +77,7 @@ MonoBehaviour:
   obstacleCheckDistance: 0.8
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
 --- !u!95 &1273851970123813650
 Animator:
   serializedVersion: 7
