@@ -26,8 +26,7 @@ public class WorldItem : MonoBehaviour
     private System.Collections.IEnumerator ReturnToPoolAfterTime()
     {
         yield return new WaitForSeconds(lifetime);
-        if (ObjectPoolManager.Instance != null) ObjectPoolManager.Instance.ReturnToPool(gameObject);
-        else Destroy(gameObject);
+        ObjectPoolManager.Return(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -45,21 +44,19 @@ public class WorldItem : MonoBehaviour
             }
         }
         
-        if (InventoryManager.Instance != null)
-        {
-            InventoryManager.Instance.AddItem(data);
-        }
-        else
+        if (InventoryManager.Instance == null)
         {
             Debug.LogWarning("Không tìm thấy InventoryManager trong Scene!");
+            return;
         }
+
+        InventoryManager.Instance.AddItem(data);
 
         if (data.pickupSound != null && AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySFX(data.pickupSound);
         }
 
-        if (ObjectPoolManager.Instance != null) ObjectPoolManager.Instance.ReturnToPool(gameObject);
-        else Destroy(gameObject);
+        ObjectPoolManager.Return(gameObject);
     }
 }

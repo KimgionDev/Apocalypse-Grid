@@ -22,8 +22,7 @@ public class Bullet : MonoBehaviour
     private System.Collections.IEnumerator ReturnToPoolAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-        if (ObjectPoolManager.Instance != null) ObjectPoolManager.Instance.ReturnToPool(gameObject);
-        else Destroy(gameObject);
+        ObjectPoolManager.Return(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D hitInfo)
@@ -38,25 +37,16 @@ public class Bullet : MonoBehaviour
             damageableTarget.TakeDamage(damage);
             if (hitInfo.CompareTag(Tags.Zombie) && bloodEffectPrefab != null)
             {
-                if (ObjectPoolManager.Instance != null)
-                {
-                    ObjectPoolManager.Instance.SpawnFromPool(bloodEffectPrefab, transform.position, Quaternion.identity);
-                }
-                else
-                {
-                    Instantiate(bloodEffectPrefab, transform.position, Quaternion.identity);
-                }
+                ObjectPoolManager.Spawn(bloodEffectPrefab, transform.position, Quaternion.identity);
             }
 
-            if (ObjectPoolManager.Instance != null) ObjectPoolManager.Instance.ReturnToPool(gameObject);
-            else Destroy(gameObject);
+            ObjectPoolManager.Return(gameObject);
             return;
         }
 
         if (hitInfo.CompareTag(Tags.Wall))
         {
-            if (ObjectPoolManager.Instance != null) ObjectPoolManager.Instance.ReturnToPool(gameObject);
-            else Destroy(gameObject);
+            ObjectPoolManager.Return(gameObject);
             return;
         }
     }

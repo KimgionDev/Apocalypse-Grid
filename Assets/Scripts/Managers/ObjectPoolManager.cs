@@ -19,7 +19,31 @@ public class ObjectPoolManager : MonoBehaviour
             Instance = this;
         }
     }
+    
+    public static GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        if (Instance != null)
+        {
+            return Instance.SpawnFromPool(prefab, position, rotation);
+        }
+        else
+        {
+            return Instantiate(prefab, position, rotation);
+        }
+    }
 
+    public static void Return(GameObject obj)
+    {
+        if (Instance != null)
+        {
+            Instance.ReturnToPool(obj);
+        }
+        else
+        {
+            Destroy(obj);
+        }
+    }
+    
     public GameObject SpawnFromPool(GameObject prefab, Vector3 position, Quaternion rotation)
     {
         if (prefab == null) return null;
@@ -63,7 +87,6 @@ public class ObjectPoolManager : MonoBehaviour
         }
         else
         {
-            // Đề phòng lỗi (Ví dụ object không sinh ra từ Pool mà bị ép Return)
             Destroy(obj);
         }
     }

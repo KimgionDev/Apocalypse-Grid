@@ -83,7 +83,7 @@ public class PlayerShoot : MonoBehaviour
         
         if (gunData.muzzleFlashPrefab != null)
         {
-            GameObject flash = ObjectPoolManager.Instance.SpawnFromPool(gunData.muzzleFlashPrefab, firePoint.position, firePoint.rotation);
+            GameObject flash = ObjectPoolManager.Spawn(gunData.muzzleFlashPrefab, firePoint.position, firePoint.rotation);
             flash.transform.SetParent(firePoint);
             flash.transform.localScale = new Vector3(gunData.flashScale, gunData.flashScale, 1f);
         }
@@ -98,7 +98,7 @@ public class PlayerShoot : MonoBehaviour
         {
             float randomSpread = Random.Range(-gunData.spreadAngle, gunData.spreadAngle);
             Quaternion bulletRotation = firePoint.rotation * Quaternion.Euler(0, 0, randomSpread);
-            GameObject bullet = ObjectPoolManager.Instance.SpawnFromPool(gunData.bulletPrefab, firePoint.position, bulletRotation);
+            GameObject bullet = ObjectPoolManager.Spawn(gunData.bulletPrefab, firePoint.position, bulletRotation);
 
             if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
             {

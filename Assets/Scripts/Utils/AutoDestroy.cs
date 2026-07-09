@@ -14,13 +14,6 @@ public class AutoDestroy : MonoBehaviour
     private System.Collections.IEnumerator ReturnToPoolAfterTime()
     {
         yield return new WaitForSeconds(lifetime);
-        if (ObjectPoolManager.Instance != null)
-        {
-            ObjectPoolManager.Instance.ReturnToPool(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        ObjectPoolManager.Return(gameObject);
     }
 }

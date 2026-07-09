@@ -235,8 +235,7 @@ public class ZombieAI : MonoBehaviour, IDamageable
     private System.Collections.IEnumerator ReturnToPoolAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (ObjectPoolManager.Instance != null) ObjectPoolManager.Instance.ReturnToPool(gameObject);
-        else Destroy(gameObject);
+        ObjectPoolManager.Return(gameObject);
     }
 
     private void DropLoot()
@@ -263,16 +262,7 @@ public class ZombieAI : MonoBehaviour, IDamageable
     {
         if (lootPrefab == null) return;
 
-        GameObject drop;
-        if (ObjectPoolManager.Instance != null)
-        {
-            drop = ObjectPoolManager.Instance.SpawnFromPool(lootPrefab, spawnPos, Quaternion.identity);
-        }
-        else
-        {
-            drop = Instantiate(lootPrefab, spawnPos, Quaternion.identity);
-        }
-
+        GameObject drop = ObjectPoolManager.Spawn(lootPrefab, spawnPos, Quaternion.identity);
         if (drop.TryGetComponent<WorldItem>(out WorldItem wItem))
         {
             wItem.SetupItem(itemData);

@@ -14,6 +14,20 @@ public class EnemySpawner : MonoBehaviour
     private int currentLevelEnemies;
     private HashSet<Vector2Int> validRoomFloors; 
 
+    private bool isTriggered = false;
+    private bool isCleared = false;
+
+    private void Awake()
+    {
+        CircleCollider2D trigger = GetComponent<CircleCollider2D>();
+        if (trigger == null)
+        {
+            trigger = gameObject.AddComponent<CircleCollider2D>();
+        }
+        trigger.isTrigger = true;
+        trigger.radius = 7f; // Bán kính nhận diện Player bước vào phòng
+    }
+
     private void Start()
     {
         int level = 1;
@@ -28,45 +42,44 @@ public class EnemySpawner : MonoBehaviour
     public void InitializeSpawner(HashSet<Vector2Int> floors)
     {
         validRoomFloors = floors;
-        StartCoroutine(SpawnWaveRoutine());
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isTriggered || isCleared) return;
+
+        if (collision.CompareTag("Player"))
+        {
+            isTriggered = true;
+            StartCoroutine(SpawnWaveRoutine());
+            Debug.Log("Ổ Quái Vật đã bị đánh thức!");
+        }
     }
 
     private IEnumerator SpawnWaveRoutine()
     {
-        while (true)
+        for (int i = 0; i < currentLevelEnemies; i++)
         {
-            for (int i = 0; i < currentLevelEnemies; i++)
+            yield return new WaitForSeconds(spawnInterval);
+
+            int randomIndex = Random.Range(0, enemyPrefabs.Count);
+            GameObject enemyToSpawn = enemyPrefabs[randomIndex];
+
+            if (TryGetSpawnPositionNearCenter(Vector2Int.RoundToInt(transform.position), spawnRadius,
+                    validRoomFloors, out Vector2Int validSpawnPos))
             {
-                yield return new WaitForSeconds(spawnInterval);
-
-                int randomIndex = Random.Range(0, enemyPrefabs.Count);
-                GameObject enemyToSpawn = enemyPrefabs[randomIndex];
-
-                if (TryGetSpawnPositionNearCenter(Vector2Int.RoundToInt(transform.position), spawnRadius,
-                        validRoomFloors, out Vector2Int validSpawnPos))
-                {
-                    Vector3 spawnPosition = new Vector3(validSpawnPos.x + 0.5f, validSpawnPos.y + 0.5f, 0);
-                    GameObject newEnemy;
-                    
-                    if (ObjectPoolManager.Instance != null)
-                    {
-                        newEnemy = ObjectPoolManager.Instance.SpawnFromPool(enemyToSpawn, spawnPosition, Quaternion.identity);
-                        newEnemy.transform.SetParent(transform);
-                    }
-                    else
-                    {
-                        newEnemy = Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity, transform);
-                    }
-                    
-                    spawnedEnemies.Add(newEnemy);
-                }
+                Vector3 spawnPosition = new Vector3(validSpawnPos.x + 0.5f, validSpawnPos.y + 0.5f, 0);
+                GameObject newEnemy = ObjectPoolManager.Spawn(enemyToSpawn, spawnPosition, Quaternion.identity);
+                newEnemy.transform.SetParent(transform);
+                
+                spawnedEnemies.Add(newEnemy);
             }
-
-            yield return new WaitUntil(() => AllEnemiesDead());
-
-            Debug.Log($"Đã dọn sạch đợt quái ({currentLevelEnemies} con)! Sẵn sàng cho đợt tiếp theo...");
-            yield return new WaitForSeconds(timeBetweenWaves);
         }
+
+        yield return new WaitUntil(() => AllEnemiesDead());
+
+        isCleared = true;
+        Debug.Log("Phòng đã an toàn! Không còn quái vật.");
     }
 
     public bool TryGetSpawnPositionNearCenter(Vector2Int roomCenter, float spawnRadius, HashSet<Vector2Int> validFloors, out Vector2Int spawnPos)
