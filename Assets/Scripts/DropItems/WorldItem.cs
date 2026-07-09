@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class WorldItem : MonoBehaviour
 {
+    public float lifetime = 10f;
+    private Coroutine lifetimeCoroutine;
     public DropItemData data;
     public SpriteRenderer spriteRenderer;
 
@@ -13,6 +15,18 @@ public class WorldItem : MonoBehaviour
         {
             spriteRenderer.sprite = data.icon;
         }
+    }
+
+    private void OnEnable()
+    {
+        if (lifetimeCoroutine != null) StopCoroutine(lifetimeCoroutine);
+        lifetimeCoroutine = StartCoroutine(ReturnToPoolAfterTime());
+    }
+
+    private System.Collections.IEnumerator ReturnToPoolAfterTime()
+    {
+        yield return new WaitForSeconds(lifetime);
+        ObjectPoolManager.Return(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,20 +44,19 @@ public class WorldItem : MonoBehaviour
             }
         }
         
-        if (InventoryManager.Instance != null)
-        {
-            InventoryManager.Instance.AddItem(data);
-        }
-        else
+        if (InventoryManager.Instance == null)
         {
             Debug.LogWarning("Không tìm thấy InventoryManager trong Scene!");
+            return;
         }
+
+        InventoryManager.Instance.AddItem(data);
 
         if (data.pickupSound != null && AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySFX(data.pickupSound);
         }
 
-        Destroy(gameObject);
+        ObjectPoolManager.Return(gameObject);
     }
 }

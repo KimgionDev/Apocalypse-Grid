@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
@@ -8,11 +8,21 @@ public class Bullet : MonoBehaviour
 
     public GameObject bloodEffectPrefab;
 
+    private Coroutine lifetimeCoroutine;
+
     public void Setup(float setDamage, float setLifeTime)
     {
         damage = setDamage;
         GetComponent<Rigidbody2D>().linearVelocity = transform.right * 20f;
-        Destroy(gameObject, setLifeTime);
+        
+        if (lifetimeCoroutine != null) StopCoroutine(lifetimeCoroutine);
+        lifetimeCoroutine = StartCoroutine(ReturnToPoolAfterTime(setLifeTime));
+    }
+
+    private System.Collections.IEnumerator ReturnToPoolAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        ObjectPoolManager.Return(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D hitInfo)
@@ -27,16 +37,16 @@ public class Bullet : MonoBehaviour
             damageableTarget.TakeDamage(damage);
             if (hitInfo.CompareTag(Tags.Zombie) && bloodEffectPrefab != null)
             {
-                Instantiate(bloodEffectPrefab, transform.position, Quaternion.identity);
+                ObjectPoolManager.Spawn(bloodEffectPrefab, transform.position, Quaternion.identity);
             }
 
-            Destroy(gameObject);
+            ObjectPoolManager.Return(gameObject);
             return;
         }
 
         if (hitInfo.CompareTag(Tags.Wall))
         {
-            Destroy(gameObject);
+            ObjectPoolManager.Return(gameObject);
             return;
         }
     }

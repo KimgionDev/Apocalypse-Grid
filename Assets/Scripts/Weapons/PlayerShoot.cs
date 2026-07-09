@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using Unity.Cinemachine;
 
@@ -83,7 +83,8 @@ public class PlayerShoot : MonoBehaviour
         
         if (gunData.muzzleFlashPrefab != null)
         {
-            GameObject flash = Instantiate(gunData.muzzleFlashPrefab, firePoint.position, firePoint.rotation, firePoint);
+            GameObject flash = ObjectPoolManager.Spawn(gunData.muzzleFlashPrefab, firePoint.position, firePoint.rotation);
+            flash.transform.SetParent(firePoint);
             flash.transform.localScale = new Vector3(gunData.flashScale, gunData.flashScale, 1f);
         }
 
@@ -97,7 +98,7 @@ public class PlayerShoot : MonoBehaviour
         {
             float randomSpread = Random.Range(-gunData.spreadAngle, gunData.spreadAngle);
             Quaternion bulletRotation = firePoint.rotation * Quaternion.Euler(0, 0, randomSpread);
-            GameObject bullet = Instantiate(gunData.bulletPrefab, firePoint.position, bulletRotation);
+            GameObject bullet = ObjectPoolManager.Spawn(gunData.bulletPrefab, firePoint.position, bulletRotation);
 
             if (bullet.TryGetComponent<Bullet>(out Bullet bulletScript))
             {
