@@ -83,6 +83,7 @@ public class ObjectPoolManager : MonoBehaviour
         if (pooledObj != null && poolDictionary.ContainsKey(pooledObj.poolKey))
         {
             obj.SetActive(false);
+            obj.transform.SetParent(transform, true);
             poolDictionary[pooledObj.poolKey].Enqueue(obj);
         }
         else
