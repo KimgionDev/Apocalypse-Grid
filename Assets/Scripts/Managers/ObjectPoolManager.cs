@@ -17,7 +17,6 @@ public class ObjectPoolManager : MonoBehaviour
         else
         {
             Instance = this;
-            // DontDestroyOnLoad(gameObject); // Bỏ comment nếu muốn mang qua màn khác
         }
     }
 
