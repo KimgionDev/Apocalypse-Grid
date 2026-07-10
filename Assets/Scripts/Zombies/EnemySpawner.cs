@@ -25,11 +25,8 @@ public class EnemySpawner : MonoBehaviour
             trigger = gameObject.AddComponent<CircleCollider2D>();
         }
         trigger.isTrigger = true;
-        trigger.radius = 7f; // Bán kính nhận diện Player bước vào phòng
-    }
+        trigger.radius = 8f; // Bán kính nhận diện Player bước vào phòng
 
-    private void Start()
-    {
         int level = 1;
         if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
         {
@@ -42,26 +39,13 @@ public class EnemySpawner : MonoBehaviour
     public void InitializeSpawner(HashSet<Vector2Int> floors)
     {
         validRoomFloors = floors;
+        SpawnAllEnemies();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (isTriggered || isCleared) return;
-
-        if (collision.CompareTag("Player"))
-        {
-            isTriggered = true;
-            StartCoroutine(SpawnWaveRoutine());
-            Debug.Log("Ổ Quái Vật đã bị đánh thức!");
-        }
-    }
-
-    private IEnumerator SpawnWaveRoutine()
+    private void SpawnAllEnemies()
     {
         for (int i = 0; i < currentLevelEnemies; i++)
         {
-            yield return new WaitForSeconds(spawnInterval);
-
             int randomIndex = Random.Range(0, enemyPrefabs.Count);
             GameObject enemyToSpawn = enemyPrefabs[randomIndex];
 
@@ -75,11 +59,56 @@ public class EnemySpawner : MonoBehaviour
                 spawnedEnemies.Add(newEnemy);
             }
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isTriggered || isCleared) return;
+
+        if (collision.CompareTag(Tags.Player))
+        {
+            isTriggered = true;
+            Debug.Log("Ổ Quái Vật đã bị đánh thức!");
+            
+            foreach (GameObject enemy in spawnedEnemies)
+            {
+                if (enemy != null && enemy.activeInHierarchy)
+                {
+                    if (enemy.TryGetComponent<ZombieAI>(out ZombieAI zombie))
+                    {
+                        zombie.WakeUp();
+                    }
+                }
+            }
+            
+            StartCoroutine(CheckClearedRoutine());
+        }
+    }
+
+    private IEnumerator CheckClearedRoutine()
+    {
         yield return new WaitUntil(() => AllEnemiesDead());
 
-        isCleared = true;
-        Debug.Log("Phòng đã an toàn! Không còn quái vật.");
+        if (MissionManager.Instance != null && MissionManager.Instance.isMissionCompleted)
+        {
+            isCleared = true;
+            Debug.Log("Phòng đã an toàn vĩnh viễn! Nhiệm vụ đã hoàn thành.");
+            yield break;
+        }
+
+        Debug.Log("Quái đã chết hết nhưng nhiệm vụ chưa xong. Chờ 30s để tái sinh...");
+        yield return new WaitForSeconds(30f);
+
+        if (MissionManager.Instance != null && MissionManager.Instance.isMissionCompleted)
+        {
+            isCleared = true;
+            Debug.Log("Phòng đã an toàn vĩnh viễn! Nhiệm vụ đã hoàn thành.");
+            yield break;
+        }
+
+        Debug.Log("Quái vật bắt đầu hồi sinh lén lút trong phòng...");
+        isTriggered = false;
+        SpawnAllEnemies();
     }
 
     public bool TryGetSpawnPositionNearCenter(Vector2Int roomCenter, float spawnRadius, HashSet<Vector2Int> validFloors, out Vector2Int spawnPos)

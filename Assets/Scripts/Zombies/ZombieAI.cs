@@ -25,6 +25,7 @@ public class ZombieAI : MonoBehaviour, IDamageable
     private Transform target;
     private float currentHealth;
     private bool isDead;
+    public bool isAwake = false;
     private Rigidbody2D rb;
     private Vector2 direction;
     private bool isWalking;
@@ -47,6 +48,12 @@ public class ZombieAI : MonoBehaviour, IDamageable
         flashEffect = GetComponent<FlashEffect>();
     }
 
+    public void WakeUp()
+    {
+        isAwake = true;
+        nextGrowlTime = Time.time + Random.Range(1f, 3f);
+    }
+
     private void OnEnable()
     {
         int currentLevel = SaveManager.GetCurrentLevel();
@@ -60,6 +67,7 @@ public class ZombieAI : MonoBehaviour, IDamageable
 
         currentHealth = currentMaxHealth;
         isDead = false;
+        isAwake = false;
         avoidTimeLeft = 0f;
 
         if (TryGetComponent<BoxCollider2D>(out BoxCollider2D col)) col.enabled = true;
@@ -72,6 +80,17 @@ public class ZombieAI : MonoBehaviour, IDamageable
     private void Update()
     {
         if (isDead || target == null) return;
+
+        if (!isAwake)
+        {
+            isWalking = false;
+            currentMoveDirection = Vector2.zero;
+            if (animator != null)
+            {
+                animator.SetBool(IsWalkingHash, false);
+            }
+            return;
+        }
 
         float distance = Vector2.Distance(rb.position, target.position);
 
@@ -179,6 +198,11 @@ public class ZombieAI : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         if (isDead) return;
+
+        if (!isAwake)
+        {
+            WakeUp();
+        }
 
         currentHealth -= damage;
 
