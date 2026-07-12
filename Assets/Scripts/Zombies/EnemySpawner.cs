@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private float spawnInterval = 3f;
     [SerializeField] private int baseEnemiesPerWave = 10;
-    [SerializeField] private float timeBetweenWaves = 5f;
-    [SerializeField] private float spawnRadius = 2f;
+    [SerializeField] private float timeBetweenWaves = 20f;
     [SerializeField] private List<GameObject> enemyPrefabs;
 
     private List<GameObject> spawnedEnemies = new List<GameObject>();
@@ -25,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
             trigger = gameObject.AddComponent<CircleCollider2D>();
         }
         trigger.isTrigger = true;
-        trigger.radius = 8f; // Bán kính nhận diện Player bước vào phòng
+        trigger.radius = 8f;
 
         int level = 1;
         if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
@@ -33,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
             level = SaveManager.Instance.playerStats.currentLevel;
         }
 
-        currentLevelEnemies = baseEnemiesPerWave + ((level - 1) * 3);
+        currentLevelEnemies = baseEnemiesPerWave + (level - 1);
     }
 
     public void InitializeSpawner(HashSet<Vector2Int> floors)
@@ -44,20 +42,26 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnAllEnemies()
     {
+        List<Vector2Int> floorList = new List<Vector2Int>(validRoomFloors);
+        if (floorList.Count == 0) return;
+
         for (int i = 0; i < currentLevelEnemies; i++)
         {
+            if (floorList.Count == 0) break;
+
             int randomIndex = Random.Range(0, enemyPrefabs.Count);
             GameObject enemyToSpawn = enemyPrefabs[randomIndex];
 
-            if (TryGetSpawnPositionNearCenter(Vector2Int.RoundToInt(transform.position), spawnRadius,
-                    validRoomFloors, out Vector2Int validSpawnPos))
-            {
-                Vector3 spawnPosition = new Vector3(validSpawnPos.x + 0.5f, validSpawnPos.y + 0.5f, 0);
-                GameObject newEnemy = ObjectPoolManager.Spawn(enemyToSpawn, spawnPosition, Quaternion.identity);
-                newEnemy.transform.SetParent(transform);
-                
-                spawnedEnemies.Add(newEnemy);
-            }
+            int randomTileIndex = Random.Range(0, floorList.Count);
+            Vector2Int validSpawnPos = floorList[randomTileIndex];
+            
+            floorList.RemoveAt(randomTileIndex);
+
+            Vector3 spawnPosition = new Vector3(validSpawnPos.x + 0.5f, validSpawnPos.y + 0.5f, 0);
+            GameObject newEnemy = ObjectPoolManager.Spawn(enemyToSpawn, spawnPosition, Quaternion.identity);
+            newEnemy.transform.SetParent(transform);
+            
+            spawnedEnemies.Add(newEnemy);
         }
     }
 
@@ -97,7 +101,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         Debug.Log("Quái đã chết hết nhưng nhiệm vụ chưa xong. Chờ 30s để tái sinh...");
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(timeBetweenWaves);
 
         if (MissionManager.Instance != null && MissionManager.Instance.isMissionCompleted)
         {
@@ -106,33 +110,12 @@ public class EnemySpawner : MonoBehaviour
             yield break;
         }
 
-        Debug.Log("Quái vật bắt đầu hồi sinh lén lút trong phòng...");
+        Debug.Log("Quái vật bắt đầu hồi sinh trong phòng...");
         isTriggered = false;
         SpawnAllEnemies();
     }
 
-    public bool TryGetSpawnPositionNearCenter(Vector2Int roomCenter, float spawnRadius, HashSet<Vector2Int> validFloors, out Vector2Int spawnPos)
-    {
-        spawnPos = Vector2Int.zero;
-        int maxAttempts = 30; 
 
-        for (int i = 0; i < maxAttempts; i++)
-        {
-            Vector2 randomOffset = Random.insideUnitCircle * spawnRadius;
-
-            Vector2Int checkPos = new Vector2Int(
-                roomCenter.x + Mathf.RoundToInt(randomOffset.x),
-                roomCenter.y + Mathf.RoundToInt(randomOffset.y)
-            );
-
-            if (validFloors.Contains(checkPos))
-            {
-                spawnPos = checkPos;
-                return true; 
-            }
-        }
-        return false;
-    }
 
     private bool AllEnemiesDead()
     {

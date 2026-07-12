@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class ProceduralGenerationAlgorithms
@@ -100,8 +100,8 @@ public static class ProceduralGenerationAlgorithms
     private static void SplitVertically(int minWidth, List<BoundsInt> rooms, Queue<BoundsInt> roomsQueue,
         BoundsInt room)
     {
-        var xSplit = Random.Range(1, room.size.x);
-
+        var xSplit = Random.Range(minWidth, (room.size.x - minWidth) + 1);
+        
         BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(xSplit, room.size.y, room.size.z));
         BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x + xSplit, room.min.y, room.min.z),
             new Vector3Int(room.size.x - xSplit, room.size.y, room.size.z));
@@ -112,8 +112,8 @@ public static class ProceduralGenerationAlgorithms
 
     private static void SplitHorizontally(int minHeight, List<BoundsInt> rooms, Queue<BoundsInt> roomsQueue, BoundsInt room)
     {
-        var ySplit = Random.Range(1, room.size.y);
-
+        var ySplit = Random.Range(minHeight, (room.size.y - minHeight) + 1);
+        
         BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(room.size.x, ySplit, room.size.z));
         BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x, room.min.y + ySplit, room.min.z),
             new Vector3Int(room.size.x, room.size.y - ySplit, room.size.z));

@@ -2952,9 +2952,9 @@ MonoBehaviour:
   startPosition: {x: -25, y: -40}
   randomWalkParameters: {fileID: 11400000, guid: a324a847eb1ed41449a552d866ebfd16, type: 2}
   minRoomWidth: 10
-  minRoomHeight: 20
-  dungeonWidth: 70
-  dungeonHeight: 70
+  minRoomHeight: 10
+  dungeonWidth: 26
+  dungeonHeight: 26
   offset: 2
   randomWalkRooms: 1
   playerPrefab: {fileID: 6409573472346491493, guid: e9b96f9c4f2e50f4ea28135c1ad81a06, type: 3}

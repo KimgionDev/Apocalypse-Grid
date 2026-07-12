@@ -606,10 +606,10 @@ MonoBehaviour:
   inventory:
   - physicalGun: {fileID: 5427811513572651725}
     uiIcon: {fileID: 4329820541299319215, guid: ee8e6dacbf7df3b4ab6a1e4ea468a4c1, type: 3}
-  - physicalGun: {fileID: 6980386103355852538}
-    uiIcon: {fileID: -8128018368595608653, guid: 8eb3d374fcb77af4585088af6ee4ea2b, type: 3}
   - physicalGun: {fileID: 7763522169942318900}
     uiIcon: {fileID: -6988476643106077697, guid: 6c5562e95824c03499bbc0cef3bbb582, type: 3}
+  - physicalGun: {fileID: 6980386103355852538}
+    uiIcon: {fileID: -8128018368595608653, guid: 8eb3d374fcb77af4585088af6ee4ea2b, type: 3}
 --- !u!114 &4557484111439106573
 MonoBehaviour:
   m_ObjectHideFlags: 0

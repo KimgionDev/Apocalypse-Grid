@@ -132,12 +132,12 @@ public class GameUIManager : MonoBehaviour
         SceneManager.LoadScene(nextScene);
     }
 
-    public void ShowResult(bool isVictory)
+    public void ShowResult(bool isVictory, bool isGameClear = false)
     {
-        StartCoroutine(ShowResultRoutine(isVictory));
+        StartCoroutine(ShowResultRoutine(isVictory, isGameClear));
     }
 
-    private IEnumerator ShowResultRoutine(bool isVictory)
+    private IEnumerator ShowResultRoutine(bool isVictory, bool isGameClear)
     {
         yield return new WaitForSecondsRealtime(1.2f);
 
@@ -167,9 +167,18 @@ public class GameUIManager : MonoBehaviour
 
         if (isVictory)
         {
-            txtTitle.text = "MISSION COMPLETE";
-            txtTitle.color = Color.green;
-            txtMessage.text = "You've survived the zombie horde! Prepare for the next challenge";
+            if (isGameClear)
+            {
+                txtTitle.text = "ESCAPED!";
+                txtTitle.color = Color.cyan;
+                txtMessage.text = "Congratulations! You have survived all 21 floors and escaped the Apocalypse Grid!";
+            }
+            else
+            {
+                txtTitle.text = "MISSION COMPLETE";
+                txtTitle.color = Color.green;
+                txtMessage.text = "You've survived the zombie horde! Prepare for the next challenge";
+            }
             
             if (victorySound != null && AudioManager.Instance != null)
             {

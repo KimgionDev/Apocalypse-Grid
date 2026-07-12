@@ -44,9 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75e63b25d397bdf4ab3c93f008aeaaef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  spawnInterval: 2
-  baseEnemiesPerWave: 5
-  timeBetweenWaves: 5
+  baseEnemiesPerWave: 4
   spawnRadius: 2
   enemyPrefabs:
   - {fileID: 5042243327083189171, guid: 3c93005328a850b41b9ddb1c57e2094e, type: 3}

@@ -10,7 +10,6 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField] private int dungeonWidth = 20, dungeonHeight = 20;
     [SerializeField] [Range(0, 10)] private int offset = 1;
     [SerializeField] private bool randomWalkRooms = false;
-
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private CinemachineCamera vcam;
     [SerializeField] private GameObject hiddenPortalPrefab;
@@ -19,7 +18,38 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private void Start()
     {
+        ScaleDungeonWithLevel();
         GenerateDungeon();
+    }
+
+    private void ScaleDungeonWithLevel()
+    {
+        int level = SaveManager.GetCurrentLevel();
+        int scaleAmount = level - 1;
+
+        if (scaleAmount > 0)
+        {
+            dungeonWidth += scaleAmount * 4;
+            dungeonHeight += scaleAmount * 3;
+            minRoomWidth += scaleAmount;
+            minRoomHeight += scaleAmount;
+
+            if (randomWalkParameters != null)
+            {
+                SimpleRandomWalkSO runtimeParams = ScriptableObject.CreateInstance<SimpleRandomWalkSO>();
+                runtimeParams.iterations = randomWalkParameters.iterations + scaleAmount;
+                runtimeParams.walkLength = randomWalkParameters.walkLength + scaleAmount;
+                runtimeParams.startRandomlyEachIteration = randomWalkParameters.startRandomlyEachIteration;
+
+                randomWalkParameters = runtimeParams;
+            }
+        }
+
+        Debug.Log(
+            $"[Level {level}] Map Size: {dungeonWidth}x{dungeonHeight} | Min Room: {minRoomWidth}x{minRoomHeight} | " +
+            (randomWalkParameters != null
+                ? $"RandomWalk (Iters: {randomWalkParameters.iterations}, Length: {randomWalkParameters.walkLength})"
+                : "No RandomWalk"));
     }
 
     protected override void RunProceduralGeneration()
@@ -115,7 +145,11 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             {
                 if (helper.TryPlaceItem(itemData, out Vector2Int placedPos))
                 {
-                    Vector3 spawnPosition = new Vector3(placedPos.x + 0.5f, placedPos.y + 0.5f, 0);
+                    // Tâm của vật phẩm sẽ thay đổi tùy theo Size của nó
+                    Vector3 spawnPosition = new Vector3(
+                        placedPos.x + (itemData.size.x / 2f),
+                        placedPos.y + (itemData.size.y / 2f),
+                        0);
                     Instantiate(itemData.prefab, spawnPosition, Quaternion.identity, parent);
                 }
                 else

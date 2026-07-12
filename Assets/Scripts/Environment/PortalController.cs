@@ -31,16 +31,29 @@ public class PortalController : MonoBehaviour
         {
             if (isOpen)
             {
+                bool isGameClear = false;
+
                 if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null && InventoryManager.Instance != null)
                 {
                     SaveManager.Instance.playerStats.totalGold += InventoryManager.Instance.gold;
-                    SaveManager.Instance.playerStats.currentLevel++;
+                    
+                    if (SaveManager.Instance.playerStats.currentLevel >= 21)
+                    {
+                        isGameClear = true;
+                        // Không tăng currentLevel nữa vì đã phá đảo
+                        SaveManager.Instance.playerStats.currentLevel = 1; // Reset lại game sau khi phá đảo (hoặc bạn có thể chọn giữ nguyên 21)
+                    }
+                    else
+                    {
+                        SaveManager.Instance.playerStats.currentLevel++;
+                    }
+
                     SaveManager.Instance.SaveGame();
                 }
 
                 if (GameUIManager.Instance != null)
                 {
-                    GameUIManager.Instance.ShowResult(true);
+                    GameUIManager.Instance.ShowResult(true, isGameClear);
                     
                     PlayerMovement movement = other.GetComponent<PlayerMovement>();
                     if (movement != null) 

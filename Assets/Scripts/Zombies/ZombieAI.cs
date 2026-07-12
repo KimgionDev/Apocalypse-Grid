@@ -14,7 +14,6 @@ public class ZombieAI : MonoBehaviour, IDamageable
     [Range(0, 100)] public float goldDropChance = 80f;
     public List<DropItemData> itemPool;
     [Range(0, 100)] public float itemDropChance = 40f;
-    public float lootLifetime = 10f;
     public float currentDamage;
     [SerializeField] private float obstacleCheckDistance = 0.8f;
     [SerializeField] private LayerMask obstacleLayer;
@@ -27,7 +26,6 @@ public class ZombieAI : MonoBehaviour, IDamageable
     private bool isDead;
     public bool isAwake = false;
     private Rigidbody2D rb;
-    private Vector2 direction;
     private bool isWalking;
     private float nextAttackTime = 0f;
     private float nextGrowlTime = 0f;
@@ -94,7 +92,7 @@ public class ZombieAI : MonoBehaviour, IDamageable
 
         float distance = Vector2.Distance(rb.position, target.position);
 
-        direction = ((Vector2)target.position - rb.position).normalized;
+        Vector2 direction = ((Vector2)target.position - rb.position).normalized;
         isWalking = distance > stopDistance;
 
         if (isWalking)

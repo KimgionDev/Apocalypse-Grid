@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BenchDown_Data
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   prefab: {fileID: 6135536317123394339, guid: 162b296345efb87408bda2fb257ccf6d, type: 3}
-  size: {x: 1, y: 2}
+  size: {x: 2, y: 1}
   minQuantity: 0
   maxQuantity: 2
   placementType: 0
+  itemType: 0
