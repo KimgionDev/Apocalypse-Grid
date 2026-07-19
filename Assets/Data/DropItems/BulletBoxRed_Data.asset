@@ -20,5 +20,5 @@ MonoBehaviour:
   healAmount: 0
   isAmmoItem: 1
   ammoType: 1
-  ammoAmount: 15
+  ammoAmount: 5
   pickupSound: {fileID: 8300000, guid: cad11a4481c77fe4aabeb5563cb0bd6c, type: 3}
