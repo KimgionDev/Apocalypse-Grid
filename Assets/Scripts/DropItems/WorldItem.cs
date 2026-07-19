@@ -44,6 +44,23 @@ public class WorldItem : MonoBehaviour
             }
         }
         
+        if (data.isAmmoItem)
+        {
+            if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
+            {
+                SaveManager.Instance.playerStats.AddAmmo(data.ammoType, data.ammoAmount);
+            }
+            
+            PlayerShoot[] shoots = collision.GetComponentsInChildren<PlayerShoot>(true);
+            foreach (PlayerShoot shoot in shoots)
+            {
+                if (shoot.gameObject.activeInHierarchy)
+                {
+                    shoot.ForceUpdateAmmoUI();
+                }
+            }
+        }
+        
         if (InventoryManager.Instance == null)
         {
             Debug.LogWarning("Không tìm thấy InventoryManager trong Scene!");

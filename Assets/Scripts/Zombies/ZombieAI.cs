@@ -15,6 +15,11 @@ public class ZombieAI : MonoBehaviour, IDamageable
     public List<DropItemData> itemPool;
     [Range(0, 100)] public float itemDropChance = 40f;
     public float currentDamage;
+    
+    [Header("Ammo Drops")]
+    public List<DropItemData> ammoPool;
+    public float ammoDropChance = 10f;
+
     [SerializeField] private float obstacleCheckDistance = 0.8f;
     [SerializeField] private LayerMask obstacleLayer;
     private Vector2 currentMoveDirection;
@@ -269,14 +274,40 @@ public class ZombieAI : MonoBehaviour, IDamageable
 
         if (itemPool != null && itemPool.Count > 0 && Random.Range(0f, 100f) <= itemDropChance)
         {
-            int randomIndex = Random.Range(0, itemPool.Count);
-            DropItemData randomItem = itemPool[randomIndex];
+            DropItemData itemToDrop = null;
+
+            if (MissionManager.Instance != null && !MissionManager.Instance.isMissionCompleted)
+            {
+                List<DropItemData> neededItems = MissionManager.Instance.GetNeededItems();
+                if (neededItems != null && neededItems.Count > 0)
+                {
+                    if (Random.Range(0f, 100f) <= 50f)
+                    {
+                        itemToDrop = neededItems[Random.Range(0, neededItems.Count)];
+                    }
+                }
+            }
+
+            if (itemToDrop == null)
+            {
+                int randomIndex = Random.Range(0, itemPool.Count);
+                itemToDrop = itemPool[randomIndex];
+            }
 
             Vector2 offsetPos = (Vector2)transform.position + new Vector2(
                 Random.Range(-0.5f, 0.5f),
                 Random.Range(-0.5f, 0.5f));
 
-            SpawnItem(randomItem, offsetPos);
+            SpawnItem(itemToDrop, offsetPos);
+        }
+
+        if (ammoPool != null && ammoPool.Count > 0 && Random.Range(0f, 100f) <= ammoDropChance)
+        {
+            DropItemData ammoToDrop = ammoPool[Random.Range(0, ammoPool.Count)];
+            Vector2 offsetPos = (Vector2)transform.position + new Vector2(
+                Random.Range(-0.5f, 0.5f),
+                Random.Range(-0.5f, 0.5f));
+            SpawnItem(ammoToDrop, offsetPos);
         }
     }
 

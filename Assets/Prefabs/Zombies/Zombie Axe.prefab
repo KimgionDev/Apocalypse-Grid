@@ -93,13 +93,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bda5d917d99bd0546b97eb8aedd71a70, type: 2}
   - {fileID: 11400000, guid: 42031b55301e8ed41aae54f4eeb3ce4b, type: 2}
   - {fileID: 11400000, guid: b493f047f67a3b148988a5af74b33aff, type: 2}
-  itemDropChance: 100
-  lootLifetime: 10
+  itemDropChance: 30
   currentDamage: 0
+  ammoPool:
+  - {fileID: 11400000, guid: 724878da3d488514bbd1999031884f88, type: 2}
+  - {fileID: 11400000, guid: b3106496bc6d2044594803cd1ec64a29, type: 2}
+  - {fileID: 11400000, guid: bd5b8477ace9fd1448b0c2f497c8c91d, type: 2}
+  ammoDropChance: 15
   obstacleCheckDistance: 0.8
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 264
+  isAwake: 0
 --- !u!212 &6116188647836844884
 SpriteRenderer:
   serializedVersion: 2

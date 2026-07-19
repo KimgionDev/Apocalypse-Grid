@@ -21,7 +21,7 @@ MonoBehaviour:
   magSize: 5
   reloadTime: 0.5
   reloadOneByOne: 1
-  bulletDamage: 5
+  bulletDamage: 8
   bulletLifeTime: 0.5
   flashScale: 1.5
   ammoType: 1

@@ -12,24 +12,32 @@ public class WeaponData
 public class WeaponManager : MonoBehaviour
 {
     public List<WeaponData> inventory = new List<WeaponData>();
-    private int unlockedWeaponCount = 1;
     
+    [SerializeField] private bool useLevelUnlock = false;
+    private int unlockedWeaponCount = 1;
     private Image[] slotImages = new Image[6]; 
     private RectTransform highlight;
 
     void Start()
     {
-        int level = 1;
-        if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
+        if (useLevelUnlock)
         {
-            level = SaveManager.Instance.playerStats.currentLevel;
-        }
+            int level = 1;
+            if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null)
+            {
+                level = SaveManager.Instance.playerStats.currentLevel;
+            }
 
-        unlockedWeaponCount = 1;
-        if (level >= 3) unlockedWeaponCount = 2;
-        if (level >= 8) unlockedWeaponCount = 3;
-        
-        unlockedWeaponCount = Mathf.Min(unlockedWeaponCount, inventory.Count);
+            unlockedWeaponCount = 1;
+            if (level >= 3) unlockedWeaponCount = 2;
+            if (level >= 8) unlockedWeaponCount = 3;
+            
+            unlockedWeaponCount = Mathf.Min(unlockedWeaponCount, inventory.Count);
+        }
+        else
+        {
+            unlockedWeaponCount = inventory.Count;
+        }
 
         GameObject hlObj = GameObject.Find("Highlight");
         if (hlObj != null) 

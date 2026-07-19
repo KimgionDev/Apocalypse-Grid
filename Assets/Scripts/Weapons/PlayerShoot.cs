@@ -212,6 +212,11 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+    public void ForceUpdateAmmoUI()
+    {
+        UpdateAmmoUI();
+    }
+
     private void ShowReloadingUI()
     {
         if (GameUIManager.Instance != null)

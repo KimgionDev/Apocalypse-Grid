@@ -3451,7 +3451,7 @@ MonoBehaviour:
   speedBaseCost: 50
   btnBuyShotgunAmmo: {fileID: 508138609}
   btnBuyRifleAmmo: {fileID: 987777404}
-  shotgunAmmoPrice: 10
+  shotgunAmmoPrice: 50
   shotgunAmmoAmount: 20
   rifleAmmoPrice: 50
   rifleAmmoAmount: 120
