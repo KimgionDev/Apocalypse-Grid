@@ -16,4 +16,9 @@ MonoBehaviour:
   icon: {fileID: 9060333473452832729, guid: a350a6f522f8e0145b529161bf0e6bb0, type: 3}
   value: 0
   isGold: 0
+  isHealItem: 0
+  healAmount: 0
+  isAmmoItem: 1
+  ammoType: 0
+  ammoAmount: 0
   pickupSound: {fileID: 8300000, guid: cad11a4481c77fe4aabeb5563cb0bd6c, type: 3}
