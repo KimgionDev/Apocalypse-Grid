@@ -13,6 +13,8 @@ public class DashboardManager : MonoBehaviour
     public TextMeshProUGUI txtCurrentDamage;
     public TextMeshProUGUI txtCurrentSpeed;
     public TextMeshProUGUI txtCurrentLevel;
+    public TextMeshProUGUI txtCurrentShotgunAmmo;
+    public TextMeshProUGUI txtCurrentRifleAmmo;
 
     [Header("Thẻ Máu (Health Card)")] 
     public TextMeshProUGUI txtPriceHealth;
@@ -35,6 +37,14 @@ public class DashboardManager : MonoBehaviour
     public float speedBaseValue = 5f;
     public float speedIncreaseStep = 1f;
     public int speedBaseCost = 50;
+
+    [Header("Thẻ Đạn (Ammo Shop)")]
+    public Button btnBuyShotgunAmmo;
+    public Button btnBuyRifleAmmo;
+    public int shotgunAmmoPrice = 50;
+    public int shotgunAmmoAmount = 8;
+    public int rifleAmmoPrice = 50;
+    public int rifleAmmoAmount = 30;
 
     private void Start()
     {
@@ -65,6 +75,8 @@ public class DashboardManager : MonoBehaviour
         txtCurrentDamage.text = "Damage: " + playerStats.baseDamage;
         txtCurrentSpeed.text = "Speed: " + playerStats.moveSpeed;
         txtCurrentLevel.text = "Level: " + playerStats.currentLevel;
+        txtCurrentShotgunAmmo.text = "Shotgun Ammo: " + playerStats.shotgunAmmo;
+        txtCurrentRifleAmmo.text = "Rifle Ammo: " + playerStats.rifleAmmo;
 
         int currentHealthCost =
             CalculateCost(healthBaseCost, playerStats.maxHealth, healthBaseValue, healthIncreaseStep);
@@ -79,6 +91,9 @@ public class DashboardManager : MonoBehaviour
         btnUpgradeHealth.interactable = playerStats.totalGold >= currentHealthCost;
         btnUpgradeDamage.interactable = playerStats.totalGold >= currentDamageCost;
         btnUpgradeSpeed.interactable = playerStats.totalGold >= currentSpeedCost;
+
+        if (btnBuyShotgunAmmo != null) btnBuyShotgunAmmo.interactable = playerStats.totalGold >= shotgunAmmoPrice;
+        if (btnBuyRifleAmmo != null) btnBuyRifleAmmo.interactable = playerStats.totalGold >= rifleAmmoPrice;
     }
 
     private int CalculateCost(int baseCost, float currentStat, float baseStatValue, float stepAmount)
@@ -116,6 +131,26 @@ public class DashboardManager : MonoBehaviour
         {
             playerStats.totalGold -= cost;
             playerStats.moveSpeed += speedIncreaseStep;
+            SaveDataAndUpdate();
+        }
+    }
+
+    public void OnClickBuyShotgunAmmo()
+    {
+        if (playerStats.totalGold >= shotgunAmmoPrice)
+        {
+            playerStats.totalGold -= shotgunAmmoPrice;
+            playerStats.AddAmmo(AmmoType.Shotgun, shotgunAmmoAmount);
+            SaveDataAndUpdate();
+        }
+    }
+
+    public void OnClickBuyRifleAmmo()
+    {
+        if (playerStats.totalGold >= rifleAmmoPrice)
+        {
+            playerStats.totalGold -= rifleAmmoPrice;
+            playerStats.AddAmmo(AmmoType.Rifle, rifleAmmoAmount);
             SaveDataAndUpdate();
         }
     }

@@ -51,6 +51,7 @@ public class PlayerShoot : MonoBehaviour
                 }
 
                 isReloading = false;
+                UpdateAmmoUI();
             }
             else
             {
@@ -58,13 +59,18 @@ public class PlayerShoot : MonoBehaviour
             }
         }
 
-        if (currentAmmo <= 0 || (Input.GetKeyDown(KeyCode.R) && currentAmmo < gunData.magSize))
+        bool canReload = gunData.ammoType == AmmoType.Infinite || (playerStats != null && playerStats.GetAmmo(gunData.ammoType) > 0);
+
+        if ((currentAmmo <= 0 || Input.GetKeyDown(KeyCode.R)) && currentAmmo < gunData.magSize)
         {
-            reloadCoroutine = StartCoroutine(ReloadRoutine());
-            return;
+            if (canReload)
+            {
+                reloadCoroutine = StartCoroutine(ReloadRoutine());
+                return;
+            }
         }
 
-        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime && currentAmmo > 0)
         {
             Shoot();
             nextFireTime = Time.time + gunData.fireRate;
@@ -125,27 +131,66 @@ public class PlayerShoot : MonoBehaviour
             animator.SetFloat(AnimParams.ReloadSpeed, calculatedSpeed);
         }
 
-        if (gunData.reloadOneByOne)
+        if (gunData.ammoType == AmmoType.Infinite)
         {
-            int ammoNeeded = gunData.magSize - currentAmmo;
-            for (int i = 0; i < ammoNeeded; i++)
+            if (gunData.reloadOneByOne)
+            {
+                int ammoNeeded = gunData.magSize - currentAmmo;
+                for (int i = 0; i < ammoNeeded; i++)
+                {
+                    if (animator != null) animator.SetTrigger(AnimParams.Reload);
+                    if (reloadSound != null && AudioManager.Instance != null) AudioManager.Instance.PlaySFX(reloadSound);
+
+                    yield return new WaitForSeconds(gunData.reloadTime);
+                    currentAmmo++;
+                    UpdateAmmoUI();
+                }
+            }
+            else
             {
                 if (animator != null) animator.SetTrigger(AnimParams.Reload);
                 if (reloadSound != null && AudioManager.Instance != null) AudioManager.Instance.PlaySFX(reloadSound);
 
                 yield return new WaitForSeconds(gunData.reloadTime);
-                currentAmmo++;
+                currentAmmo = gunData.magSize;
                 UpdateAmmoUI();
             }
         }
         else
         {
-            if (animator != null) animator.SetTrigger(AnimParams.Reload);
-            if (reloadSound != null && AudioManager.Instance != null) AudioManager.Instance.PlaySFX(reloadSound);
+            int reserveAmmo = playerStats != null ? playerStats.GetAmmo(gunData.ammoType) : 0;
+            if (reserveAmmo > 0)
+            {
+                if (gunData.reloadOneByOne)
+                {
+                    int ammoNeeded = gunData.magSize - currentAmmo;
+                    for (int i = 0; i < ammoNeeded; i++)
+                    {
+                        if (playerStats.GetAmmo(gunData.ammoType) <= 0) break;
 
-            yield return new WaitForSeconds(gunData.reloadTime);
-            currentAmmo = gunData.magSize;
-            UpdateAmmoUI();
+                        if (animator != null) animator.SetTrigger(AnimParams.Reload);
+                        if (reloadSound != null && AudioManager.Instance != null) AudioManager.Instance.PlaySFX(reloadSound);
+
+                        yield return new WaitForSeconds(gunData.reloadTime);
+                        playerStats.ConsumeAmmo(gunData.ammoType, 1);
+                        currentAmmo++;
+                        UpdateAmmoUI();
+                    }
+                }
+                else
+                {
+                    int ammoNeeded = gunData.magSize - currentAmmo;
+                    int ammoToLoad = Mathf.Min(ammoNeeded, reserveAmmo);
+
+                    if (animator != null) animator.SetTrigger(AnimParams.Reload);
+                    if (reloadSound != null && AudioManager.Instance != null) AudioManager.Instance.PlaySFX(reloadSound);
+
+                    yield return new WaitForSeconds(gunData.reloadTime);
+                    playerStats.ConsumeAmmo(gunData.ammoType, ammoToLoad);
+                    currentAmmo += ammoToLoad;
+                    UpdateAmmoUI();
+                }
+            }
         }
 
         isReloading = false;
@@ -155,7 +200,15 @@ public class PlayerShoot : MonoBehaviour
     {
         if (GameUIManager.Instance != null)
         {
-            GameUIManager.Instance.UpdateAmmo(currentAmmo);
+            if (gunData.ammoType == AmmoType.Infinite)
+            {
+                GameUIManager.Instance.UpdateAmmoText($"{currentAmmo} / ∞");
+            }
+            else
+            {
+                int reserveAmmo = playerStats != null ? playerStats.GetAmmo(gunData.ammoType) : 0;
+                GameUIManager.Instance.UpdateAmmoText($"{currentAmmo} / {reserveAmmo}");
+            }
         }
     }
 

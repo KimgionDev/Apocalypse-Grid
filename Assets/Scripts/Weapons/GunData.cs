@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Gun", menuName = "Weapons/Gun Data")]
 public class GunData : ScriptableObject
@@ -15,4 +15,12 @@ public class GunData : ScriptableObject
     public float bulletDamage;
     public float bulletLifeTime; // Tầm bắn
     public float flashScale = 1f;// Tỷ lệ kích thước của hiệu ứng muzzle flash
+    public AmmoType ammoType = AmmoType.Infinite;
+}
+
+public enum AmmoType
+{
+    Infinite,
+    Shotgun,
+    Rifle
 }

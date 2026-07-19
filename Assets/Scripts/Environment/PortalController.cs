@@ -32,16 +32,19 @@ public class PortalController : MonoBehaviour
             if (isOpen)
             {
                 bool isGameClear = false;
+                int rewardGold = 0;
 
                 if (SaveManager.Instance != null && SaveManager.Instance.playerStats != null && InventoryManager.Instance != null)
                 {
-                    SaveManager.Instance.playerStats.totalGold += InventoryManager.Instance.gold;
+                    int currentLevel = SaveManager.Instance.playerStats.currentLevel;
+                    rewardGold = currentLevel * 50 + 50; // Lvl 1 -> 100, Lvl 2 -> 150
                     
-                    if (SaveManager.Instance.playerStats.currentLevel >= 21)
+                    SaveManager.Instance.playerStats.totalGold += (InventoryManager.Instance.gold + rewardGold);
+                    
+                    if (currentLevel >= 21)
                     {
                         isGameClear = true;
-                        // Không tăng currentLevel nữa vì đã phá đảo
-                        SaveManager.Instance.playerStats.currentLevel = 1; // Reset lại game sau khi phá đảo (hoặc bạn có thể chọn giữ nguyên 21)
+                        SaveManager.Instance.playerStats.currentLevel = 1;
                     }
                     else
                     {
@@ -53,7 +56,7 @@ public class PortalController : MonoBehaviour
 
                 if (GameUIManager.Instance != null)
                 {
-                    GameUIManager.Instance.ShowResult(true, isGameClear);
+                    GameUIManager.Instance.ShowResult(true, isGameClear, rewardGold);
                     
                     PlayerMovement movement = other.GetComponent<PlayerMovement>();
                     if (movement != null) 

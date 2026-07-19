@@ -24,3 +24,4 @@ MonoBehaviour:
   bulletDamage: 10
   bulletLifeTime: 1.5
   flashScale: 1
+  ammoType: 2

@@ -17,3 +17,5 @@ MonoBehaviour:
   maxHealth: 100
   baseDamage: 5
   moveSpeed: 5.5
+  shotgunAmmo: 20
+  rifleAmmo: 120
