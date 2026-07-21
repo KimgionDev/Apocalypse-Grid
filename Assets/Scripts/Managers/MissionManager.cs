@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -127,6 +127,19 @@ public class MissionManager : MonoBehaviour
             RefreshUI();
             CheckWin();
         }
+    }
+
+    public List<DropItemData> GetNeededItems()
+    {
+        List<DropItemData> needed = new List<DropItemData>();
+        foreach (MissionRequirement req in currentMission)
+        {
+            if (req.current < req.target && req.item != null)
+            {
+                needed.Add(req.item);
+            }
+        }
+        return needed;
     }
 
     private void RefreshUI()

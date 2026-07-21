@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Wooden Wall Gate
   icon: {fileID: -7736771966516219082, guid: fc7713df174afbd4a917ae5aea6dd56b, type: 3}
-  value: 0
+  value: 1
   isGold: 0
+  isHealItem: 0
+  healAmount: 0
+  isAmmoItem: 0
+  ammoType: 0
+  ammoAmount: 0
   pickupSound: {fileID: 8300000, guid: cad11a4481c77fe4aabeb5563cb0bd6c, type: 3}

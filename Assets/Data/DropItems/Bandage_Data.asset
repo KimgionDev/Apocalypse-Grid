@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Bandage
   icon: {fileID: 3203174969821319000, guid: d6378f245ee008d4491dc933fa3dd07a, type: 3}
-  value: 0
+  value: 1
   isGold: 0
   isHealItem: 1
   healAmount: 5
+  isAmmoItem: 0
+  ammoType: 0
+  ammoAmount: 0
   pickupSound: {fileID: 8300000, guid: cad11a4481c77fe4aabeb5563cb0bd6c, type: 3}

@@ -11,9 +11,34 @@ public class PlayerStatsSO : ScriptableObject
     public float maxHealth = 100f;
     public float baseDamage = 10f;
     public float moveSpeed = 5f;
+    public int shotgunAmmo = 20;
+    public int rifleAmmo = 120;
 
-    public void ResetRunProgress()
+    public int GetAmmo(AmmoType type)
     {
-        currentLevel = 1;
+        switch (type)
+        {
+            case AmmoType.Shotgun: return shotgunAmmo;
+            case AmmoType.Rifle: return rifleAmmo;
+            default: return 999;
+        }
+    }
+
+    public void ConsumeAmmo(AmmoType type, int amount)
+    {
+        switch (type)
+        {
+            case AmmoType.Shotgun: shotgunAmmo = Mathf.Max(0, shotgunAmmo - amount); break;
+            case AmmoType.Rifle: rifleAmmo = Mathf.Max(0, rifleAmmo - amount); break;
+        }
+    }
+
+    public void AddAmmo(AmmoType type, int amount)
+    {
+        switch (type)
+        {
+            case AmmoType.Shotgun: shotgunAmmo += amount; break;
+            case AmmoType.Rifle: rifleAmmo += amount; break;
+        }
     }
 }

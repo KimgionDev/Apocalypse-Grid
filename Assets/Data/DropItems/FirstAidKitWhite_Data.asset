@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: First Aid Kit White
   icon: {fileID: 5723001448077173575, guid: 9408b16f3f203de4eb250535f402ba70, type: 3}
-  value: 0
+  value: 1
   isGold: 0
   isHealItem: 1
   healAmount: 20
+  isAmmoItem: 0
+  ammoType: 0
+  ammoAmount: 0
   pickupSound: {fileID: 8300000, guid: cad11a4481c77fe4aabeb5563cb0bd6c, type: 3}
