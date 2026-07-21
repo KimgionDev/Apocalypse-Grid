@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Gold
   icon: {fileID: -52353638686753325, guid: 961d0805fe75e5c418dff96a8833fd2e, type: 3}
-  value: 1
+  value: 3
   isGold: 1
+  isHealItem: 0
+  healAmount: 0
+  isAmmoItem: 0
+  ammoType: 0
+  ammoAmount: 0
   pickupSound: {fileID: 8300000, guid: 644c5b1dfcfdf534caaa5a2b9e2c71da, type: 3}

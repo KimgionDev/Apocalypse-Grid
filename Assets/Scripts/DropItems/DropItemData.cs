@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class DropItemData : ScriptableObject
@@ -9,6 +9,9 @@ public class DropItemData : ScriptableObject
     public bool isGold;
     public bool isHealItem; 
     public float healAmount;
+    public bool isAmmoItem;
+    public AmmoType ammoType;
+    public int ammoAmount;
     
     public AudioClip pickupSound;
 }

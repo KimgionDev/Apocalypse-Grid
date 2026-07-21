@@ -10667,7 +10667,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press any key to Skip
+  m_text: Press any key to skip | Auto-skipping in 5s
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 818cf2466b290884e8d04b0bde3a239b, type: 2}
   m_sharedMaterial: {fileID: -4885985873518817760, guid: 818cf2466b290884e8d04b0bde3a239b, type: 2}
@@ -10694,10 +10694,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 28.1
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0

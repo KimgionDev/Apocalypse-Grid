@@ -86,7 +86,7 @@ public class GameUIManager : MonoBehaviour
             Vector2 endPos = new Vector2(1500f, originalY);
 
             yield return StartCoroutine(SlideUI(rect, startPos, centerPos, 0.5f));
-            yield return new WaitForSecondsRealtime(3.5f);
+            yield return new WaitForSecondsRealtime(4f);
             yield return StartCoroutine(SlideUI(rect, centerPos, endPos, 0.5f));
 
             notificationPanel.SetActive(false);
@@ -132,12 +132,12 @@ public class GameUIManager : MonoBehaviour
         SceneManager.LoadScene(nextScene);
     }
 
-    public void ShowResult(bool isVictory, bool isGameClear = false)
+    public void ShowResult(bool isVictory, bool isGameClear = false, int rewardGold = 0)
     {
-        StartCoroutine(ShowResultRoutine(isVictory, isGameClear));
+        StartCoroutine(ShowResultRoutine(isVictory, isGameClear, rewardGold));
     }
 
-    private IEnumerator ShowResultRoutine(bool isVictory, bool isGameClear)
+    private IEnumerator ShowResultRoutine(bool isVictory, bool isGameClear, int rewardGold)
     {
         yield return new WaitForSecondsRealtime(1.2f);
 
@@ -160,10 +160,18 @@ public class GameUIManager : MonoBehaviour
         isWaitingToReturn = true;
         canSkipInput = false;
 
-
         int earnedGold = InventoryManager.Instance != null ? InventoryManager.Instance.gold : 0;
-        txtGold.text = "+ " + earnedGold + " Gold";
-        txtGold.color = Color.gold;
+        
+        if (isVictory)
+        {
+            txtGold.text = $"Looted: {earnedGold} Gold\nReward: {rewardGold} Gold\n<color=yellow>Total: {earnedGold + rewardGold} Gold</color>";
+        }
+        else
+        {
+            txtGold.text = $"+ {earnedGold} Gold";
+        }
+        
+        txtGold.color = Color.white;
 
         if (isVictory)
         {
@@ -222,11 +230,11 @@ public class GameUIManager : MonoBehaviour
         SceneManager.LoadScene(nextScene);
     }
     
-    public void UpdateAmmo(int currentAmmo)
+    public void UpdateAmmoText(string ammoText)
     {
         if (txtAmmo != null)
         {
-            txtAmmo.text = currentAmmo.ToString() + "/∞";
+            txtAmmo.text = ammoText;
         }
     }
 

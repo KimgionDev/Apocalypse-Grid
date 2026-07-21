@@ -15,6 +15,15 @@ public class ZombieAI : MonoBehaviour, IDamageable
     public List<DropItemData> itemPool;
     [Range(0, 100)] public float itemDropChance = 40f;
     public float currentDamage;
+    
+    [Header("Ammo Drops")]
+    public List<DropItemData> ammoPool;
+    public float ammoDropChance = 10f;
+
+    [Header("Heal Drops")]
+    public List<DropItemData> healPool;
+    public float healDropChance = 5f;
+
     [SerializeField] private float obstacleCheckDistance = 0.8f;
     [SerializeField] private LayerMask obstacleLayer;
     private Vector2 currentMoveDirection;
@@ -267,16 +276,54 @@ public class ZombieAI : MonoBehaviour, IDamageable
             SpawnItem(goldData, transform.position);
         }
 
+        // ITEM DROP LOGIC
         if (itemPool != null && itemPool.Count > 0 && Random.Range(0f, 100f) <= itemDropChance)
         {
-            int randomIndex = Random.Range(0, itemPool.Count);
-            DropItemData randomItem = itemPool[randomIndex];
+            DropItemData itemToDrop = null;
+
+            if (MissionManager.Instance != null && !MissionManager.Instance.isMissionCompleted)
+            {
+                List<DropItemData> neededItems = MissionManager.Instance.GetNeededItems();
+                if (neededItems != null && neededItems.Count > 0)
+                {
+                    if (Random.Range(0f, 100f) <= 35f)
+                    {
+                        itemToDrop = neededItems[Random.Range(0, neededItems.Count)];
+                    }
+                }
+            }
+
+            if (itemToDrop == null)
+            {
+                int randomIndex = Random.Range(0, itemPool.Count);
+                itemToDrop = itemPool[randomIndex];
+            }
 
             Vector2 offsetPos = (Vector2)transform.position + new Vector2(
                 Random.Range(-0.5f, 0.5f),
                 Random.Range(-0.5f, 0.5f));
 
-            SpawnItem(randomItem, offsetPos);
+            SpawnItem(itemToDrop, offsetPos);
+        }
+
+        // AMMO DROP LOGIC
+        if (ammoPool != null && ammoPool.Count > 0 && Random.Range(0f, 100f) <= ammoDropChance)
+        {
+            DropItemData ammoToDrop = ammoPool[Random.Range(0, ammoPool.Count)];
+            Vector2 offsetPos = (Vector2)transform.position + new Vector2(
+                Random.Range(-0.5f, 0.5f),
+                Random.Range(-0.5f, 0.5f));
+            SpawnItem(ammoToDrop, offsetPos);
+        }
+
+        // HEAL DROP LOGIC
+        if (healPool != null && healPool.Count > 0 && Random.Range(0f, 100f) <= healDropChance)
+        {
+            DropItemData healToDrop = healPool[Random.Range(0, healPool.Count)];
+            Vector2 offsetPos = (Vector2)transform.position + new Vector2(
+                Random.Range(-0.5f, 0.5f),
+                Random.Range(-0.5f, 0.5f));
+            SpawnItem(healToDrop, offsetPos);
         }
     }
 
