@@ -77,7 +77,7 @@ MonoBehaviour:
   attackRate: 1
   lootPrefab: {fileID: 7483606198236535669, guid: bfb4fb2f6a68d754a847d61e0eee9a64, type: 3}
   goldData: {fileID: 11400000, guid: 4e68f2225c8720545977c6ae6987ce5e, type: 2}
-  goldDropChance: 80
+  goldDropChance: 20
   itemPool:
   - {fileID: 11400000, guid: 8f0e9d8e5f06f514389a6c114ab30658, type: 2}
   - {fileID: 11400000, guid: 724878da3d488514bbd1999031884f88, type: 2}
@@ -100,6 +100,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b3106496bc6d2044594803cd1ec64a29, type: 2}
   - {fileID: 11400000, guid: bd5b8477ace9fd1448b0c2f497c8c91d, type: 2}
   ammoDropChance: 15
+  healPool:
+  - {fileID: 11400000, guid: 8f0e9d8e5f06f514389a6c114ab30658, type: 2}
+  - {fileID: 11400000, guid: 5950bb062962a854aa61cd9aef6dba55, type: 2}
+  - {fileID: 11400000, guid: a42614cb2fa41bb4e8dbac847973bc53, type: 2}
+  healDropChance: 5
   obstacleCheckDistance: 0.8
   obstacleLayer:
     serializedVersion: 2

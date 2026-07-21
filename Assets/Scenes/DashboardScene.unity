@@ -1294,7 +1294,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 90}
+  m_SizeDelta: {x: 0, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &508138609
 MonoBehaviour:
@@ -2256,7 +2256,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy Shotgun Ammo
+  m_text: 'Buy Shotgun Ammo
+
+    50Gold'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 818cf2466b290884e8d04b0bde3a239b, type: 2}
   m_sharedMaterial: {fileID: -4885985873518817760, guid: 818cf2466b290884e8d04b0bde3a239b, type: 2}
@@ -2283,7 +2285,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19
+  m_fontSize: 18.5
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2300,7 +2302,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -2322,7 +2324,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 46.72892, y: 19.738892, z: 44.939117, w: 17.881165}
+  m_margin: {x: 46.72892, y: 22.90747, z: 44.939117, w: 20.25769}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2830,7 +2832,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 90}
+  m_SizeDelta: {x: 0, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &987777404
 MonoBehaviour:
@@ -3000,7 +3002,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Buy Rifle Ammo
 
-'
+    50Gold'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 818cf2466b290884e8d04b0bde3a239b, type: 2}
   m_sharedMaterial: {fileID: -4885985873518817760, guid: 818cf2466b290884e8d04b0bde3a239b, type: 2}
@@ -3027,7 +3029,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.35
+  m_fontSize: 23.05
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3044,7 +3046,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -3066,7 +3068,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 45.918617, y: 18.637146, z: 46.768433, w: 15.38446}
+  m_margin: {x: 45.918617, y: 24.182251, z: 46.768433, w: 20.137512}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3330,8 +3332,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 170, y: 400}
-  m_SizeDelta: {x: 280, y: 220}
+  m_AnchoredPosition: {x: 195, y: 390}
+  m_SizeDelta: {x: 320, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1193118916
 MonoBehaviour:
@@ -3389,7 +3391,7 @@ MonoBehaviour:
     m_Top: 5
     m_Bottom: 5
   m_ChildAlignment: 4
-  m_Spacing: 5
+  m_Spacing: 20
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -3452,9 +3454,9 @@ MonoBehaviour:
   btnBuyShotgunAmmo: {fileID: 508138609}
   btnBuyRifleAmmo: {fileID: 987777404}
   shotgunAmmoPrice: 50
-  shotgunAmmoAmount: 20
+  shotgunAmmoAmount: 15
   rifleAmmoPrice: 50
-  rifleAmmoAmount: 120
+  rifleAmmoAmount: 90
 --- !u!4 &1220498842
 Transform:
   m_ObjectHideFlags: 0
@@ -3527,7 +3529,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ammo Shotgun: 20'
+  m_text: 'Ammo Shotgun: 200000'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 818cf2466b290884e8d04b0bde3a239b, type: 2}
   m_sharedMaterial: {fileID: -4885985873518817760, guid: 818cf2466b290884e8d04b0bde3a239b, type: 2}
@@ -3554,13 +3556,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.4
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -5050,7 +5052,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ammo Rifle: 120'
+  m_text: 'Ammo Rifle: 120000000'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 818cf2466b290884e8d04b0bde3a239b, type: 2}
   m_sharedMaterial: {fileID: -4885985873518817760, guid: 818cf2466b290884e8d04b0bde3a239b, type: 2}
@@ -5077,13 +5079,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.25
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 2
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535

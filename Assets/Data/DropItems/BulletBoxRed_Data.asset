@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Bullet Box Red
   icon: {fileID: -2142726812009774420, guid: 58a1abcf283b664469ddc0b66f61460b, type: 3}
-  value: 0
+  value: 1
   isGold: 0
   isHealItem: 0
   healAmount: 0

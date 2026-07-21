@@ -86,7 +86,7 @@ public class GameUIManager : MonoBehaviour
             Vector2 endPos = new Vector2(1500f, originalY);
 
             yield return StartCoroutine(SlideUI(rect, startPos, centerPos, 0.5f));
-            yield return new WaitForSecondsRealtime(3.5f);
+            yield return new WaitForSecondsRealtime(4f);
             yield return StartCoroutine(SlideUI(rect, centerPos, endPos, 0.5f));
 
             notificationPanel.SetActive(false);
@@ -171,7 +171,7 @@ public class GameUIManager : MonoBehaviour
             txtGold.text = $"+ {earnedGold} Gold";
         }
         
-        txtGold.color = Color.white; // Reset color to white so rich text works
+        txtGold.color = Color.white;
 
         if (isVictory)
         {

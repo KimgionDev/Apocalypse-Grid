@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Bullet Box Blue
   icon: {fileID: 9060333473452832729, guid: a350a6f522f8e0145b529161bf0e6bb0, type: 3}
-  value: 0
+  value: 1
   isGold: 0
   isHealItem: 0
   healAmount: 0
