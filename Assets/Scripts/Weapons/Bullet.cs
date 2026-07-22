@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     {
         damage = setDamage;
         GetComponent<Rigidbody2D>().linearVelocity = transform.right * 20f;
-        
+
         if (lifetimeCoroutine != null) StopCoroutine(lifetimeCoroutine);
         lifetimeCoroutine = StartCoroutine(ReturnToPoolAfterTime(setLifeTime));
     }
@@ -44,10 +44,6 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        if (hitInfo.CompareTag(Tags.Wall))
-        {
-            ObjectPoolManager.Return(gameObject);
-            return;
-        }
+        ObjectPoolManager.Return(gameObject);
     }
 }
