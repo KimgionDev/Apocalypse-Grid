@@ -22,13 +22,11 @@ public class TilemapVisualizer : MonoBehaviour
         wallDiagonalUpLeftTile,
         wallDiagonalUpRightTile;
 
-    // Hàm này nhận vào một tập hợp các vị trí sàn (floorPositions) và sử dụng chúng để vẽ các ô sàn trên tilemap.
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {
         PaintTiles(floorPositions, floorTilemap, floorTile);
     }
 
-    // Hàm này nhận vào một tập hợp các vị trí (positions), một tilemap và một tile, và vẽ các ô tương ứng trên tilemap.
     private void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tilemap, TileBase tile)
     {
         foreach (var position in positions)
@@ -49,7 +47,6 @@ public class TilemapVisualizer : MonoBehaviour
         wallTilemap.ClearAllTiles();
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     public void PaintSingleBasicWall(Vector2Int position, string binaryType)
     {
         int typAsInt = Convert.ToInt32(binaryType, 2);

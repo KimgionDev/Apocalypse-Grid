@@ -44,6 +44,10 @@ public class Bullet : MonoBehaviour
             return;
         }
 
-        ObjectPoolManager.Return(gameObject);
+        if(hitInfo.CompareTag(Tags.Wall))
+        {
+            ObjectPoolManager.Return(gameObject);
+            return;
+        }
     }
 }

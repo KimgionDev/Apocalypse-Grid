@@ -247,6 +247,12 @@ public class ZombieAI : MonoBehaviour, IDamageable
     {
         if (isDead) return;
         isDead = true;
+        
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D c in colliders)
+        {
+            c.enabled = false;
+        }
 
         rb.linearVelocity = Vector2.zero;
 

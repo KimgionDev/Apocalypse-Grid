@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 177219652315690383}
   - component: {fileID: 8073318883594074344}
   - component: {fileID: 73636530153176626}
+  - component: {fileID: 9206226122508425606}
   m_Layer: 7
   m_Name: Zombie Big
   m_TagString: Zombie
@@ -132,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZombieAI
   data: {fileID: 11400000, guid: 66ed551f4d882eb4aa01b04d7f13d909, type: 2}
   animator: {fileID: 3212629095776640408}
-  stopDistance: 0.9
+  stopDistance: 1.1
   attackRate: 1
   lootPrefab: {fileID: 7483606198236535669, guid: bfb4fb2f6a68d754a847d61e0eee9a64, type: 3}
   goldData: {fileID: 11400000, guid: 4e68f2225c8720545977c6ae6987ce5e, type: 2}
@@ -240,7 +241,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1.4375}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &73636530153176626
 MonoBehaviour:
@@ -255,3 +256,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashEffect
   blinkDecaySpeed: 10
+--- !u!61 &9206226122508425606
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5150110445948083813}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1.4375}
+    newSize: {x: 1, y: 1.4375}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1.4375}
+  m_EdgeRadius: 0

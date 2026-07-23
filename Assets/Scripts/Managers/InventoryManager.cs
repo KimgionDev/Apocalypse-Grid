@@ -29,6 +29,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
+            gold += data.value;
             if (missionItems.ContainsKey(data.itemName))
                 missionItems[data.itemName] += 1;
             else
