@@ -31,8 +31,8 @@ public class SaveManager : MonoBehaviour
             playerStats.totalGold = 0;
             playerStats.maxHealth = 100f;
             playerStats.moveSpeed = 5f;
-            playerStats.rifleAmmo = 120;
-            playerStats.shotgunAmmo = 20;
+            playerStats.rifleAmmo = 30;
+            playerStats.shotgunAmmo = 5;
         }
     }
 

@@ -6,6 +6,7 @@ public class PortalController : MonoBehaviour
     [SerializeField] private Animator portalAnimator; 
     
     private bool isOpen = false;
+    private bool isTriggered = false;
 
     private void Update()
     {
@@ -24,13 +25,14 @@ public class PortalController : MonoBehaviour
         }
         Debug.Log("Nhiệm vụ hoàn tất, Cổng đã mở!");
     }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(Tags.Player))
         {
-            if (isOpen)
+            if (isOpen && !isTriggered)
             {
+                isTriggered = true;
                 bool isGameClear = false;
                 int rewardGold = 0;
 
