@@ -57,6 +57,11 @@ public class ZombieAI : MonoBehaviour, IDamageable
 
     public void WakeUp()
     {
+        if (target == null)
+        {
+            target = PlayerMovement.InstanceTransform;
+        }
+
         isAwake = true;
         nextGrowlTime = Time.time + Random.Range(1f, 3f);
     }
@@ -141,7 +146,7 @@ public class ZombieAI : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        if (isDead || target == null)
+        if (isDead || !isAwake || target == null)
         {
             rb.linearVelocity = Vector2.zero;
             return;

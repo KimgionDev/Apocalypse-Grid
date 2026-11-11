@@ -104,28 +104,26 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         Transform entityGroup = new GameObject("Entities").transform;
         Transform propGroup = new GameObject("Props").transform;
 
+        Vector3 playerPosition = new Vector3(startRoomCenter.x + 0.5f, startRoomCenter.y + 0.5f, 0);
+        GameObject playerInstance = Instantiate(playerPrefab, playerPosition, Quaternion.identity, entityGroup);
+        if (vcam != null)
+        {
+            vcam.Follow = playerInstance.transform;
+        }
+
         foreach (var room in roomsDictionary)
         {
             Vector2Int currentRoomCenter = room.Key;
             Vector3 centerWorldPos = new Vector3(currentRoomCenter.x + 0.5f, currentRoomCenter.y + 0.5f, 0);
 
-            if (currentRoomCenter == startRoomCenter)
+            if (currentRoomCenter != startRoomCenter)
             {
-                GameObject playerInstance = Instantiate(playerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
-                if (vcam != null)
+                if (currentRoomCenter == finalRoomCenter)
                 {
-                    vcam.Follow = playerInstance.transform;
+                    GameObject portal = Instantiate(hiddenPortalPrefab, centerWorldPos, Quaternion.identity, entityGroup);
+                    MissionManager.Instance.RegisterPortal(portal);
                 }
-            }
-            else if (currentRoomCenter == finalRoomCenter)
-            {
-                GameObject portal = Instantiate(hiddenPortalPrefab, centerWorldPos, Quaternion.identity, entityGroup);
-                MissionManager.Instance.RegisterPortal(portal);
-                GameObject spawner = Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
-                spawner.GetComponent<EnemySpawner>().InitializeSpawner(room.Value);
-            }
-            else
-            {
+
                 GameObject spawner = Instantiate(enemySpawnerPrefab, centerWorldPos, Quaternion.identity, entityGroup);
                 spawner.GetComponent<EnemySpawner>().InitializeSpawner(room.Value);
             }
