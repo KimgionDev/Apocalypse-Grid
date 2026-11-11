@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PortalController : MonoBehaviour
 {
@@ -32,6 +31,11 @@ public class PortalController : MonoBehaviour
         {
             if (isOpen && !isTriggered)
             {
+                if (!other.TryGetComponent<PlayerHealth>(out var playerHealth) || !playerHealth.TryEndRun())
+                {
+                    return;
+                }
+
                 isTriggered = true;
                 bool isGameClear = false;
                 int rewardGold = 0;
@@ -59,18 +63,6 @@ public class PortalController : MonoBehaviour
                 if (GameUIManager.Instance != null)
                 {
                     GameUIManager.Instance.ShowResult(true, isGameClear, rewardGold);
-                    
-                    PlayerMovement movement = other.GetComponent<PlayerMovement>();
-                    if (movement != null) 
-                    {
-                        movement.enabled = false;
-                    }
-
-                    PlayerShoot shoot = other.GetComponentInChildren<PlayerShoot>();
-                    if (shoot != null) 
-                    {
-                        shoot.enabled = false;
-                    }
                 }
             }
         }

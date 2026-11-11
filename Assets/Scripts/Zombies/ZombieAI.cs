@@ -91,7 +91,7 @@ public class ZombieAI : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (isDead || target == null) return;
+        if (isDead || target == null || Time.timeScale == 0f) return;
 
         if (!isAwake)
         {

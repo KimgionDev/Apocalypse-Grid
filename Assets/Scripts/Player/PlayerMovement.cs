@@ -63,4 +63,11 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.linearVelocity = inputDirection * moveSpeed;
     }
+
+    private void OnDisable()
+    {
+        inputDirection = Vector2.zero;
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+        if (bodyAnimator != null) bodyAnimator.SetFloat(AnimParams.Speed, 0f);
+    }
 }

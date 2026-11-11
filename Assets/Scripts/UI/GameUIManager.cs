@@ -19,6 +19,7 @@ public class GameUIManager : MonoBehaviour
 
     private Coroutine notificationCoroutine;
     private bool isPaused = false;
+    private bool isShowingResult;
     private bool isWaitingToReturn = false;
     private bool canSkipInput = false;
     private string nextScene = "DashboardScene";
@@ -95,7 +96,7 @@ public class GameUIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !isWaitingToReturn)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isShowingResult)
         {
             TogglePause();
         }
@@ -108,6 +109,8 @@ public class GameUIManager : MonoBehaviour
 
     public void TogglePause()
     {
+        if (isShowingResult) return;
+
         isPaused = !isPaused;
         if (isPaused)
         {
@@ -134,6 +137,11 @@ public class GameUIManager : MonoBehaviour
 
     public void ShowResult(bool isVictory, bool isGameClear = false, int rewardGold = 0)
     {
+        if (isShowingResult) return;
+        isShowingResult = true;
+
+        if (isVictory) Time.timeScale = 0f;
+
         StartCoroutine(ShowResultRoutine(isVictory, isGameClear, rewardGold));
     }
 

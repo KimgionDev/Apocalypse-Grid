@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public PlayerStatsSO playerStats;
     public float maxHealth = 100f;
     public float currentHealth;
-    private bool isDead;
+    private bool hasRunEnded;
     public Animator animator;
     
     [Header("Cơ chế Bất tử (I-Frames)")]
@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
-        if (isDead || isInvulnerable) return; 
+        if (hasRunEnded || isInvulnerable) return;
         
         currentHealth -= damage;
 
@@ -59,8 +59,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        if (isDead) return;
-        isDead = true;
+        if (!TryEndRun()) return;
         
         if (animator != null) animator.SetTrigger(AnimParams.Die); 
         
@@ -68,6 +67,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             GameUIManager.Instance.ShowResult(false);
         }
+    }
+
+    public bool TryEndRun()
+    {
+        if (hasRunEnded) return false;
+        hasRunEnded = true;
 
         PlayerMovement movement = GetComponent<PlayerMovement>();
         if (movement != null)
@@ -80,11 +85,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             shoot.enabled = false;
         }
+
+        return true;
     }
     
     public void Heal(float amount)
     {
-        if (isDead) return;
+        if (hasRunEnded) return;
 
         currentHealth += amount;
         
